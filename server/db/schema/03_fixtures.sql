@@ -20,5 +20,7 @@ CREATE TABLE fixtures (
   home_yellows INTEGER DEFAULT 0,
   away_yellows INTEGER DEFAULT 0,
   home_reds INTEGER DEFAULT 0,
-  away_reds INTEGER DEFAULT 0
+  away_reds INTEGER DEFAULT 0,
+  created_at TIMESTAMP default now(),
+  updated_at TIMESTAMP default now()
 );
