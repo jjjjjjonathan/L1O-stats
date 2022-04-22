@@ -1,12 +1,12 @@
 import StartItem from './StartItem';
 
-const Start = ({ divisions, setSelectedDivision }) => {
+const Start = ({ divisions, pickDivision }) => {
   const mappedDivisions = divisions.map((division) => (
     <StartItem
       key={division.id}
       value={division.id}
       name={division.name}
-      setSelectedDivision={setSelectedDivision}
+      pickDivision={pickDivision}
     />
   ));
   return <>{mappedDivisions}</>;

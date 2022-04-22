@@ -1,6 +1,6 @@
-const StartItem = ({ value, name, setSelectedDivision }) => {
+const StartItem = ({ value, name, pickDivision }) => {
   return (
-    <button value={value} onClick={() => setSelectedDivision(value)}>
+    <button value={value} onClick={() => pickDivision(value)}>
       {name}
     </button>
   );

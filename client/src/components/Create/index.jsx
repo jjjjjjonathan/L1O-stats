@@ -11,13 +11,15 @@ const Create = ({ divisions, teams }) => {
   const [formData, setFormData] = useState({});
   const [selectedDivision, setSelectedDivision] = useState(null);
 
+  const pickDivision = (value) => {
+    setSelectedDivision(value);
+    transition('NEXT');
+  };
+
   return (
     <>
       {mode === 'START' && (
-        <Start
-          divisions={divisions}
-          setSelectedDivision={setSelectedDivision}
-        />
+        <Start divisions={divisions} pickDivision={pickDivision} />
       )}
     </>
   );
