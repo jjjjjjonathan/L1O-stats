@@ -1,3 +1,3 @@
 INSERT INTO divisions (name)
-VALUES ('League1 Ontario Men''s Division'),
-('League1 Ontario Women''s Division');
+VALUES ('Men''s Division'),
+('Women''s Division');
