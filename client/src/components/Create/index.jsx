@@ -36,19 +36,6 @@ const Create = ({ divisions, teams, dispatch }) => {
     setSuccessMsg(`You just created match #${data.e2e_id}`);
   };
 
-  // const submit = async (leagueName, sport) => {
-  //   try {
-  //     const data = await axios.put('/api/leagues', { leagueName, sport });
-  //     const id = data.data[0].id;
-  //     history.push({
-  //       pathname: `leagues/${id}/admin`,
-  //       newLeague: true,
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
   return (
     <>
       <button
