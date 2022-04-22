@@ -18,7 +18,11 @@ function App() {
             />
           </Route>
           <Route path="/fixtures">
-            <List />
+            <List
+              fixtures={state.fixtures}
+              teams={state.teams}
+              divisions={state.divisions}
+            />
           </Route>
           <Route path="/">
             <Home />
