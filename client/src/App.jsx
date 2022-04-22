@@ -7,11 +7,11 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
           <Route path="/create">
             <Create />
+          </Route>
+          <Route path="/">
+            <Home />
           </Route>
         </Switch>
       </Router>
