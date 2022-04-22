@@ -11,7 +11,7 @@ function App() {
       <Router>
         <Switch>
           <Route path="/create">
-            <Create />
+            <Create divisions={state.divisions} teams={state.teams} />
           </Route>
           <Route path="/fixtures">
             <List />
