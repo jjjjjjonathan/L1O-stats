@@ -11,6 +11,13 @@ const useApplicationData = () => {
         fixtures: action.fixtures.data,
         isReady: true
       };
+    },
+
+    'CREATE_FIXTURE'(state, action) {
+      return {
+        ...state,
+        fixtures: [...state.fixtures, action.content]
+      };
     }
   };
   const reducer = (state, action) => reducers[action.type](state, action) || state;
@@ -33,7 +40,7 @@ const useApplicationData = () => {
     });
   }, []);
 
-  return { state };
+  return { state, dispatch };
 };
 
 export default useApplicationData;

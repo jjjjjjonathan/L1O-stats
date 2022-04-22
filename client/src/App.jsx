@@ -5,13 +5,17 @@ import useApplicationData from './hooks/useApplicationData';
 import List from './components/List';
 
 function App() {
-  const { state } = useApplicationData();
+  const { state, dispatch } = useApplicationData();
   return state.isReady ? (
     <div className="App">
       <Router>
         <Switch>
           <Route path="/create">
-            <Create divisions={state.divisions} teams={state.teams} />
+            <Create
+              divisions={state.divisions}
+              teams={state.teams}
+              dispatch={dispatch}
+            />
           </Route>
           <Route path="/fixtures">
             <List />
