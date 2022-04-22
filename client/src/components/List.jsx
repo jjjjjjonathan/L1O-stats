@@ -1,18 +1,10 @@
 import ListItem from './ListItem';
+import { findDivisionName, findTeamName } from '../helpers/helpers';
 
 const List = ({ divisions, teams, fixtures }) => {
-  const findDivisionName = (divisions, divisionId) => {
-    return divisions.find((division) => division.id === divisionId).name;
-  };
-
-  const findTeamName = (teams, teamId) => {
-    return teams.find((team) => team.id === teamId).name;
-  };
-
   const mappedFixtures = fixtures.map((fixture) => (
     <ListItem
       key={fixture.id}
-      value={fixture.id}
       {...fixture}
       teams={teams}
       divisions={divisions}

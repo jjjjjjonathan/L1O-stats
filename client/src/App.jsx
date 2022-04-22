@@ -3,6 +3,7 @@ import Home from './components/Home';
 import Create from './components/Create';
 import useApplicationData from './hooks/useApplicationData';
 import List from './components/List';
+import Fixture from './components/Fixture';
 
 function App() {
   const { state, dispatch } = useApplicationData();
@@ -15,6 +16,13 @@ function App() {
               divisions={state.divisions}
               teams={state.teams}
               dispatch={dispatch}
+            />
+          </Route>
+          <Route path="/fixtures/:id">
+            <Fixture
+              divisions={state.divisions}
+              teams={state.teams}
+              fixtures={state.fixtures}
             />
           </Route>
           <Route path="/fixtures">
