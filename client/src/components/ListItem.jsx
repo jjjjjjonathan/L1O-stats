@@ -1,5 +1,7 @@
+import { useHistory } from 'react-router-dom';
+
 const ListItem = ({
-  value,
+  id,
   findDivisionName,
   findTeamName,
   divisions,
@@ -10,8 +12,9 @@ const ListItem = ({
   away_team_id,
   date,
 }) => {
+  const history = useHistory();
   return (
-    <tr>
+    <tr onClick={() => history.push(`/fixture/${id}`)}>
       <td>{e2e_id}</td>
       <td>{findDivisionName(divisions, division)}</td>
       <td>{findTeamName(teams, home_team_id)}</td>
