@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import Form from './Form';
+import { Link } from 'react-router-dom';
 
 const Create = ({ divisions, teams, dispatch }) => {
   const mensTeams = teams.filter((team) => team.mens);
@@ -11,6 +12,8 @@ const Create = ({ divisions, teams, dispatch }) => {
   const [awayTeam, setAwayTeam] = useState(null);
   const [e2eId, setE2eId] = useState(null);
   const [date, setDate] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const [successMsg, setSuccessMsg] = useState('');
 
   const submitNewFixture = async (
     event,
@@ -29,6 +32,8 @@ const Create = ({ divisions, teams, dispatch }) => {
       date,
     });
     dispatch({ type: 'CREATE_FIXTURE', content: data });
+    setSuccess(true);
+    setSuccessMsg(`You just created match #${data.e2e_id}`);
   };
 
   // const submit = async (leagueName, sport) => {
@@ -106,6 +111,12 @@ const Create = ({ divisions, teams, dispatch }) => {
           >
             Submit
           </button>
+        </>
+      )}
+      {success && (
+        <>
+          <p>{successMsg}</p>
+          <Link to="/fixtures">Go to list of fixtures</Link>
         </>
       )}
     </>
