@@ -23,9 +23,13 @@ app.use(express.json());
 
 // Separated routes
 const divisionRoutes = require('./routes/divisions');
+const teamRoutes = require('./routes/teams');
+const fixtureRoutes = require('./routes/fixtures');
 
 // Mount all resource routes and pass in db
 app.use('/api/divisions', divisionRoutes(db));
+app.use('/api/teams', teamRoutes(db));
+app.use('/api/fixtures', fixtureRoutes(db));
 
 app.get('/', (req, res) => {
   res.send("home");
