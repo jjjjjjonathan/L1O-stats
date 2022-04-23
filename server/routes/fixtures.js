@@ -13,5 +13,11 @@ module.exports = db => {
     res.status(201).json(data.rows[0]);
   });
 
+  router.post('/', async (req, res) => {
+    const { stat, value, fixtureId } = req.body;
+    const data = await db.query(`UPDATE fixtures SET ${stat} = $1 WHERE id = $2 RETURNING *;`, [value, fixtureId]);
+    res.status(200).json(data.rows[0]);
+  });
+
   return router;
 };

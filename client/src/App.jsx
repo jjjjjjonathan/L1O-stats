@@ -23,6 +23,7 @@ function App() {
               divisions={state.divisions}
               teams={state.teams}
               fixtures={state.fixtures}
+              dispatch={dispatch}
             />
           </Route>
           <Route path="/fixtures">
