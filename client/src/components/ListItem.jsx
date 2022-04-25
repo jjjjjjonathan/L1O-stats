@@ -14,7 +14,7 @@ const ListItem = ({
 }) => {
   const history = useHistory();
   return (
-    <tr onClick={() => history.push(`/fixtures/${id}`)}>
+    <tr onClick={() => history.push(`/${id}`)}>
       <td>{e2e_id}</td>
       <td>{findDivisionName(divisions, division)}</td>
       <td>{findTeamName(teams, home_team_id)}</td>
