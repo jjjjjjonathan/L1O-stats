@@ -1,7 +1,6 @@
 import classNames from 'classnames';
-import { useState } from 'react';
 
-const ConsoleRow = ({ fixture, label, id, updateStats }) => {
+const ConsoleRow = ({ fixture, label, id, validate }) => {
   const getStatName = (label) => {
     const statStrings = {
       Goals: { h: 'home_goals', a: 'away_goals' },
@@ -41,14 +40,6 @@ const ConsoleRow = ({ fixture, label, id, updateStats }) => {
     'relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0'
   );
 
-  const [err, setErrMsg] = useState('');
-
-  const validate = (stat, value, id) => {
-    value < 0
-      ? setErrMsg(`Can't have a value less than 0.`)
-      : updateStats(stat, value, id);
-  };
-
   return (
     <tr>
       <th className="px-6 py-4">{label}</th>
@@ -63,7 +54,7 @@ const ConsoleRow = ({ fixture, label, id, updateStats }) => {
       <td className="px-6 py-4 text-center">{fixture[getStatName(label).h]}</td>
       <td className="px-6 py-4">
         <button
-          onClick={() => updateStats(getStatName(label).h, valueUp.h, id)}
+          onClick={() => validate(getStatName(label).h, valueUp.h, id)}
           className={valueUpClassesBtn}
         >
           <span className={valueUpClassesSpan}>+</span>
@@ -80,7 +71,7 @@ const ConsoleRow = ({ fixture, label, id, updateStats }) => {
       <td className="px-6 py-4 text-center">{fixture[getStatName(label).a]}</td>
       <td className="px-6 py-4">
         <button
-          onClick={() => updateStats(getStatName(label).a, valueUp.a, id)}
+          onClick={() => validate(getStatName(label).a, valueUp.a, id)}
           className={valueUpClassesBtn}
         >
           <span className={valueUpClassesSpan}>+</span>

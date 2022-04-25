@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { findDivisionName, findTeamName } from '../../helpers/helpers';
 import ConsoleRow from './ConsoleRow';
+import { useState } from 'react';
 
 const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
   const id = parseInt(useParams().id, 10);
@@ -17,6 +18,14 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
     dispatch({ type: 'UPDATE_FIXTURE', content: data });
   };
 
+  const [err, setErrMsg] = useState('');
+
+  const validate = (stat, value, id) => {
+    value < 0
+      ? setErrMsg(`Cannot have a value of less than 0.`)
+      : updateStats(stat, value, id) && setErrMsg('');
+  };
+
   return (
     <>
       <h1>
@@ -24,6 +33,7 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
         {findTeamName(teams, selectedFixture.away_team_id)}
       </h1>
       <h2>{findDivisionName(divisions, selectedFixture.division)}</h2>
+      {err.length > 0 && <p className="text-red-700">{err}</p>}
       <table>
         <thead>
           <tr>
@@ -42,56 +52,56 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
             fixture={selectedFixture}
             label={'Goals'}
             id={id}
-            updateStats={updateStats}
+            validate={validate}
           />
           <ConsoleRow
             key="total shots"
             fixture={selectedFixture}
             label={'Total Shots'}
             id={id}
-            updateStats={updateStats}
+            validate={validate}
           />
           <ConsoleRow
             key="on target shots"
             fixture={selectedFixture}
             label={'On Target'}
             id={id}
-            updateStats={updateStats}
+            validate={validate}
           />
           <ConsoleRow
             key="corners"
             fixture={selectedFixture}
             label={'Corners'}
             id={id}
-            updateStats={updateStats}
+            validate={validate}
           />
           <ConsoleRow
             key="offsides"
             fixture={selectedFixture}
             label={'Offsides'}
             id={id}
-            updateStats={updateStats}
+            validate={validate}
           />
           <ConsoleRow
             key="fouls"
             fixture={selectedFixture}
             label={'Fouls'}
             id={id}
-            updateStats={updateStats}
+            validate={validate}
           />
           <ConsoleRow
             key="yellows"
             fixture={selectedFixture}
             label={'Yellow Cards'}
             id={id}
-            updateStats={updateStats}
+            validate={validate}
           />
           <ConsoleRow
             key="reds"
             fixture={selectedFixture}
             label={'Red Cards'}
             id={id}
-            updateStats={updateStats}
+            validate={validate}
           />
         </tbody>
       </table>
