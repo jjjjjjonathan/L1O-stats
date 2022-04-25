@@ -1,3 +1,6 @@
+import classNames from 'classnames';
+import { useState } from 'react';
+
 const ConsoleRow = ({ fixture, label, id, updateStats }) => {
   const getStatName = (label) => {
     const statStrings = {
@@ -22,37 +25,65 @@ const ConsoleRow = ({ fixture, label, id, updateStats }) => {
     a: fixture[getStatName(label).a] - 1,
   };
 
+  const valueUpClassesBtn = classNames(
+    'relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800'
+  );
+
+  const valueUpClassesSpan = classNames(
+    'relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0'
+  );
+
+  const valueDownClassesBtn = classNames(
+    'relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800'
+  );
+
+  const valueDownClassesSpan = classNames(
+    'relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0'
+  );
+
+  const [err, setErrMsg] = useState('');
+
+  const validate = (stat, value, id) => {
+    value < 0
+      ? setErrMsg(`Can't have a value less than 0.`)
+      : updateStats(stat, value, id);
+  };
+
   return (
     <tr>
-      <th>{label}</th>
-      <td>
+      <th className="px-6 py-4">{label}</th>
+      <td className="px-6 py-4">
         <button
-          onClick={() => updateStats(getStatName(label).h, valueDown.h, id)}
+          onClick={() => validate(getStatName(label).h, valueDown.h, id)}
+          className={valueDownClassesBtn}
         >
-          -
+          <span className={valueDownClassesSpan}>-</span>
         </button>
       </td>
-      <td>{fixture[getStatName(label).h]}</td>
-      <td>
+      <td className="px-6 py-4 text-center">{fixture[getStatName(label).h]}</td>
+      <td className="px-6 py-4">
         <button
           onClick={() => updateStats(getStatName(label).h, valueUp.h, id)}
+          className={valueUpClassesBtn}
         >
-          +
+          <span className={valueUpClassesSpan}>+</span>
         </button>
       </td>
-      <td>
+      <td className="px-6 py-4">
         <button
-          onClick={() => updateStats(getStatName(label).a, valueDown.a, id)}
+          onClick={() => validate(getStatName(label).a, valueDown.a, id)}
+          className={valueDownClassesBtn}
         >
-          -
+          <span className={valueDownClassesSpan}>-</span>
         </button>
       </td>
-      <td>{fixture[getStatName(label).a]}</td>
-      <td>
+      <td className="px-6 py-4 text-center">{fixture[getStatName(label).a]}</td>
+      <td className="px-6 py-4">
         <button
           onClick={() => updateStats(getStatName(label).a, valueUp.a, id)}
+          className={valueUpClassesBtn}
         >
-          +
+          <span className={valueUpClassesSpan}>+</span>
         </button>
       </td>
     </tr>

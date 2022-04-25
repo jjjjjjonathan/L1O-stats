@@ -1,5 +1,4 @@
 import ListItem from './ListItem';
-import { findDivisionName, findTeamName } from '../helpers/helpers';
 
 const List = ({ divisions, teams, fixtures }) => {
   const mappedFixtures = fixtures.map((fixture) => (
@@ -8,15 +7,13 @@ const List = ({ divisions, teams, fixtures }) => {
       {...fixture}
       teams={teams}
       divisions={divisions}
-      findDivisionName={findDivisionName}
-      findTeamName={findTeamName}
     />
   ));
 
   return (
     <>
       <h1>Matches</h1>
-      <table>
+      <table className="table-auto">
         <thead>
           <tr>
             <th>E2E ID</th>
