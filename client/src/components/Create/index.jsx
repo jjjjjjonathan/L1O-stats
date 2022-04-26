@@ -103,7 +103,7 @@ const Create = ({ divisions, teams, dispatch }) => {
       {success && (
         <>
           <p>{successMsg}</p>
-          <Link to="/fixtures">Go to list of fixtures</Link>
+          <Link to="/">Go to list of fixtures</Link>
         </>
       )}
     </>
