@@ -10,8 +10,8 @@ const SocialCanvas = ({ finalStats }) => {
       const imageDataUrl = URL.createObjectURL(upload);
       image = new Image(1620, 1620);
       image.src = imageDataUrl;
-      let div = document.querySelector('#graphic');
-      div.appendChild(image);
+      let section = document.querySelector('#graphic');
+      section.replaceChildren(image);
     }
   }, [upload]);
 
