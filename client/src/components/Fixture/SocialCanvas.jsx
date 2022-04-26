@@ -2,23 +2,18 @@ import { useEffect, useState } from 'react';
 
 const SocialCanvas = ({ finalStats }) => {
   const [upload, setUpload] = useState(null);
-  const [graphic, setGraphic] = useState(null);
 
   // useEffect to check if image is uploaded
   useEffect(() => {
     let image;
     if (upload) {
       const imageDataUrl = URL.createObjectURL(upload);
-      image = new Image();
+      image = new Image(1620, 1620);
       image.src = imageDataUrl;
-      console.log(image.src);
-      setGraphic(image);
+      let div = document.querySelector('#graphic');
+      div.appendChild(image);
     }
   }, [upload]);
-
-  useEffect(() => {
-    if (graphic) console.log(graphic.height, graphic.width);
-  }, [graphic]);
 
   return (
     <>
@@ -33,7 +28,7 @@ const SocialCanvas = ({ finalStats }) => {
             setUpload(e.target.files[0]);
           }}
         />
-        <canvas id="graphic-generator"></canvas>
+        {upload && <section id="graphic"></section>}
       </div>
     </>
   );
