@@ -1,10 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const Jimp = require('jimp');
+const multer = require('multer');
+const os = require('os');
+const upload = multer({ dest: os.tmpdir() });
 
 module.exports = db => {
   router.get('/', async (req, res) => {
     const data = await db.query('SELECT * FROM fixtures;');
     res.json(data.rows);
+  });
+
+  router.put('/graphics', async (req, res) => {
+    const { Base64 } = req.body;
+    console.log(Base64, 'this is the long string');
+    res.json(Base64);
   });
 
   router.put('/', async (req, res) => {
