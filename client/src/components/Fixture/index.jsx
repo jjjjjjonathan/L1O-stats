@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { findDivisionName, findTeamName } from '../../helpers/helpers';
 import ConsoleRow from './ConsoleRow';
+import SocialCanvas from './SocialCanvas';
 import { useState } from 'react';
 
 const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
@@ -24,6 +25,29 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
     value < 0
       ? setErrMsg(`Cannot have a value of less than 0.`)
       : updateStats(stat, value, id) && setErrMsg('');
+  };
+
+  const finalStats = {
+    h: {
+      goals: selectedFixture.home_goals,
+      totalShots: selectedFixture.home_total_shots,
+      onTarget: selectedFixture.home_on_target,
+      corners: selectedFixture.home_corners,
+      offsides: selectedFixture.home_offsides,
+      fouls: selectedFixture.home_fouls,
+      yellows: selectedFixture.home_yellows,
+      reds: selectedFixture.home_reds,
+    },
+    a: {
+      goals: selectedFixture.away_goals,
+      totalShots: selectedFixture.away_total_shots,
+      onTarget: selectedFixture.away_on_target,
+      corners: selectedFixture.away_corners,
+      offsides: selectedFixture.away_offsides,
+      fouls: selectedFixture.away_fouls,
+      yellows: selectedFixture.away_yellows,
+      reds: selectedFixture.away_reds,
+    },
   };
 
   return (
@@ -105,6 +129,7 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
           />
         </tbody>
       </table>
+      <SocialCanvas finalStats={finalStats} />
     </>
   );
 };
