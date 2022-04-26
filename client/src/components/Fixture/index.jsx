@@ -3,13 +3,15 @@ import { useParams } from 'react-router-dom';
 import { findDivisionName, findTeamName } from '../../helpers/helpers';
 import ConsoleRow from './ConsoleRow';
 import SocialCanvas from './SocialCanvas';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
   const id = parseInt(useParams().id, 10);
 
   const selectedFixture = fixtures.find((fixture) => fixture.id === id);
 
+  const [homeRoster, setHomeRoster] = useState([]);
+  const [awayRoster, setAwayRoster] = useState([]);
   const scrapeRosters = async (fixture, teams) => {
     const homeTeam = teams.find((team) => team.id === fixture.home_team_id);
     const awayTeam = teams.find((team) => team.id === fixture.away_team_id);
@@ -18,13 +20,15 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
       2: { h: homeTeam.womens_roster_url, a: awayTeam.womens_roster_url },
     };
     const [homePlayers, awayPlayers] = await Promise.all([
-      axios.get('/api/teams/players', {
+      axios.put('/api/teams/players', {
         rosterUrl: getUrls[fixture.division].h,
       }),
-      axios.get('/api/teams/players', {
+      axios.put('/api/teams/players', {
         rosterUrl: getUrls[fixture.division].a,
       }),
     ]);
+    setHomeRoster(homePlayers.data);
+    setAwayRoster(awayPlayers.data);
   };
 
   const updateStats = async (stat, value, fixtureId) => {
@@ -76,6 +80,9 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
       </h1>
       <h2>{findDivisionName(divisions, selectedFixture.division)}</h2>
       {err.length > 0 && <p className="text-red-700">{err}</p>}
+      <button onClick={() => scrapeRosters(selectedFixture, teams)}>
+        GET ROSTERS
+      </button>
       <table>
         <thead>
           <tr>
