@@ -4,6 +4,8 @@ CREATE TABLE teams (
   name VARCHAR(255) NOT NULL,
   mens BOOLEAN NOT NULL,
   womens BOOLEAN NOT NULL,
+  mens_roster_url TEXT,
+  womens_roster_url TEXT,
   created_at TIMESTAMP default now(),
   updated_at TIMESTAMP default now()
 );
