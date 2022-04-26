@@ -3,12 +3,29 @@ import { useParams } from 'react-router-dom';
 import { findDivisionName, findTeamName } from '../../helpers/helpers';
 import ConsoleRow from './ConsoleRow';
 import SocialCanvas from './SocialCanvas';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
   const id = parseInt(useParams().id, 10);
 
   const selectedFixture = fixtures.find((fixture) => fixture.id === id);
+
+  const scrapeRosters = async (fixture, teams) => {
+    const homeTeam = teams.find((team) => team.id === fixture.home_team_id);
+    const awayTeam = teams.find((team) => team.id === fixture.away_team_id);
+    const getUrls = {
+      1: { h: homeTeam.mens_roster_url, a: awayTeam.mens_roster_url },
+      2: { h: homeTeam.womens_roster_url, a: awayTeam.womens_roster_url },
+    };
+    const [homePlayers, awayPlayers] = await Promise.all([
+      axios.get('/api/teams/players', {
+        rosterUrl: getUrls[fixture.division].h,
+      }),
+      axios.get('/api/teams/players', {
+        rosterUrl: getUrls[fixture.division].a,
+      }),
+    ]);
+  };
 
   const updateStats = async (stat, value, fixtureId) => {
     const { data } = await axios.post('/api/fixtures', {
@@ -27,6 +44,7 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
       : updateStats(stat, value, id) && setErrMsg('');
   };
 
+  // To be used for creating social media graphics
   const finalStats = {
     h: {
       goals: selectedFixture.home_goals,
