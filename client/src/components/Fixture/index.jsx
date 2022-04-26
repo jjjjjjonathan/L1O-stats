@@ -4,6 +4,7 @@ import { findDivisionName, findTeamName } from '../../helpers/helpers';
 import ConsoleRow from './ConsoleRow';
 import SocialCanvas from './SocialCanvas';
 import { useState } from 'react';
+import scrapeRosters from '../../helpers/rosters';
 
 const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
   const id = parseInt(useParams().id, 10);
@@ -12,24 +13,6 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
 
   const [homeRoster, setHomeRoster] = useState([]);
   const [awayRoster, setAwayRoster] = useState([]);
-  const scrapeRosters = async (fixture, teams) => {
-    const homeTeam = teams.find((team) => team.id === fixture.home_team_id);
-    const awayTeam = teams.find((team) => team.id === fixture.away_team_id);
-    const getUrls = {
-      1: { h: homeTeam.mens_roster_url, a: awayTeam.mens_roster_url },
-      2: { h: homeTeam.womens_roster_url, a: awayTeam.womens_roster_url },
-    };
-    const [homePlayers, awayPlayers] = await Promise.all([
-      axios.put('/api/teams/players', {
-        rosterUrl: getUrls[fixture.division].h,
-      }),
-      axios.put('/api/teams/players', {
-        rosterUrl: getUrls[fixture.division].a,
-      }),
-    ]);
-    setHomeRoster(homePlayers.data);
-    setAwayRoster(awayPlayers.data);
-  };
 
   const updateStats = async (stat, value, fixtureId) => {
     const { data } = await axios.post('/api/fixtures', {
@@ -80,7 +63,14 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
       </h1>
       <h2>{findDivisionName(divisions, selectedFixture.division)}</h2>
       {err.length > 0 && <p className="text-red-700">{err}</p>}
-      <button onClick={() => scrapeRosters(selectedFixture, teams)}>
+      <button
+        onClick={() =>
+          scrapeRosters(selectedFixture, teams, {
+            h: setHomeRoster,
+            a: setAwayRoster,
+          })
+        }
+      >
         GET ROSTERS
       </button>
       <table>
