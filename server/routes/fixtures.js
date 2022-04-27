@@ -12,7 +12,7 @@ module.exports = db => {
     const { Base64, text, hScore, aScore } = req.body;
     const splitted = Base64.split(',');
     const buffer = Buffer.from(splitted[1], "base64");
-    // Jimp.FONT_SANS_128_WHITE
+
     let image = await Jimp.read(buffer);
     const font = await Jimp.loadFont('./public/fonts/oswald/oswaldSocial.fnt');
     image.print(font, 0, -450, {
