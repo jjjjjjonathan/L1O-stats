@@ -55,6 +55,8 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
     },
   };
 
+  const [graphicMode, setGraphicMode] = useState(null);
+
   return (
     <>
       <h1>
@@ -144,7 +146,15 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
           />
         </tbody>
       </table>
-      <SocialCanvas stats={stats} text={'HALF TIME'} />
+      <button onClick={() => setGraphicMode(1)}>Half-time graphic</button>
+      <button onClick={() => setGraphicMode(2)}>Full-time graphic</button>
+
+      {graphicMode === 1 && (
+        <SocialCanvas stats={stats} text={'HALF-TIME'} xAxis={-15} />
+      )}
+      {graphicMode === 2 && (
+        <SocialCanvas stats={stats} text={'FULL-TIME'} xAxis={-5} />
+      )}
     </>
   );
 };

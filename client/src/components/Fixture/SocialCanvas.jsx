@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const SocialCanvas = ({ stats, text }) => {
+const SocialCanvas = ({ stats, text, xAxis }) => {
   const [uploadError, setUploadError] = useState('');
   const acceptedImageTypes = ['image/jpeg', 'image/png'];
 
@@ -23,6 +23,7 @@ const SocialCanvas = ({ stats, text }) => {
       text,
       hScore: stats.h.goals.toString(),
       aScore: stats.a.goals.toString(),
+      xAxis,
     });
     let image = new Image(1620, 1620);
     image.src = data;
@@ -32,7 +33,7 @@ const SocialCanvas = ({ stats, text }) => {
 
   return (
     <>
-      <h1>Social media graphic generator</h1>
+      <h1>Social media graphic generator: {text}</h1>
       <div className="mx-auto mt-5 w-96">
         <label htmlFor="">Select image</label>
         <input

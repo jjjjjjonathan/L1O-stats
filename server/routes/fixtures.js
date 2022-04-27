@@ -9,13 +9,13 @@ module.exports = db => {
   });
 
   router.put('/score', async (req, res) => {
-    const { Base64, text, hScore, aScore } = req.body;
+    const { Base64, text, hScore, aScore, xAxis } = req.body;
     const splitted = Base64.split(',');
     const buffer = Buffer.from(splitted[1], "base64");
 
     let image = await Jimp.read(buffer);
     const font = await Jimp.loadFont('./public/fonts/oswald/oswaldSocial.fnt');
-    image.print(font, 0, -450, {
+    image.print(font, xAxis, -450, {
       text,
       alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
       alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
