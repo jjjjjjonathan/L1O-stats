@@ -144,7 +144,7 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
           />
         </tbody>
       </table>
-      <SocialCanvas finalStats={finalStats} />
+      <SocialCanvas finalStats={finalStats} text={'HALF TIME'} />
     </>
   );
 };

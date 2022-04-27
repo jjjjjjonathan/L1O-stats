@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const SocialCanvas = ({ finalStats }) => {
+const SocialCanvas = ({ finalStats, text }) => {
   const [uploadError, setUploadError] = useState('');
   const acceptedImageTypes = ['image/jpeg', 'image/png'];
 
@@ -16,9 +16,14 @@ const SocialCanvas = ({ finalStats }) => {
     });
   };
 
-  const generateGraphic = async (upload) => {
+  const generateGraphic = async (upload, text) => {
     let Base64 = await generateString(upload);
-    const { data } = await axios.put('/api/fixtures/graphics', { Base64 });
+    const { data } = await axios.put('/api/fixtures/graphics', {
+      Base64,
+      text,
+      hScore: finalStats.h.goals.toString(),
+      aScore: finalStats.a.goals.toString(),
+    });
     let image = new Image(1620, 1620);
     image.src = data;
     let section = document.querySelector('#graphic');
@@ -37,7 +42,7 @@ const SocialCanvas = ({ finalStats }) => {
             e.preventDefault();
             if (acceptedImageTypes.includes(e.target.files[0].type)) {
               setUploadError('');
-              generateGraphic(e.target.files[0]);
+              generateGraphic(e.target.files[0], text);
             } else {
               setUploadError('not an accepted file type');
             }
