@@ -9,12 +9,27 @@ module.exports = db => {
   });
 
   router.put('/graphics', async (req, res) => {
-    const { Base64 } = req.body;
+    const { Base64, text, hScore, aScore } = req.body;
     const splitted = Base64.split(',');
     const buffer = Buffer.from(splitted[1], "base64");
 
     let image = await Jimp.read(buffer);
-    image.invert();
+    const font = await Jimp.loadFont(Jimp.FONT_SANS_128_WHITE);
+    image.print(font, 0, -400, {
+      text,
+      alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+      alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
+    }, 1620, 1620);
+    image.print(font, -305, 350, {
+      text: hScore,
+      alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+      alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
+    }, 1620, 1620);
+    image.print(font, 305, 350, {
+      text: aScore,
+      alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+      alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
+    }, 1620, 1620);
     const newBase64 = await image.getBase64Async(Jimp.AUTO);
 
     res.json(newBase64);
