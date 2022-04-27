@@ -14,8 +14,8 @@ module.exports = db => {
     const buffer = Buffer.from(splitted[1], "base64");
     // Jimp.FONT_SANS_128_WHITE
     let image = await Jimp.read(buffer);
-    const font = await Jimp.loadFont('./public/fonts/oswald.fnt');
-    image.print(font, 0, -400, {
+    const font = await Jimp.loadFont('./public/fonts/oswald/oswaldSocial.fnt');
+    image.print(font, 0, -450, {
       text,
       alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
       alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
