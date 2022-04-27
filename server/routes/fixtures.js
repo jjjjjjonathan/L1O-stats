@@ -8,7 +8,7 @@ module.exports = db => {
     res.json(data.rows);
   });
 
-  router.put('/graphics', async (req, res) => {
+  router.put('/score', async (req, res) => {
     const { Base64, text, hScore, aScore } = req.body;
     const splitted = Base64.split(',');
     const buffer = Buffer.from(splitted[1], "base64");

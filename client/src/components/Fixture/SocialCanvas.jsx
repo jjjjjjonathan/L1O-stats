@@ -18,7 +18,7 @@ const SocialCanvas = ({ stats, text }) => {
 
   const generateGraphic = async (upload, text) => {
     let Base64 = await generateString(upload);
-    const { data } = await axios.put('/api/fixtures/graphics', {
+    const { data } = await axios.put('/api/fixtures/score', {
       Base64,
       text,
       hScore: stats.h.goals.toString(),
