@@ -5,11 +5,20 @@ import ConsoleRow from './ConsoleRow';
 import SocialCanvas from './SocialCanvas';
 import { useState } from 'react';
 import scrapeRosters from '../../helpers/rosters';
+import RosterList from './RosterList';
 
 const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
   const id = parseInt(useParams().id, 10);
 
   const selectedFixture = fixtures.find((fixture) => fixture.id === id);
+
+  const homeObj = teams.find(
+    (team) => team.id === selectedFixture.home_team_id
+  );
+
+  const awayObj = teams.find(
+    (team) => team.id === selectedFixture.away_team_id
+  );
 
   const [homeRoster, setHomeRoster] = useState([]);
   const [awayRoster, setAwayRoster] = useState([]);
@@ -67,16 +76,6 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
       </h1>
       <h2>{findDivisionName(divisions, selectedFixture.division)}</h2>
       {err.length > 0 && <p className="text-red-700">{err}</p>}
-      <button
-        onClick={() =>
-          scrapeRosters(selectedFixture, teams, {
-            h: setHomeRoster,
-            a: setAwayRoster,
-          })
-        }
-      >
-        GET ROSTERS
-      </button>
       <table>
         <thead>
           <tr>
@@ -150,6 +149,24 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
       </table>
       <button onClick={() => setGraphicMode(1)}>Half-time graphic</button>
       <button onClick={() => setGraphicMode(2)}>Full-time graphic</button>
+      <button
+        onClick={async () => {
+          const roster = await scrapeRosters(selectedFixture, homeObj);
+          setHomeRoster(roster);
+          setGraphicMode(3);
+        }}
+      >
+        Set home starting XI
+      </button>
+      <button
+        onClick={async () => {
+          const roster = await scrapeRosters(selectedFixture, awayObj);
+          setAwayRoster(roster);
+          setGraphicMode(4);
+        }}
+      >
+        Set away starting XI
+      </button>
 
       {graphicMode === 1 && (
         <SocialCanvas stats={stats} text={'Half-time'} xAxis={-15} />
@@ -157,6 +174,8 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
       {graphicMode === 2 && (
         <SocialCanvas stats={stats} text={'Full-time'} xAxis={-5} />
       )}
+      {graphicMode === 3 && <RosterList roster={homeRoster} />}
+      {graphicMode === 4 && <RosterList roster={awayRoster} />}
     </>
   );
 };
