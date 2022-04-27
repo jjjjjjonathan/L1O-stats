@@ -9,14 +9,14 @@ module.exports = db => {
   });
 
   router.put('/score', async (req, res) => {
-    const { Base64, text, hScore, aScore, xAxis } = req.body;
+    const { Base64, text, hScore, aScore, xAxis, hName, aName } = req.body;
     const splitted = Base64.split(',');
     const buffer = Buffer.from(splitted[1], "base64");
 
     let image = await Jimp.read(buffer);
     const font = await Jimp.loadFont('./public/fonts/oswald/oswaldSocial.fnt');
     image.print(font, xAxis, -450, {
-      text,
+      text: text.toUpperCase(),
       alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
       alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
     }, 1620, 1620);
@@ -31,8 +31,9 @@ module.exports = db => {
       alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
     }, 1620, 1620);
     const newBase64 = await image.getBase64Async(Jimp.AUTO);
+    const altText = `${text} between ${hName} and ${aName}. Score is: ${hName} ${hScore}, ${aName} ${aScore}.`;
 
-    res.json(newBase64);
+    res.json({ newBase64, altText });
   });
 
   router.put('/', async (req, res) => {

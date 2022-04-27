@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const SocialCanvas = ({ stats, text, xAxis }) => {
   const [uploadError, setUploadError] = useState('');
+  const [altText, setAltText] = useState('');
   const acceptedImageTypes = ['image/jpeg', 'image/png'];
 
   const generateString = (upload) => {
@@ -23,12 +24,15 @@ const SocialCanvas = ({ stats, text, xAxis }) => {
       text,
       hScore: stats.h.goals.toString(),
       aScore: stats.a.goals.toString(),
+      hName: stats.h.name,
+      aName: stats.a.name,
       xAxis,
     });
     let image = new Image(1620, 1620);
-    image.src = data;
+    image.src = data.newBase64;
     let section = document.querySelector('#graphic');
     section.replaceChildren(image);
+    setAltText(data.altText);
   };
 
   return (
@@ -50,6 +54,7 @@ const SocialCanvas = ({ stats, text, xAxis }) => {
           }}
         />
         <section id="graphic"></section>
+        {altText.length > 0 && <textarea value={altText} readOnly={true} />}
         {uploadError && <p className="text-red-600">{uploadError}</p>}
       </div>
     </>

@@ -42,6 +42,7 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
       fouls: selectedFixture.home_fouls,
       yellows: selectedFixture.home_yellows,
       reds: selectedFixture.home_reds,
+      name: findTeamName(teams, selectedFixture.home_team_id),
     },
     a: {
       goals: selectedFixture.away_goals,
@@ -52,6 +53,7 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
       fouls: selectedFixture.away_fouls,
       yellows: selectedFixture.away_yellows,
       reds: selectedFixture.away_reds,
+      name: findTeamName(teams, selectedFixture.away_team_id),
     },
   };
 
@@ -150,10 +152,10 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
       <button onClick={() => setGraphicMode(2)}>Full-time graphic</button>
 
       {graphicMode === 1 && (
-        <SocialCanvas stats={stats} text={'HALF-TIME'} xAxis={-15} />
+        <SocialCanvas stats={stats} text={'Half-time'} xAxis={-15} />
       )}
       {graphicMode === 2 && (
-        <SocialCanvas stats={stats} text={'FULL-TIME'} xAxis={-5} />
+        <SocialCanvas stats={stats} text={'Full-time'} xAxis={-5} />
       )}
     </>
   );
