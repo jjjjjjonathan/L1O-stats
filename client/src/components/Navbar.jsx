@@ -12,6 +12,11 @@ const Navbar = () => {
             See list of fixtures
           </Link>
         </li>
+        <li className="md:mx-4 hover:text-gray-400">
+          <Link to="/lineups" className="md:mx-4 hover:text-gray-400">
+            Create lineup graphics
+          </Link>
+        </li>
       </ul>
     </nav>
   );

@@ -76,7 +76,7 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
       </h1>
       <h2>{findDivisionName(divisions, selectedFixture.division)}</h2>
       {err.length > 0 && <p className="text-red-700">{err}</p>}
-      <table>
+      <table className="border-collapse border border-red-700">
         <thead>
           <tr>
             <th></th>
@@ -174,8 +174,12 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
       {graphicMode === 2 && (
         <SocialCanvas stats={stats} text={'Full-time'} xAxis={-5} />
       )}
-      {graphicMode === 3 && <RosterList roster={homeRoster} />}
-      {graphicMode === 4 && <RosterList roster={awayRoster} />}
+      {graphicMode === 3 && homeRoster.length > 0 && (
+        <RosterList roster={homeRoster} />
+      )}
+      {graphicMode === 4 && awayRoster.length > 0 && (
+        <RosterList roster={awayRoster} />
+      )}
     </>
   );
 };

@@ -4,6 +4,7 @@ import useApplicationData from './hooks/useApplicationData';
 import List from './components/List';
 import Fixture from './components/Fixture';
 import Navbar from './components/Navbar';
+import Lineups from './components/Lineups';
 
 function App() {
   const { state, dispatch } = useApplicationData();
@@ -19,6 +20,9 @@ function App() {
                 teams={state.teams}
                 dispatch={dispatch}
               />
+            </Route>
+            <Route path="/lineups">
+              <Lineups />
             </Route>
             <Route path="/:id">
               <Fixture

@@ -1,6 +1,25 @@
 const RosterList = ({ roster }) => {
-  let names = [...roster].join(', ');
-  return <h1>{names}</h1>;
+  const mappedRoster = roster.map((player) => {
+    return (
+      <tr>
+        <td>
+          <input type="checkbox" />
+        </td>
+        <td>{player}</td>
+      </tr>
+    );
+  });
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>Starter?</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>{mappedRoster}</tbody>
+    </table>
+  );
 };
 
 export default RosterList;
