@@ -1,10 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Jimp = require('jimp');
-const fs = require('fs');
-const multer = require('multer');
-const os = require('os');
-const upload = multer({ dest: os.tmpdir() });
 
 module.exports = db => {
   router.get('/', async (req, res) => {
