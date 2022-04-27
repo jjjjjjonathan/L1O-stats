@@ -3,7 +3,6 @@ import axios from 'axios';
 
 const SocialCanvas = ({ finalStats }) => {
   const [uploadError, setUploadError] = useState('');
-  const [encodedString, setEncodedString] = useState('');
   const acceptedImageTypes = ['image/jpeg', 'image/png'];
 
   const generateString = (upload) => {
@@ -19,24 +18,11 @@ const SocialCanvas = ({ finalStats }) => {
 
   const generateGraphic = async (upload) => {
     let Base64 = await generateString(upload);
-    const data = await axios.put('/api/fixtures/graphics', { Base64 });
-    console.log(data);
-    // if (encodedString.length > 0) {
-    // } else {
-    //   console.log('something failed');
-    // }
-    // const formData = new FormData();
-    // formData.append('image', upload);
-
-    // const { data } = await axios.put('/api/fixtures/graphics', formData, {
-    //   headers: { 'Content-Type': 'multipart/form-data' },
-    // });
-    // // const imageDataUrl = URL.createObjectURL(data);
-    // console.log(data);
-    // let image = new Image(1620, 1620);
-    // image.src = data.path;
-    // let section = document.querySelector('#graphic');
-    // section.replaceChildren(image);
+    const { data } = await axios.put('/api/fixtures/graphics', { Base64 });
+    let image = new Image(1620, 1620);
+    image.src = data;
+    let section = document.querySelector('#graphic');
+    section.replaceChildren(image);
   };
 
   return (

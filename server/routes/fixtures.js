@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Jimp = require('jimp');
+const fs = require('fs');
 const multer = require('multer');
 const os = require('os');
 const upload = multer({ dest: os.tmpdir() });
@@ -13,7 +14,18 @@ module.exports = db => {
 
   router.put('/graphics', async (req, res) => {
     const { Base64 } = req.body;
-    console.log(Base64, 'this is the long string');
+
+    const splitted = Base64.split(',');
+
+    const buffer = Buffer.from(splitted[1], "base64");
+    Jimp.read(buffer)
+      .then(image => {
+        console.log('success', image);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+
     res.json(Base64);
   });
 
