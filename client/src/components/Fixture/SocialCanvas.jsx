@@ -37,7 +37,6 @@ const SocialCanvas = ({ finalStats }) => {
             e.preventDefault();
             if (acceptedImageTypes.includes(e.target.files[0].type)) {
               setUploadError('');
-              // console.log(generateString(e.target.files[0]));
               generateGraphic(e.target.files[0]);
             } else {
               setUploadError('not an accepted file type');

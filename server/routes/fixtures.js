@@ -14,19 +14,14 @@ module.exports = db => {
 
   router.put('/graphics', async (req, res) => {
     const { Base64 } = req.body;
-
     const splitted = Base64.split(',');
-
     const buffer = Buffer.from(splitted[1], "base64");
-    Jimp.read(buffer)
-      .then(image => {
-        console.log('success', image);
-      })
-      .catch(err => {
-        console.error(err);
-      });
 
-    res.json(Base64);
+    let image = await Jimp.read(buffer);
+    image.invert();
+    const newBase64 = await image.getBase64Async(Jimp.AUTO);
+
+    res.json(newBase64);
   });
 
   router.put('/', async (req, res) => {
