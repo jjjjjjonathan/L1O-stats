@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const SocialCanvas = ({ finalStats, text }) => {
+const SocialCanvas = ({ stats, text }) => {
   const [uploadError, setUploadError] = useState('');
   const acceptedImageTypes = ['image/jpeg', 'image/png'];
 
@@ -21,8 +21,8 @@ const SocialCanvas = ({ finalStats, text }) => {
     const { data } = await axios.put('/api/fixtures/graphics', {
       Base64,
       text,
-      hScore: finalStats.h.goals.toString(),
-      aScore: finalStats.a.goals.toString(),
+      hScore: stats.h.goals.toString(),
+      aScore: stats.a.goals.toString(),
     });
     let image = new Image(1620, 1620);
     image.src = data;

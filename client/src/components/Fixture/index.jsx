@@ -32,7 +32,7 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
   };
 
   // To be used for creating social media graphics
-  const finalStats = {
+  const stats = {
     h: {
       goals: selectedFixture.home_goals,
       totalShots: selectedFixture.home_total_shots,
@@ -144,7 +144,7 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
           />
         </tbody>
       </table>
-      <SocialCanvas finalStats={finalStats} text={'HALF TIME'} />
+      <SocialCanvas stats={stats} text={'HALF TIME'} />
     </>
   );
 };
