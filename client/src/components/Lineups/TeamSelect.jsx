@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import TeamSelectOption from './TeamSelectOption';
 import scrapeRosters from '../../helpers/rosters';
-import RosterList from '../Fixture/RosterList';
+import RosterList from './RosterList';
 
 const TeamSelect = ({ teams, selectedDivision }) => {
   const [roster, setRoster] = useState([]);

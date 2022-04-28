@@ -4,24 +4,11 @@ import { findDivisionName, findTeamName } from '../../helpers/helpers';
 import ConsoleRow from './ConsoleRow';
 import SocialCanvas from './SocialCanvas';
 import { useState } from 'react';
-import scrapeRosters from '../../helpers/rosters';
-import RosterList from './RosterList';
 
 const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
   const id = parseInt(useParams().id, 10);
 
   const selectedFixture = fixtures.find((fixture) => fixture.id === id);
-
-  const homeObj = teams.find(
-    (team) => team.id === selectedFixture.home_team_id
-  );
-
-  const awayObj = teams.find(
-    (team) => team.id === selectedFixture.away_team_id
-  );
-
-  const [homeRoster, setHomeRoster] = useState([]);
-  const [awayRoster, setAwayRoster] = useState([]);
 
   const updateStats = async (stat, value, fixtureId) => {
     const { data } = await axios.post('/api/fixtures', {
@@ -149,36 +136,12 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
       </table>
       <button onClick={() => setGraphicMode(1)}>Half-time graphic</button>
       <button onClick={() => setGraphicMode(2)}>Full-time graphic</button>
-      <button
-        onClick={async () => {
-          const roster = await scrapeRosters(selectedFixture, homeObj);
-          setHomeRoster(roster);
-          setGraphicMode(3);
-        }}
-      >
-        Set home starting XI
-      </button>
-      <button
-        onClick={async () => {
-          const roster = await scrapeRosters(selectedFixture, awayObj);
-          setAwayRoster(roster);
-          setGraphicMode(4);
-        }}
-      >
-        Set away starting XI
-      </button>
 
       {graphicMode === 1 && (
         <SocialCanvas stats={stats} text={'Half-time'} xAxis={-15} />
       )}
       {graphicMode === 2 && (
         <SocialCanvas stats={stats} text={'Full-time'} xAxis={-5} />
-      )}
-      {graphicMode === 3 && homeRoster.length > 0 && (
-        <RosterList roster={homeRoster} />
-      )}
-      {graphicMode === 4 && awayRoster.length > 0 && (
-        <RosterList roster={awayRoster} />
       )}
     </>
   );
