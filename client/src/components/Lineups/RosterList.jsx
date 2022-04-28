@@ -1,14 +1,9 @@
+import RosterListItem from './RosterListItem';
+
 const RosterList = ({ roster }) => {
-  const mappedRoster = roster.map((player) => {
-    return (
-      <tr>
-        <td>
-          <input type="checkbox" />
-        </td>
-        <td>{player.name}</td>
-      </tr>
-    );
-  });
+  const mappedRoster = roster.map((player) => (
+    <RosterListItem name={player.name} key={player.tempId} />
+  ));
   return (
     <table>
       <thead>

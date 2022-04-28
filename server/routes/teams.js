@@ -16,10 +16,11 @@ module.exports = db => {
       const { data } = await axios(rosterUrl);
       const $ = cheerio.load(data);
       let content = [];
-
+      let idCounter = 1;
       $('tbody[id="rosterListingTableBodyPlayer"] > tr').each(function () {
         let name = $(this).find('td[class="name"] > a').text();
-        content.push({ name, number: 0, isStarting: false, isGoalkeeper: false, isCaptain: false });
+        content.push({ name, number: 0, isStarting: false, isGoalkeeper: false, isCaptain: false, tempId: idCounter });
+        idCounter++;
       });
       res.status(200).json(content);
     } catch (error) {
