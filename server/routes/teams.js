@@ -12,14 +12,20 @@ module.exports = db => {
 
   router.put('/players', async (req, res) => {
     const { rosterUrl } = req.body;
-    const { data } = await axios(rosterUrl);
-    const $ = cheerio.load(data);
-    let content = [];
-    $('div[class="tooltip-outer rosterTooltip"]').each(function () {
-      let name = $(this).find('div > h3').text();
-      content.push(name);
-    });
-    res.status(200).json(content);
+    try {
+      const { data } = await axios(rosterUrl);
+      const $ = cheerio.load(data);
+      let content = [];
+  
+      $('tbody[id="rosterListingTableBodyPlayer"] > tr').each(function () {
+        let name = $(this).find('td[class="name"] > a').text();
+        content.push(name)
+      })
+      res.status(200).json(content);
+    } catch (error) {
+      console.error(error)
+      res.status(500)
+    }
   });
   return router;
 };
