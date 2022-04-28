@@ -16,15 +16,15 @@ module.exports = db => {
       const { data } = await axios(rosterUrl);
       const $ = cheerio.load(data);
       let content = [];
-  
+
       $('tbody[id="rosterListingTableBodyPlayer"] > tr').each(function () {
         let name = $(this).find('td[class="name"] > a').text();
-        content.push(name)
-      })
+        content.push({ name, number: 0, isStarting: false, isGoalkeeper: false, isCaptain: false });
+      });
       res.status(200).json(content);
     } catch (error) {
-      console.error(error)
-      res.status(500)
+      console.error(error);
+      res.status(500);
     }
   });
   return router;

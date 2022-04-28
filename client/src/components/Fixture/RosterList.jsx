@@ -5,7 +5,7 @@ const RosterList = ({ roster }) => {
         <td>
           <input type="checkbox" />
         </td>
-        <td>{player}</td>
+        <td>{player.name}</td>
       </tr>
     );
   });

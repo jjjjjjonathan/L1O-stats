@@ -22,7 +22,7 @@ function App() {
               />
             </Route>
             <Route path="/lineups">
-              <Lineups />
+              <Lineups divisions={state.divisions} teams={state.teams} />
             </Route>
             <Route path="/:id">
               <Fixture
