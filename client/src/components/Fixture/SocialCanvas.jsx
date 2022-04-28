@@ -5,6 +5,7 @@ const SocialCanvas = ({ stats, text, xAxis }) => {
   const [uploadError, setUploadError] = useState('');
   const [altText, setAltText] = useState('');
   const acceptedImageTypes = ['image/jpeg', 'image/png'];
+  const [graphic, setGraphic] = useState('');
 
   const generateString = (upload) => {
     return new Promise((resolve, reject) => {
@@ -28,10 +29,7 @@ const SocialCanvas = ({ stats, text, xAxis }) => {
       aName: stats.a.name,
       xAxis,
     });
-    let image = new Image(1620, 1620);
-    image.src = data.newBase64;
-    let section = document.querySelector('#graphic');
-    section.replaceChildren(image);
+    setGraphic(data.newBase64);
     setAltText(data.altText);
   };
 
@@ -53,7 +51,7 @@ const SocialCanvas = ({ stats, text, xAxis }) => {
             }
           }}
         />
-        <section id="graphic"></section>
+        {graphic.length > 0 && <img src={graphic} alt={altText} />}
         {altText.length > 0 && <textarea value={altText} readOnly={true} />}
         {uploadError && <p className="text-red-600">{uploadError}</p>}
       </div>
