@@ -6,7 +6,7 @@ const cheerio = require('cheerio');
 module.exports = db => {
 
   router.get('/', async (req, res) => {
-    const data = await db.query('SELECT * FROM teams;');
+    const data = await db.query('SELECT * FROM teams ORDER BY teams.name;');
     res.json(data.rows);
   });
 
