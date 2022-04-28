@@ -2,7 +2,7 @@ import RosterListItem from './RosterListItem';
 
 const RosterList = ({ roster }) => {
   const mappedRoster = roster.map((player) => (
-    <RosterListItem name={player.name} key={player.tempId} />
+    <RosterListItem name={player.name} key={player.tempId} value={player.tempId} />
   ));
   return (
     <table>
