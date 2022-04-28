@@ -16,11 +16,9 @@ module.exports = db => {
       const { data } = await axios(rosterUrl);
       const $ = cheerio.load(data);
       let content = [];
-      let idCounter = 1;
-      $('tbody[id="rosterListingTableBodyPlayer"] > tr').each(function () {
+      $('tbody[id="rosterListingTableBodyPlayer"] > tr').each(function (id) {
         let name = $(this).find('td[class="name"] > a').text();
-        content.push({ name, number: 0, isStarting: false, isGoalkeeper: false, isCaptain: false, tempId: idCounter });
-        idCounter++;
+        content.push({ name: name.replace(/^\d[^A-Za-z]*/, ''), number: 0, isStarting: false, isGoalkeeper: false, isCaptain: false, id });
       });
       res.status(200).json(content);
     } catch (error) {

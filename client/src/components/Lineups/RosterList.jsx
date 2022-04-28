@@ -1,8 +1,10 @@
 import RosterListItem from './RosterListItem';
+import { useState } from 'react';
 
 const RosterList = ({ roster }) => {
+  const [startingXI, setStartingXI] = useState([]);
   const mappedRoster = roster.map((player) => (
-    <RosterListItem name={player.name} key={player.tempId} value={player.tempId} />
+    <RosterListItem name={player.name} key={player.id} value={player.id} />
   ));
   return (
     <table>
