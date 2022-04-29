@@ -11,19 +11,31 @@ const RosterListItem = ({
     <tr>
       <td>
         <input
-          disabled={!startingXI.includes(value) && startingXI.length >= 11}
+          disabled={
+            startingXI.filter((player) => player.id === value).length <= 0 &&
+            startingXI.length >= 11
+          }
           type="checkbox"
           value={value}
           onClick={(e) => {
             const clickedId = parseInt(e.target.value, 10);
-            if (e.target.checked && !startingXI.includes(clickedId)) {
+            if (
+              e.target.checked &&
+              startingXI.filter((player) => player.id === clickedId).length <= 0
+            ) {
               setStartingXI((prev) => {
-                return [...prev, clickedId];
+                return [
+                  ...prev,
+                  roster.find((player) => player.id === clickedId),
+                ];
               });
             }
-            if (!e.target.checked && startingXI.includes(clickedId)) {
+            if (
+              !e.target.checked &&
+              startingXI.filter((player) => player.id === clickedId).length > 0
+            ) {
               setStartingXI((prev) => {
-                return prev.filter((id) => id !== clickedId);
+                return prev.filter((player) => player.id !== clickedId);
               });
             }
           }}
