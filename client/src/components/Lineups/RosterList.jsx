@@ -26,7 +26,7 @@ const RosterList = ({ roster, teamName }) => {
         <thead>
           <tr>
             <th>Starter?</th>
-            <th colSpan="2">More info</th>
+            <th colSpan='2'>More info</th>
             <th>Name</th>
           </tr>
         </thead>
