@@ -4,7 +4,7 @@ VALUES ('Pickering FC', true, true, 'https://www.league1ontario.com/roster/show/
 ('Woodbridge Strikers', true, true, 'https://www.league1ontario.com/roster/show/7104610?subseason=809614', 'https://www.league1ontario.com/roster/show/7098804?subseason=809616'),
 ('Windsor TFC', true, false, 'https://www.league1ontario.com/roster/show/7104609?subseason=809614', null),
 ('Vaughan Azzurri', true, true, 'https://www.league1ontario.com/roster/show/7104608?subseason=809614', 'https://www.league1ontario.com/roster/show/7098782?subseason=809616'),
-('Unionville Milliken S.C.', true, true, 'https://www.league1ontario.com/roster/show/7104607?subseason=809614', 'https://www.league1ontario.com/page/show/7098752-unionville-milliken-sc'),
+('Unionville Milliken S.C.', true, true, 'https://www.league1ontario.com/roster/show/7104607?subseason=809614', 'https://www.league1ontario.com/roster/show/7098752?subseason=809616'),
 ('St. Catherines Roma', true, true, 'https://www.league1ontario.com/roster/show/7104606?subseason=809614', 'https://www.league1ontario.com/roster/show/7098846?subseason=809616'),
 ('Simcoe County', true, true, 'https://www.league1ontario.com/roster/show/7104605?subseason=809614', 'https://www.league1ontario.com/roster/show/7098697?subseason=809616'),
 ('Sigma FC', true, false, 'https://www.league1ontario.com/roster/show/7104604?subseason=809614', null),
