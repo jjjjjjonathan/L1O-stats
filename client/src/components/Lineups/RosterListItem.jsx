@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 const RosterListItem = ({
   name,
   value,
@@ -7,6 +9,8 @@ const RosterListItem = ({
   goalkeeper,
   setGoalkeeper,
 }) => {
+  const [errorMsg, setErrorMsg] = useState('');
+
   return (
     <tr>
       <td>
@@ -42,7 +46,7 @@ const RosterListItem = ({
         />
       </td>
       <td>
-        {startingXI.includes(value) && (
+        {startingXI.filter((player) => player.id === value).length > 0 && (
           <>
             <label htmlFor="">gk?</label>
             <input
@@ -63,10 +67,28 @@ const RosterListItem = ({
         )}
       </td>
       <td>
-        {startingXI.includes(value) && (
+        {startingXI.filter((player) => player.id === value).length > 0 && (
           <>
             <label htmlFor="">#?</label>
-            <input type="number" />
+            <input
+              placeholder={errorMsg}
+              type="number"
+              onChange={(e) => {
+                const newNumber = parseInt(e.target.value, 10);
+                if (Number.isInteger(newNumber)) {
+                  setErrorMsg('');
+                  setStartingXI((prev) =>
+                    prev.map((player) =>
+                      player.id === value
+                        ? { ...player, number: newNumber }
+                        : player
+                    )
+                  );
+                } else {
+                  setErrorMsg('Cannot have a blank number');
+                }
+              }}
+            />
           </>
         )}
       </td>
