@@ -36,11 +36,11 @@ const SocialCanvas = ({ stats, text, xAxis }) => {
   return (
     <>
       <h1>Social media graphic generator: {text}</h1>
-      <div className="mx-auto mt-5 w-96">
-        <label htmlFor="">Select image</label>
+      <div className='mx-auto mt-5 w-96'>
+        <label htmlFor=''>Select image</label>
         <input
-          type="file"
-          id="imageFileInput"
+          type='file'
+          id='imageFileInput'
           onChange={(e) => {
             e.preventDefault();
             if (acceptedImageTypes.includes(e.target.files[0].type)) {
@@ -53,7 +53,7 @@ const SocialCanvas = ({ stats, text, xAxis }) => {
         />
         {graphic.length > 0 && <img src={graphic} alt={altText} />}
         {altText.length > 0 && <textarea value={altText} readOnly={true} />}
-        {uploadError && <p className="text-red-600">{uploadError}</p>}
+        {uploadError && <p className='text-red-600'>{uploadError}</p>}
       </div>
     </>
   );
