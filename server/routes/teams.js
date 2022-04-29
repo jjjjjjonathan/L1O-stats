@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 const cheerio = require('cheerio');
+const Jimp = require('jimp');
 
 module.exports = db => {
 
@@ -25,6 +26,42 @@ module.exports = db => {
       console.error(error);
       res.status(500);
     }
+  });
+
+  router.put('/lineup', async (req, res) => {
+    const { Base64, updatedXI, teamName } = req.body;
+    const splitted = Base64.split(',');
+    const buffer = Buffer.from(splitted[1], "base64");
+    let image = await Jimp.read(buffer);
+    const font = await Jimp.loadFont('./public/fonts/oswaldLineup/oswaldLineup.fnt');
+    let altText = `Starting eleven for ${teamName}. `;
+    let altTextArray = [];
+    let yAxisNumCounter = -222;
+    updatedXI.forEach((player) => {
+      image.print(font, -150, yAxisNumCounter, {
+        text: player.number.toString(10),
+        alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+        alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
+      }, 1620, 1620);
+
+      image.print(font, 725, yAxisNumCounter, {
+        text: player.name,
+        alignmentX: Jimp.HORIZONTAL_ALIGN_LEFT,
+        alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
+      }, 1620, 1620);
+
+      yAxisNumCounter += 62;
+      altTextArray.push(`${player.number.toString(10)}, ${player.name}`);
+    });
+
+    const newBase64 = await image.getBase64Async(Jimp.AUTO);
+
+    altText += `${altTextArray.join('. ')}.`;
+
+
+
+
+    res.json({ newBase64, altText });
   });
   return router;
 };

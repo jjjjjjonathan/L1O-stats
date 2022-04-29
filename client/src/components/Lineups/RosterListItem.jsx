@@ -11,6 +11,8 @@ const RosterListItem = ({
 }) => {
   const [errorMsg, setErrorMsg] = useState('');
 
+  // LOOK INTO CHANGING GOALKEEPER CHECKBOXES TO RADIO BUTTONS
+
   return (
     <tr>
       <td>

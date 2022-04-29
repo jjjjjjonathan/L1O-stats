@@ -5,6 +5,7 @@ import RosterList from './RosterList';
 
 const TeamSelect = ({ teams, selectedDivision }) => {
   const [roster, setRoster] = useState([]);
+  const [selectedTeamName, setSelectedTeamName] = useState({});
 
   const mappedTeams = teams.map((team) => (
     <TeamSelectOption key={team.id} value={team.id} name={team.name} />
@@ -26,6 +27,7 @@ const TeamSelect = ({ teams, selectedDivision }) => {
                 selectedTeam
               );
               setRoster(roster);
+              setSelectedTeamName(selectedTeam.name);
             }
           }}
         >
@@ -35,7 +37,11 @@ const TeamSelect = ({ teams, selectedDivision }) => {
           {mappedTeams}
         </select>
       </section>
-      <section>{roster.length > 0 && <RosterList roster={roster} />}</section>
+      <section>
+        {roster.length > 0 && (
+          <RosterList roster={roster} teamName={selectedTeamName} />
+        )}
+      </section>
     </>
   );
 };
