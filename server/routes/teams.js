@@ -1,16 +1,16 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const axios = require("axios");
-const cheerio = require("cheerio");
-const Jimp = require("jimp");
+const axios = require('axios');
+const cheerio = require('cheerio');
+const Jimp = require('jimp');
 
 module.exports = (db) => {
-  router.get("/", async (req, res) => {
+  router.get('/', async (req, res) => {
     const data = await db.query("SELECT * FROM teams ORDER BY teams.name;");
     res.json(data.rows);
   });
 
-  router.put("/players", async (req, res) => {
+  router.put('/players', async (req, res) => {
     const { rosterUrl } = req.body;
     try {
       const { data } = await axios(rosterUrl);
@@ -33,7 +33,7 @@ module.exports = (db) => {
     }
   });
 
-  router.put("/lineup", async (req, res) => {
+  router.put('/lineup', async (req, res) => {
     const { Base64, updatedXI, teamName } = req.body;
     const splitted = Base64.split(",");
     const buffer = Buffer.from(splitted[1], "base64");
@@ -63,7 +63,7 @@ module.exports = (db) => {
         725,
         yAxisNumCounter,
         {
-          text: player.name,
+          text: player.isCaptain ? `${player.name} ©` : player.name,
           alignmentX: Jimp.HORIZONTAL_ALIGN_LEFT,
           alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE,
         },
