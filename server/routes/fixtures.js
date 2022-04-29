@@ -14,18 +14,18 @@ module.exports = db => {
     const buffer = Buffer.from(splitted[1], "base64");
 
     let image = await Jimp.read(buffer);
-    const font = await Jimp.loadFont('./public/fonts/oswald/oswaldSocial.fnt');
-    image.print(font, xAxis, -450, {
+    const font = await Jimp.loadFont('./public/fonts/oswald/oswaldHeading.fnt');
+    image.print(font, xAxis, -433, {
       text: text.toUpperCase(),
       alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
       alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
     }, 1620, 1620);
-    image.print(font, -305, 350, {
+    image.print(font, -305, 400, {
       text: hScore,
       alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
       alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
     }, 1620, 1620);
-    image.print(font, 305, 350, {
+    image.print(font, 305, 400, {
       text: aScore,
       alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
       alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
