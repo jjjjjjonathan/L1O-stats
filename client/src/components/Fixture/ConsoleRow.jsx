@@ -42,8 +42,8 @@ const ConsoleRow = ({ fixture, label, id, validate }) => {
 
   return (
     <tr>
-      <th className="px-6 py-0">{label}</th>
-      <td className="px-6 py-0">
+      <th className='px-6 py-1'>{label}</th>
+      <td className='px-6 py-1'>
         <button
           onClick={() => validate(getStatName(label).h, valueDown.h, id)}
           className={valueDownClassesBtn}
@@ -51,8 +51,10 @@ const ConsoleRow = ({ fixture, label, id, validate }) => {
           <span className={valueDownClassesSpan}>-</span>
         </button>
       </td>
-      <td className="px-6 py-0 text-center">{fixture[getStatName(label).h]}</td>
-      <td className="px-6 py-0">
+      <td className='px-6 py-1 text-center text-xl'>
+        {fixture[getStatName(label).h]}
+      </td>
+      <td className='px-6 py-1'>
         <button
           onClick={() => validate(getStatName(label).h, valueUp.h, id)}
           className={valueUpClassesBtn}
@@ -60,7 +62,7 @@ const ConsoleRow = ({ fixture, label, id, validate }) => {
           <span className={valueUpClassesSpan}>+</span>
         </button>
       </td>
-      <td className="px-6 py-0">
+      <td className='px-6 py-1'>
         <button
           onClick={() => validate(getStatName(label).a, valueDown.a, id)}
           className={valueDownClassesBtn}
@@ -68,8 +70,10 @@ const ConsoleRow = ({ fixture, label, id, validate }) => {
           <span className={valueDownClassesSpan}>-</span>
         </button>
       </td>
-      <td className="px-6 py-2 text-center">{fixture[getStatName(label).a]}</td>
-      <td className="px-6 py-0">
+      <td className='px-6 py-1 text-center text-xl'>
+        {fixture[getStatName(label).a]}
+      </td>
+      <td className='px-6 py-1'>
         <button
           onClick={() => validate(getStatName(label).a, valueUp.a, id)}
           className={valueUpClassesBtn}
