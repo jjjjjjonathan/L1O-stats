@@ -22,11 +22,15 @@ const RosterList = ({ roster, teamName }) => {
 
   return (
     <>
-      <table>
+      <table className='table-fixed'>
         <thead>
           <tr>
             <th>Starter?</th>
-            <th colSpan='2'>More info</th>
+            {startingXI.length <= 0 ? (
+              <th colSpan='2'></th>
+            ) : (
+              <th colSpan='2'>More info</th>
+            )}
             <th>Name</th>
           </tr>
         </thead>
