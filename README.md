@@ -23,6 +23,7 @@ You can edit the score of the match in the stats section. When you select your h
 ## Tech stack
 
 **Front-end**: React, Tailwind CSS, Axios
+
 **Back-end**: Express, Axios, Cheerio, Jimp, PostgreSQL
 
 ## Future plans
