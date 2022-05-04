@@ -1,6 +1,6 @@
 # L1O-stats
 
-A stats tracker and social-media-graphic generator for [League1 Ontario](www.league1ontario.com) matches, solely to ease the workload for fellow Match Day Operations Coordinators like myself.
+A stats tracker and social-media-graphic generator for [League1 Ontario](https://www.league1ontario.com) matches, solely to ease the workload for fellow Match Day Operations Coordinators like myself.
 
 ## Stats Tracker
 
