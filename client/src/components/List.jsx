@@ -1,7 +1,10 @@
 import ListItem from './ListItem';
 
 const List = ({ divisions, teams, fixtures }) => {
-  const mappedFixtures = fixtures.map((fixture) => (
+  const sortedFixtures = [...fixtures].sort(
+    (a, b) => Date.parse(a.date) - Date.parse(b.date)
+  );
+  const mappedFixtures = sortedFixtures.map((fixture) => (
     <ListItem
       key={fixture.id}
       {...fixture}
@@ -13,7 +16,7 @@ const List = ({ divisions, teams, fixtures }) => {
   return (
     <>
       <h1>Matches</h1>
-      <table className="table-auto">
+      <table className='table-auto'>
         <thead>
           <tr>
             <th>E2E ID</th>
