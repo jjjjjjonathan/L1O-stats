@@ -1,41 +1,12 @@
-import { useState } from 'react';
-import axios from 'axios';
+import useGraphicGenerator from '../../hooks/useGraphicGenerator';
 
-const SocialCanvas = ({ stats, text, xAxis }) => {
-  const [uploadError, setUploadError] = useState('');
-  const [altText, setAltText] = useState('');
-  const acceptedImageTypes = ['image/jpeg', 'image/png'];
-  const [graphic, setGraphic] = useState('');
-
-  const generateString = (upload) => {
-    return new Promise((resolve, reject) => {
-      let reader = new FileReader();
-      reader.readAsDataURL(upload);
-      reader.onload = () => {
-        resolve(reader.result);
-      };
-      reader.onerror = reject;
-    });
-  };
-
-  const generateGraphic = async (upload, text) => {
-    let Base64 = await generateString(upload);
-    const { data } = await axios.put('/api/fixtures/score', {
-      Base64,
-      text,
-      hScore: stats.h.goals.toString(),
-      aScore: stats.a.goals.toString(),
-      hName: stats.h.name,
-      aName: stats.a.name,
-      xAxis,
-    });
-    setGraphic(data.newBase64);
-    setAltText(data.altText);
-  };
+const SocialCanvas = ({ stats, graphicMode }) => {
+  const { graphicGenerator, graphic, altText, uploadError } =
+    useGraphicGenerator(graphicMode);
 
   return (
     <>
-      <h1>Social media graphic generator: {text}</h1>
+      <h1>Social media graphic generator: {graphicGenerator.text}</h1>
       <div className='mx-auto mt-5 w-96'>
         <label htmlFor=''>Select image</label>
         <input
@@ -43,11 +14,14 @@ const SocialCanvas = ({ stats, text, xAxis }) => {
           id='imageFileInput'
           onChange={(e) => {
             e.preventDefault();
-            if (acceptedImageTypes.includes(e.target.files[0].type)) {
-              setUploadError('');
-              generateGraphic(e.target.files[0], text);
-            } else {
-              setUploadError('not an accepted file type');
+            if (graphicGenerator.validate(e.target.files[0].type)) {
+              graphicGenerator.generateGraphic(
+                e.target.files[0],
+                stats.h.goals.toString(),
+                stats.a.goals.toString(),
+                stats.h.name,
+                stats.a.name
+              );
             }
           }}
         />
