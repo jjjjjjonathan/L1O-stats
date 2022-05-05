@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 
-const useGraphicGenerator = (mode, teamName) => {
+const useGraphicGenerator = (mode) => {
   const acceptedImageTypes = ['image/jpeg', 'image/png'];
   const [graphic, setGraphic] = useState('');
   const [altText, setAltText] = useState('');
@@ -17,6 +17,60 @@ const useGraphicGenerator = (mode, teamName) => {
     });
   };
   const graphicModes = {
+    1: {
+      url: '/api/fixtures/score',
+      xAxis: -15,
+      text: 'Half-time',
+      generateGraphic: async function (upload, hScore, aScore, hName, aName) {
+        let Base64 = await generateString(upload);
+        const { data } = await axios.put(this.url, {
+          Base64,
+          text: this.text,
+          hScore,
+          aScore,
+          hName,
+          aName,
+          xAxis: this.xAxis
+        });
+        setGraphic(data.newBase64);
+        setAltText(data.altText);
+      },
+      validate: function (fileType) {
+        if (!acceptedImageTypes.includes(fileType)) {
+          setUploadError('not an accepted image type');
+          return false;
+        }
+        setUploadError('');
+        return true;
+      }
+    },
+    2: {
+      url: '/api/fixtures/score',
+      xAxis: -5,
+      text: 'Full-time',
+      generateGraphic: async function (upload, hScore, aScore, hName, aName) {
+        let Base64 = await generateString(upload);
+        const { data } = await axios.put(this.url, {
+          Base64,
+          text: this.text,
+          hScore,
+          aScore,
+          hName,
+          aName,
+          xAxis: this.xAxis
+        });
+        setGraphic(data.newBase64);
+        setAltText(data.altText);
+      },
+      validate: function (fileType) {
+        if (!acceptedImageTypes.includes(fileType)) {
+          setUploadError('not an accepted image type');
+          return false;
+        }
+        setUploadError('');
+        return true;
+      }
+    },
     3: {
       url: '/api/teams/lineup',
       prioritySort: function (a, b) {

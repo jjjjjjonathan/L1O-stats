@@ -152,10 +152,10 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
       </div>
 
       {graphicMode === 1 && (
-        <SocialCanvas stats={stats} text={'Half-time'} xAxis={-15} />
+        <SocialCanvas stats={stats} graphicMode={graphicMode} />
       )}
       {graphicMode === 2 && (
-        <SocialCanvas stats={stats} text={'Full-time'} xAxis={-5} />
+        <SocialCanvas stats={stats} graphicMode={graphicMode} />
       )}
     </div>
   );
