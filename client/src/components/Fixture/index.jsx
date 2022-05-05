@@ -56,14 +56,16 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
   const [graphicMode, setGraphicMode] = useState(null);
 
   return (
-    <>
-      <h1>
+    <div className='flex flex-col items-center justify-center'>
+      <h1 className='text-5xl my-5'>
         {findTeamName(teams, selectedFixture.home_team_id)} vs.{' '}
         {findTeamName(teams, selectedFixture.away_team_id)}
       </h1>
-      <h2>{findDivisionName(divisions, selectedFixture.division)}</h2>
-      {err.length > 0 && <p className="text-red-700">{err}</p>}
-      <table className="border-collapse border border-red-700">
+      <h2 className='text-2xl mb-5'>
+        {findDivisionName(divisions, selectedFixture.division)}
+      </h2>
+      {err.length > 0 && <p className='text-red-700'>{err}</p>}
+      <table className='border border-purple-700 border-collapse'>
         <thead>
           <tr>
             <th></th>
@@ -77,56 +79,56 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
         </thead>
         <tbody>
           <ConsoleRow
-            key="goals"
+            key='goals'
             fixture={selectedFixture}
             label={'Goals'}
             id={id}
             validate={validate}
           />
           <ConsoleRow
-            key="total shots"
+            key='total shots'
             fixture={selectedFixture}
             label={'Total Shots'}
             id={id}
             validate={validate}
           />
           <ConsoleRow
-            key="on target shots"
+            key='on target shots'
             fixture={selectedFixture}
             label={'On Target'}
             id={id}
             validate={validate}
           />
           <ConsoleRow
-            key="corners"
+            key='corners'
             fixture={selectedFixture}
             label={'Corners'}
             id={id}
             validate={validate}
           />
           <ConsoleRow
-            key="offsides"
+            key='offsides'
             fixture={selectedFixture}
             label={'Offsides'}
             id={id}
             validate={validate}
           />
           <ConsoleRow
-            key="fouls"
+            key='fouls'
             fixture={selectedFixture}
             label={'Fouls'}
             id={id}
             validate={validate}
           />
           <ConsoleRow
-            key="yellows"
+            key='yellows'
             fixture={selectedFixture}
             label={'Yellow Cards'}
             id={id}
             validate={validate}
           />
           <ConsoleRow
-            key="reds"
+            key='reds'
             fixture={selectedFixture}
             label={'Red Cards'}
             id={id}
@@ -134,8 +136,20 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
           />
         </tbody>
       </table>
-      <button onClick={() => setGraphicMode(1)}>Half-time graphic</button>
-      <button onClick={() => setGraphicMode(2)}>Full-time graphic</button>
+      <div>
+        <button
+          onClick={() => setGraphicMode(1)}
+          className='py-2.5 px-5 mr-2 mb-2 mt-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'
+        >
+          Half-time graphic
+        </button>
+        <button
+          onClick={() => setGraphicMode(2)}
+          className='py-2.5 px-5 mr-2 mb-2 mt-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'
+        >
+          Full-time graphic
+        </button>
+      </div>
 
       {graphicMode === 1 && (
         <SocialCanvas stats={stats} text={'Half-time'} xAxis={-15} />
@@ -143,7 +157,7 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
       {graphicMode === 2 && (
         <SocialCanvas stats={stats} text={'Full-time'} xAxis={-5} />
       )}
-    </>
+    </div>
   );
 };
 
