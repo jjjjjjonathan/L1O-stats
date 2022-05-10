@@ -38,12 +38,17 @@ const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, initState);
 
   const setApplicationData = async () => {
-    const [divisions, teams, fixtures] = await Promise.all([
-      axios.get('/api/divisions'),
-      axios.get('/api/teams'),
-      axios.get('/api/fixtures')
-    ]);
-    dispatch({ type: 'SET_APPLICATION_DATA', divisions, teams, fixtures });
+    try {
+      const [divisions, teams, fixtures] = await Promise.all([
+        axios.get('/api/divisions'),
+        axios.get('/api/teams'),
+        axios.get('/api/fixtures')
+      ]);
+      dispatch({ type: 'SET_APPLICATION_DATA', divisions, teams, fixtures });
+    }
+    catch (err) {
+      console.error(err);
+    }
   };
 
   useEffect(() => {

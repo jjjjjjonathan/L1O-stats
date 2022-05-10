@@ -14,20 +14,24 @@ const TeamSelect = ({ teams, selectedDivision }) => {
   return (
     <>
       <section>
-        <label htmlFor="">Select team</label>
+        <label htmlFor=''>Select team</label>
         <select
-          name="teamSelect"
-          id="teamSelect"
+          name='teamSelect'
+          id='teamSelect'
           onChange={async (e) => {
-            const teamId = parseInt(e.target.value, 10);
-            if (teamId) {
-              const selectedTeam = teams.find((team) => team.id === teamId);
-              const roster = await scrapeRosters(
-                selectedDivision,
-                selectedTeam
-              );
-              setRoster(roster);
-              setSelectedTeamName(selectedTeam.name);
+            try {
+              const teamId = parseInt(e.target.value, 10);
+              if (teamId) {
+                const selectedTeam = teams.find((team) => team.id === teamId);
+                const roster = await scrapeRosters(
+                  selectedDivision,
+                  selectedTeam
+                );
+                setRoster(roster);
+                setSelectedTeamName(selectedTeam.name);
+              }
+            } catch (err) {
+              console.error(err);
             }
           }}
         >

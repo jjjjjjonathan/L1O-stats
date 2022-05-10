@@ -23,17 +23,21 @@ const Create = ({ divisions, teams, dispatch }) => {
     e2eId,
     date
   ) => {
-    event.preventDefault();
-    const { data } = await axios.put('/api/fixtures', {
-      selectedDivision,
-      homeTeam,
-      awayTeam,
-      e2eId,
-      date,
-    });
-    dispatch({ type: 'CREATE_FIXTURE', content: data });
-    setSuccess(true);
-    setSuccessMsg(`You just created match #${data.e2e_id}`);
+    try {
+      event.preventDefault();
+      const { data } = await axios.put('/api/fixtures', {
+        selectedDivision,
+        homeTeam,
+        awayTeam,
+        e2eId,
+        date,
+      });
+      dispatch({ type: 'CREATE_FIXTURE', content: data });
+      setSuccess(true);
+      setSuccessMsg(`You just created match #${data.e2e_id}`);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -103,7 +107,7 @@ const Create = ({ divisions, teams, dispatch }) => {
       {success && (
         <>
           <p>{successMsg}</p>
-          <Link to="/">Go to list of fixtures</Link>
+          <Link to='/'>Go to list of fixtures</Link>
         </>
       )}
     </>

@@ -11,12 +11,16 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
   const selectedFixture = fixtures.find((fixture) => fixture.id === id);
 
   const updateStats = async (stat, value, fixtureId) => {
-    const { data } = await axios.post('/api/fixtures', {
-      stat,
-      value,
-      fixtureId,
-    });
-    dispatch({ type: 'UPDATE_FIXTURE', content: data });
+    try {
+      const { data } = await axios.post('/api/fixtures', {
+        stat,
+        value,
+        fixtureId,
+      });
+      dispatch({ type: 'UPDATE_FIXTURE', content: data });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const [err, setErrMsg] = useState('');
