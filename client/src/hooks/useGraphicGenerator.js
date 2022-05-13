@@ -22,18 +22,22 @@ const useGraphicGenerator = (mode) => {
       xAxis: -10,
       text: 'Half-time',
       generateGraphic: async function (upload, hScore, aScore, hName, aName) {
-        let Base64 = await generateString(upload);
-        const { data } = await axios.put(this.url, {
-          Base64,
-          text: this.text,
-          hScore,
-          aScore,
-          hName,
-          aName,
-          xAxis: this.xAxis
-        });
-        setGraphic(data.newBase64);
-        setAltText(data.altText);
+        try {
+          let Base64 = await generateString(upload);
+          const { data } = await axios.put(this.url, {
+            Base64,
+            text: this.text,
+            hScore,
+            aScore,
+            hName,
+            aName,
+            xAxis: this.xAxis
+          });
+          setGraphic(data.newBase64);
+          setAltText(data.altText);
+        } catch (err) {
+          console.error(err);
+        }
       },
       validate: function (fileType) {
         if (!acceptedImageTypes.includes(fileType)) {
@@ -49,18 +53,22 @@ const useGraphicGenerator = (mode) => {
       xAxis: 0,
       text: 'Full-time',
       generateGraphic: async function (upload, hScore, aScore, hName, aName) {
-        let Base64 = await generateString(upload);
-        const { data } = await axios.put(this.url, {
-          Base64,
-          text: this.text,
-          hScore,
-          aScore,
-          hName,
-          aName,
-          xAxis: this.xAxis
-        });
-        setGraphic(data.newBase64);
-        setAltText(data.altText);
+        try {
+          let Base64 = await generateString(upload);
+          const { data } = await axios.put(this.url, {
+            Base64,
+            text: this.text,
+            hScore,
+            aScore,
+            hName,
+            aName,
+            xAxis: this.xAxis
+          });
+          setGraphic(data.newBase64);
+          setAltText(data.altText);
+        } catch (err) {
+          console.error(err);
+        }
       },
       validate: function (fileType) {
         if (!acceptedImageTypes.includes(fileType)) {
@@ -83,14 +91,18 @@ const useGraphicGenerator = (mode) => {
         return a.number - b.number;
       },
       generateGraphic: async function (upload, updatedXI, teamName) {
-        let Base64 = await generateString(upload);
-        const { data } = await axios.put(this.url, {
-          Base64,
-          updatedXI,
-          teamName
-        });
-        setGraphic(data.newBase64);
-        setAltText(data.altText);
+        try {
+          let Base64 = await generateString(upload);
+          const { data } = await axios.put(this.url, {
+            Base64,
+            updatedXI,
+            teamName
+          });
+          setGraphic(data.newBase64);
+          setAltText(data.altText);
+        } catch (err) {
+          console.error(err);
+        }
       },
       validate: function (startingXI, uploadType) {
         if (startingXI.length !== 11) {
