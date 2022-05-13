@@ -6,7 +6,7 @@ const Jimp = require('jimp');
 
 module.exports = (db) => {
   router.get('/', async (req, res) => {
-    const data = await db.query("SELECT * FROM teams ORDER BY teams.name;");
+    const data = await db.query('SELECT * FROM teams ORDER BY teams.name;');
     res.json(data.rows);
   });
 
@@ -19,11 +19,11 @@ module.exports = (db) => {
       $('tbody[id="rosterListingTableBodyPlayer"] > tr').each(function (id) {
         let name = $(this).find('td[class="name"] > a').text();
         content.push({
-          name: name.replace(/^\d[^A-Za-z]*/, ""),
+          name: name.replace(/^\d[^A-Za-z]*/, ''),
           number: 0,
           isGoalkeeper: false,
           isCaptain: false,
-          id,
+          id
         });
       });
       res.status(200).json(content);
@@ -35,11 +35,11 @@ module.exports = (db) => {
 
   router.put('/lineup', async (req, res) => {
     const { Base64, updatedXI, teamName } = req.body;
-    const splitted = Base64.split(",");
-    const buffer = Buffer.from(splitted[1], "base64");
+    const splitted = Base64.split(',');
+    const buffer = Buffer.from(splitted[1], 'base64');
     let image = await Jimp.read(buffer);
     const font = await Jimp.loadFont(
-      "./public/fonts/oswaldLineup/oswaldLineup.fnt"
+      './public/fonts/oswaldLineup/oswaldXI.fnt'
     );
     let altText = `Starting eleven for ${teamName}. `;
     let altTextArray = [];
@@ -52,7 +52,7 @@ module.exports = (db) => {
         {
           text: player.number.toString(10),
           alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
-          alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE,
+          alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
         },
         1620,
         1620
@@ -65,7 +65,7 @@ module.exports = (db) => {
         {
           text: player.isCaptain ? `${player.name} ©` : player.name,
           alignmentX: Jimp.HORIZONTAL_ALIGN_LEFT,
-          alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE,
+          alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
         },
         1620,
         1620
@@ -77,7 +77,7 @@ module.exports = (db) => {
 
     const newBase64 = await image.getBase64Async(Jimp.AUTO);
 
-    altText += `${altTextArray.join(". ")}.`;
+    altText += `${altTextArray.join('. ')}.`;
 
     res.json({ newBase64, altText });
   });
