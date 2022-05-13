@@ -19,7 +19,7 @@ const useGraphicGenerator = (mode) => {
   const graphicModes = {
     1: {
       url: '/api/fixtures/score',
-      xAxis: -15,
+      xAxis: -10,
       text: 'Half-time',
       generateGraphic: async function (upload, hScore, aScore, hName, aName) {
         let Base64 = await generateString(upload);
@@ -46,7 +46,7 @@ const useGraphicGenerator = (mode) => {
     },
     2: {
       url: '/api/fixtures/score',
-      xAxis: -5,
+      xAxis: 0,
       text: 'Full-time',
       generateGraphic: async function (upload, hScore, aScore, hName, aName) {
         let Base64 = await generateString(upload);
@@ -84,7 +84,11 @@ const useGraphicGenerator = (mode) => {
       },
       generateGraphic: async function (upload, updatedXI, teamName) {
         let Base64 = await generateString(upload);
-        const { data } = await axios.put(this.url, { Base64, updatedXI, teamName });
+        const { data } = await axios.put(this.url, {
+          Base64,
+          updatedXI,
+          teamName
+        });
         setGraphic(data.newBase64);
         setAltText(data.altText);
       },
@@ -102,7 +106,12 @@ const useGraphicGenerator = (mode) => {
       }
     }
   };
-  return { graphicGenerator: graphicModes[mode], graphic, altText, uploadError };
+  return {
+    graphicGenerator: graphicModes[mode],
+    graphic,
+    altText,
+    uploadError
+  };
 };
 
 export default useGraphicGenerator;
