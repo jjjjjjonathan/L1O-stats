@@ -2,6 +2,7 @@ import { useReducer, useEffect } from 'react';
 import axios from 'axios';
 
 const useApplicationData = () => {
+  console.log(axios);
   const reducers = {
     'SET_APPLICATION_DATA'(state, action) {
       return {
