@@ -63,7 +63,7 @@ module.exports = (db) => {
         725,
         yAxisNumCounter,
         {
-          text: player.isCaptain ? `${player.name} ©` : player.name,
+          text: player.isGoalkeeper ? `${player.name} (GK)` : player.name,
           alignmentX: Jimp.HORIZONTAL_ALIGN_LEFT,
           alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
         },
