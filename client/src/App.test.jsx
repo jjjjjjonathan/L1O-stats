@@ -1,163 +1,125 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
-import mockedAxios from 'axios';
-// import { rest } from 'msw';
-// import { setupServer } from 'msw/node';
-// import axios from './__mocks__/axios'
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
 
-// const fixtures = {
-//   divisions: [
-//     {
-//       id: 1,
-//       name: `Men's Division`
-//     },
-//     {
-//       id: 2,
-//       name: `Women's Division`
-//     }
-//   ],
+const fixtures = {
+  divisions: [
+    {
+      id: 1,
+      name: `Men's Division`
+    },
+    {
+      id: 2,
+      name: `Women's Division`
+    }
+  ],
 
-//   teams: [
-//     {
-//       id: 12,
-//       name: 'Alliance United FC',
-//       mens: true,
-//       womens: true,
-//       mens_roster_url: 'https://www.league1ontario.com/roster/show/7104584?subseason=809614',
-//       womens_roster_url: 'https://www.league1ontario.com/roster/show/7098640?subseason=809616'
-//     },
-//     {
-//       id: 18,
-//       name: 'Guelph Union',
-//       mens: false,
-//       womens: true,
-//       mens_roster_url: null,
-//       womens_roster_url: 'https://www.league1ontario.com/roster/show/7098669?subseason=809616'
-//     },
-//     {
-//       id: 17,
-//       name: 'Guelph United',
-//       mens: true,
-//       womens: false,
-//       mens_roster_url: 'https://www.league1ontario.com/roster/show/7104596?subseason=809614',
-//       womens_roster_url: null
-//     }
-//   ],
+  teams: [
+    {
+      id: 12,
+      name: 'Alliance United FC',
+      mens: true,
+      womens: true,
+      mens_roster_url: 'https://www.league1ontario.com/roster/show/7104584?subseason=809614',
+      womens_roster_url: 'https://www.league1ontario.com/roster/show/7098640?subseason=809616'
+    },
+    {
+      id: 18,
+      name: 'Guelph Union',
+      mens: false,
+      womens: true,
+      mens_roster_url: null,
+      womens_roster_url: 'https://www.league1ontario.com/roster/show/7098669?subseason=809616'
+    },
+    {
+      id: 17,
+      name: 'Guelph United',
+      mens: true,
+      womens: false,
+      mens_roster_url: 'https://www.league1ontario.com/roster/show/7104596?subseason=809614',
+      womens_roster_url: null
+    }
+  ],
 
-//   fixtures: [
-//     {
-//       id: 1,
-//       e2e_id: 1,
-//       division: 1,
-//       home_team_id: 12,
-//       away_team_id: 17,
-//       home_goals: 0,
-//       away_goals: 0,
-//       home_total_shots: 0,
-//       away_total_shots: 0,
-//       home_on_target: 0,
-//       away_on_target: 0,
-//       home_corners: 0,
-//       away_corners: 0,
-//       home_offsides: 0,
-//       away_offsides: 0,
-//       home_fouls: 0,
-//       away_fouls: 0,
-//       home_yellows: 0,
-//       away_yellows: 0,
-//       home_reds: 0,
-//       away_reds: 0,
-//     },
-//     {
-//       id: 2,
-//       e2e_id: 2,
-//       division: 2,
-//       home_team_id: 18,
-//       away_team_id: 12,
-//       home_goals: 0,
-//       away_goals: 0,
-//       home_total_shots: 0,
-//       away_total_shots: 0,
-//       home_on_target: 0,
-//       away_on_target: 0,
-//       home_corners: 0,
-//       away_corners: 0,
-//       home_offsides: 0,
-//       away_offsides: 0,
-//       home_fouls: 0,
-//       away_fouls: 0,
-//       home_yellows: 0,
-//       away_yellows: 0,
-//       home_reds: 0,
-//       away_reds: 0,
-//     }
-//   ]
-// };
+  fixtures: [
+    {
+      id: 1,
+      e2e_id: 1,
+      division: 1,
+      home_team_id: 12,
+      away_team_id: 17,
+      home_goals: 0,
+      away_goals: 0,
+      home_total_shots: 0,
+      away_total_shots: 0,
+      home_on_target: 0,
+      away_on_target: 0,
+      home_corners: 0,
+      away_corners: 0,
+      home_offsides: 0,
+      away_offsides: 0,
+      home_fouls: 0,
+      away_fouls: 0,
+      home_yellows: 0,
+      away_yellows: 0,
+      home_reds: 0,
+      away_reds: 0,
+    },
+    {
+      id: 2,
+      e2e_id: 2,
+      division: 2,
+      home_team_id: 18,
+      away_team_id: 12,
+      home_goals: 0,
+      away_goals: 0,
+      home_total_shots: 0,
+      away_total_shots: 0,
+      home_on_target: 0,
+      away_on_target: 0,
+      home_corners: 0,
+      away_corners: 0,
+      home_offsides: 0,
+      away_offsides: 0,
+      home_fouls: 0,
+      away_fouls: 0,
+      home_yellows: 0,
+      away_yellows: 0,
+      home_reds: 0,
+      away_reds: 0,
+    }
+  ]
+};
 
-// // export default {
-// //   get: jest.fn().mockImplementation((url) => {
-// //     console.log(url);
-// //     if (url === '/api/divisions') {
-// //       return Promise.resolve({
-// //         status: 200,
-// //         statusText: 'OK',
-// //         data: fixtures.divisions
-// //       });
-// //     }
-// //     if (url === '/api/teams') {
-// //       return Promise.resolve({
-// //         status: 200,
-// //         statusText: 'OK',
-// //         data: fixtures.teams
-// //       });
-// //     }
-// //     if (url === '/api/fixtures') {
-// //       return Promise.resolve({
-// //         status: 200,
-// //         statusText: 'OK',
-// //         data: fixtures.fixtures
-// //       });
-// //     }
-// //   })
-// // };
+const divisionsResponse = rest.get('/api/divisions', (req, res, ctx) => {
+  return res(
+    ctx.status(200),
+    ctx.json(fixtures.divisions)
+  )
+})
 
-// const divisionsResponse = rest.get('/api/divisions', (req, res, ctx) => {
-//   return res(
-//     ctx.json([{
-//       status: 200,
-//       statusText: 'OK',
-//       data: fixtures.data
-//     }])
-//   )
-// })
+const teamsResponse = rest.get('/api/teams', (req, res, ctx) => {
+  return res(
+    ctx.status(200),
+    ctx.json(fixtures.teams)
+  )
+})
 
-// const teamsResponse = rest.get('/api/teams', (req, res, ctx) => {
-//   return res(
-//     ctx.json([{
-//       status: 200,
-//       statusText: 'OK',
-//       data: fixtures.teams
-//     }])
-//   )
-// })
+const fixturesResponse = rest.get('/api/fixtures', (req, res, ctx) => {
+  return res(
+    ctx.status(200),
+    ctx.json(fixtures.fixtures)
+  )
+})
 
-// const fixturesResponse = rest.get('/api/fixtures', (req, res, ctx) => {
-//   return res(
-//     ctx.json([{
-//       status: 200,
-//       statusText: 'OK',
-//       data: fixtures.fixtures
-//     }])
-//   )
-// })
+const handlers = [divisionsResponse, teamsResponse, fixturesResponse]
 
-// const handlers = [divisionsResponse, teamsResponse, fixturesResponse]
+const server = new setupServer(...handlers);
 
-// const server = new setupServer(...handlers);
-
-// beforeAll(() => server.listen());
-// afterEach(() => server.resetHandlers());
-// afterAll(() => server.close());
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 
 test('it should Loading if state is not set', async () => {
   render(<App />)
@@ -165,18 +127,8 @@ test('it should Loading if state is not set', async () => {
   expect(teamName).toBeVisible()
 })
 
-// describe('testing my test', () => {
-//   it('renders without crashing', async () => {
-//     act(() => {
-//       render(<App />)
-//       // const { getByText } = render(<App />)
-//       // return waitFor(() => getByText('Alliance United FC'))
-//       //   .then(() => {
-//       //     expect(getByText("Alliance United FC")).toBeInTheDocument();
-//       //   })
-//     })
-//     await waitFor(() => {
-//       expect(screen.getByText("Alliance United FC")).toBeInTheDocument()
-//     })
-//   });
-// });
+test('it should Matches if state is set', async () => {
+  render(<App />)
+  const teamName = await screen.findByText('Matches')
+  expect(teamName).toBeVisible()
+})
