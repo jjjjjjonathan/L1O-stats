@@ -88,28 +88,28 @@ const fixtures = {
 };
 
 export default {
-  get: jest.fn().mockImplementation((url) => {
-    console.log(url);
-    if (url === '/api/divisions') {
-      return Promise.resolve({
-        status: 200,
-        statusText: 'OK',
-        data: fixtures.divisions
-      });
-    }
-    if (url === '/api/teams') {
-      return Promise.resolve({
-        status: 200,
-        statusText: 'OK',
-        data: fixtures.teams
-      });
-    }
-    if (url === '/api/fixtures') {
-      return Promise.resolve({
-        status: 200,
-        statusText: 'OK',
-        data: fixtures.fixtures
-      });
-    }
-  })
+  get: jest.fn().mockResolvedValue()
+  // 'get': jest.fn((url) => {
+  //   if (url === '/api/divisions') {
+  //     return Promise.resolve({
+  //       status: 200,
+  //       statusText: 'OK',
+  //       data: fixtures.divisions
+  //     });
+  //   }
+  //   if (url === '/api/teams') {
+  //     return Promise.resolve({
+  //       status: 200,
+  //       statusText: 'OK',
+  //       data: fixtures.teams
+  //     });
+  //   }
+  //   if (url === '/api/fixtures') {
+  //     return Promise.resolve({
+  //       status: 200,
+  //       statusText: 'OK',
+  //       data: fixtures.fixtures
+  //     });
+  //   }
+  // })
 };

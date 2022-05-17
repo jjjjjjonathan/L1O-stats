@@ -7,7 +7,6 @@ import Navbar from './components/Navbar';
 import Lineups from './components/Lineups';
 
 function App() {
-  console.log('render app')
   const { state, dispatch } = useApplicationData();
   return state.isReady ? (
     <div className="min-h-screen flex-grow bg-gray-300 font-sans font-semibold">
@@ -45,7 +44,7 @@ function App() {
       </Router>
     </div>
   ) : (
-    <></>
+    <p>Loading</p>
   );
 }
 
