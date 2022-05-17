@@ -47,11 +47,11 @@ module.exports = (db) => {
     updatedXI.forEach((player) => {
       image.print(
         font,
-        -150,
+        -950,
         yAxisNumCounter,
         {
           text: player.number.toString(10),
-          alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+          alignmentX: Jimp.HORIZONTAL_ALIGN_RIGHT,
           alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
         },
         1620,
