@@ -10,8 +10,10 @@ test('it renders without crashing', async () => {
   expect(mensButton).toBeVisible()
 })
 
-test('it shows mens teams after clicking on mens division', async () => {
+test('it shows form after clicking on a division', async () => {
   render(<Create divisions={fixtures.divisions} teams={fixtures.teams} />)
   const mensButton = await screen.findByText(`Men's Division`)
   fireEvent.click(mensButton)
+  const e2eId = await screen.findByText('Select E2E game ID')
+  expect(e2eId).toBeVisible()
 })
