@@ -39,7 +39,7 @@ module.exports = (db) => {
     const buffer = Buffer.from(splitted[1], 'base64');
     let graphicBg = await Jimp.read(buffer);
     const font = await Jimp.loadFont(
-      './public/fonts/oswaldLineup/oswaldXI.fnt'
+      './public/fonts/oswaldLineup/oswaldLineup.fnt'
     );
     let altText = `Starting eleven for ${teamName}. `;
     let altTextArray = [];
@@ -58,15 +58,15 @@ module.exports = (db) => {
       }
     });
 
-    let playerNums = new Jimp(longestNum, 682, 0xFFFFFF00, (err, playerNums) => {
+    let playerNums = new Jimp(longestNum, 800, 0xFFFFFF00, (err, playerNums) => {
       if (err) throw err;
     });
 
-    let playerNames = new Jimp(longestName, 682, 0xFFFFFF00, (err, playerNames) => {
+    let playerNames = new Jimp(longestName, 900, 0xFFFFFF00, (err, playerNames) => {
       if (err) throw err;
     });
 
-    let image = new Jimp(longestName + longestNum + 50, 682, 0xFFFFFF00, (err, image) => {
+    let image = new Jimp(longestName + longestNum + 50, 800, 0xFFFFFF00, (err, image) => {
       if (err) throw err;
     });
     mappedXI.forEach((player) => {
@@ -80,7 +80,7 @@ module.exports = (db) => {
           alignmentY: Jimp.VERTICAL_ALIGN_TOP
         },
         longestNum,
-        682
+        800
       );
 
       playerNames.print(
@@ -93,7 +93,7 @@ module.exports = (db) => {
           alignmentY: Jimp.VERTICAL_ALIGN_TOP
         },
         longestName,
-        682
+        1000
       );
 
       yAxisNumCounter += 62;
@@ -102,7 +102,7 @@ module.exports = (db) => {
 
     image.composite(playerNums, 0, 0);
     image.composite(playerNames, longestNum + 50, 0);
-    image.contain(1620, 682, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
+    image.contain(1620, 800, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
     graphicBg.composite(image, 0, 555);
 
     const newBase64 = await graphicBg.getBase64Async(Jimp.AUTO);
