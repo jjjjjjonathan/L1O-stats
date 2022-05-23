@@ -44,7 +44,9 @@ module.exports = (db) => {
     let altText = `Starting eleven for ${teamName}. `;
     let altTextArray = [];
     let yAxisNumCounter = 0;
-    const mappedXI = updatedXI.map((player) => player.isGoalkeeper ? { ...player, name: `${player.name} (GK)` } : player);
+    const mappedXI = updatedXI.map((player) =>
+      player.isGoalkeeper ? { ...player, name: `${player.name} (GK)` } : player
+    );
     let longestName = 0;
     let longestNum = 0;
     mappedXI.forEach((player) => {
@@ -58,18 +60,33 @@ module.exports = (db) => {
       }
     });
 
-    let playerNums = new Jimp(longestNum, 800, 0xFFFFFF00, (err, playerNums) => {
-      if (err) throw err;
-    });
+    let playerNums = new Jimp(
+      longestNum,
+      800,
+      0xffffff00,
+      (err, playerNums) => {
+        if (err) throw err;
+      }
+    );
 
-    let playerNames = new Jimp(longestName, 900, 0xFFFFFF00, (err, playerNames) => {
-      if (err) throw err;
-    });
+    let playerNames = new Jimp(
+      longestName,
+      900,
+      0xffffff00,
+      (err, playerNames) => {
+        if (err) throw err;
+      }
+    );
 
-    let image = new Jimp(longestName + longestNum + 50, 800, 0xFFFFFF00, (err, image) => {
-      if (err) throw err;
-    });
-    mappedXI.forEach((player) => {
+    let image = new Jimp(
+      longestName + longestNum + 50,
+      800,
+      0xffffff00,
+      (err, image) => {
+        if (err) throw err;
+      }
+    );
+    updatedXI.forEach((player) => {
       playerNums.print(
         font,
         0,
@@ -88,7 +105,7 @@ module.exports = (db) => {
         0,
         yAxisNumCounter,
         {
-          text: player.name,
+          text: player.isGoalkeeper ? `${player.name} (GK)` : player.name,
           alignmentX: Jimp.HORIZONTAL_ALIGN_LEFT,
           alignmentY: Jimp.VERTICAL_ALIGN_TOP
         },
@@ -102,7 +119,11 @@ module.exports = (db) => {
 
     image.composite(playerNums, 0, 0);
     image.composite(playerNames, longestNum + 50, 0);
-    image.contain(1620, 800, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
+    image.contain(
+      1620,
+      800,
+      Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE
+    );
     graphicBg.composite(image, 0, 555);
 
     const newBase64 = await graphicBg.getBase64Async(Jimp.AUTO);
