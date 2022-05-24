@@ -6,6 +6,7 @@ CREATE TABLE teams (
   womens BOOLEAN NOT NULL,
   mens_roster_url TEXT,
   womens_roster_url TEXT,
+  graphic_colour VARCHAR(255) NOT NULL,
   created_at TIMESTAMP default now(),
   updated_at TIMESTAMP default now()
 );
