@@ -41,9 +41,16 @@ module.exports = (db) => {
     let graphicBg = await Jimp.read(buffer);
     const teamColor = tinycolor(graphicColour);
     const white = tinycolor('#FFFFFF');
-    const font = tinycolor.isReadable(teamColor, white, { level: 'AA', size: 'small' }) ? await Jimp.loadFont(
-      './public/fonts/oswaldLineup/oswaldRegularWhite.fnt'
-    ) : await Jimp.loadFont('./public/fonts/oswaldLineup/oswaldRegularBlack.fnt');
+    const font = tinycolor.isReadable(teamColor, white, {
+      level: 'AA',
+      size: 'small'
+    })
+      ? await Jimp.loadFont(
+          './public/fonts/oswaldLineup/oswaldRegularWhite2.fnt'
+        )
+      : await Jimp.loadFont(
+          './public/fonts/oswaldLineup/oswaldRegularBlack.fnt'
+        );
     let altText = `Starting eleven for ${teamName}. `;
     let altTextArray = [];
     let yAxisNumCounter = 0;
