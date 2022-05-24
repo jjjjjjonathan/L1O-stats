@@ -90,13 +90,14 @@ const useGraphicGenerator = (mode) => {
         }
         return a.number - b.number;
       },
-      generateGraphic: async function (upload, updatedXI, teamName) {
+      generateGraphic: async function (upload, updatedXI, teamName, graphicColour) {
         try {
           let Base64 = await generateString(upload);
           const { data } = await axios.put(this.url, {
             Base64,
             updatedXI,
-            teamName
+            teamName,
+            graphicColour
           });
           setGraphic(data.newBase64);
           setAltText(data.altText);

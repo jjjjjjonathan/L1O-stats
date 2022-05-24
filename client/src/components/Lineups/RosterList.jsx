@@ -2,7 +2,7 @@ import RosterListItem from './RosterListItem';
 import { useState } from 'react';
 import LineupCanvas from './LineupCanvas';
 
-const RosterList = ({ roster, teamName }) => {
+const RosterList = ({ roster, teamName, graphicColour }) => {
   const [startingXI, setStartingXI] = useState([]);
   const [goalkeeper, setGoalkeeper] = useState(null);
   const mappedRoster = roster.map((player) => (
@@ -40,6 +40,7 @@ const RosterList = ({ roster, teamName }) => {
         startingXI={startingXI}
         goalkeeper={goalkeeper}
         teamName={teamName}
+        graphicColour={graphicColour}
       />
     </>
   );

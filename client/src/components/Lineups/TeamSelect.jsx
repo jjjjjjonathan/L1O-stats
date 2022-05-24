@@ -6,6 +6,7 @@ import RosterList from './RosterList';
 const TeamSelect = ({ teams, selectedDivision }) => {
   const [roster, setRoster] = useState([]);
   const [selectedTeamName, setSelectedTeamName] = useState({});
+  const [graphicColour, setGraphicColour] = useState('');
 
   const mappedTeams = teams.map((team) => (
     <TeamSelectOption key={team.id} value={team.id} name={team.name} />
@@ -29,6 +30,7 @@ const TeamSelect = ({ teams, selectedDivision }) => {
                 );
                 setRoster(roster);
                 setSelectedTeamName(selectedTeam.name);
+                setGraphicColour(selectedTeam.graphic_colour);
               }
             } catch (err) {
               console.error(err);
@@ -43,7 +45,7 @@ const TeamSelect = ({ teams, selectedDivision }) => {
       </section>
       <section>
         {roster.length > 0 && (
-          <RosterList roster={roster} teamName={selectedTeamName} />
+          <RosterList roster={roster} teamName={selectedTeamName} graphicColour={graphicColour} />
         )}
       </section>
     </>

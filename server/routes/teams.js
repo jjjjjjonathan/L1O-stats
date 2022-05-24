@@ -3,6 +3,7 @@ const router = express.Router();
 const axios = require('axios');
 const cheerio = require('cheerio');
 const Jimp = require('jimp');
+const tinycolor = require('tinycolor2');
 
 module.exports = (db) => {
   router.get('/', async (req, res) => {
@@ -34,13 +35,15 @@ module.exports = (db) => {
   });
 
   router.put('/lineup', async (req, res) => {
-    const { Base64, updatedXI, teamName } = req.body;
+    const { Base64, updatedXI, teamName, graphicColour } = req.body;
     const splitted = Base64.split(',');
     const buffer = Buffer.from(splitted[1], 'base64');
     let graphicBg = await Jimp.read(buffer);
-    const font = await Jimp.loadFont(
-      './public/fonts/oswaldLineup/oswaldLineup.fnt'
-    );
+    const teamColor = tinycolor(graphicColour);
+    const white = tinycolor('#FFFFFF');
+    const font = tinycolor.isReadable(teamColor, white, { level: 'AA', size: 'small' }) ? await Jimp.loadFont(
+      './public/fonts/oswaldLineup/oswaldRegularWhite.fnt'
+    ) : await Jimp.loadFont('./public/fonts/oswaldLineup/oswaldRegularBlack.fnt');
     let altText = `Starting eleven for ${teamName}. `;
     let altTextArray = [];
     let yAxisNumCounter = 0;

@@ -1,6 +1,6 @@
 import useGraphicGenerator from '../../hooks/useGraphicGenerator';
 
-const LineupCanvas = ({ startingXI, goalkeeper, teamName }) => {
+const LineupCanvas = ({ startingXI, goalkeeper, teamName, graphicColour }) => {
   const { graphicGenerator, graphic, altText, uploadError } =
     useGraphicGenerator(3);
   return (
@@ -24,7 +24,8 @@ const LineupCanvas = ({ startingXI, goalkeeper, teamName }) => {
               graphicGenerator.generateGraphic(
                 e.target.files[0],
                 updatedXI,
-                teamName
+                teamName,
+                graphicColour
               );
             }
           }}
