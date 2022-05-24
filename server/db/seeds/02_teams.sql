@@ -1,8 +1,8 @@
 INSERT INTO teams (name, mens, womens, mens_roster_url, womens_roster_url, graphic_colour)
 VALUES ('Pickering FC', true, true, 'https://www.league1ontario.com/roster/show/7104601?subseason=809614', 'https://www.league1ontario.com/roster/show/7098694?subseason=809616', '#404040'),
 ('BVB IA Waterloo', true, true, 'https://www.league1ontario.com/roster/show/7104611?subseason=809614', 'https://www.league1ontario.com/roster/show/7098798?subseason=809616', '#D6C200'),
-('Woodbridge Strikers', true, true, 'https://www.league1ontario.com/roster/show/7104610?subseason=809614', 'https://www.league1ontario.com/roster/show/7098804?subseason=809616'),
-('Windsor TFC', true, false, 'https://www.league1ontario.com/roster/show/7104609?subseason=809614', null, '#24469B'),
+('Woodbridge Strikers', true, true, 'https://www.league1ontario.com/roster/show/7104610?subseason=809614', 'https://www.league1ontario.com/roster/show/7098804?subseason=809616', '#24469B'),
+('Windsor TFC', true, false, 'https://www.league1ontario.com/roster/show/7104609?subseason=809614', null, '#9D1007'),
 ('Vaughan Azzurri', true, true, 'https://www.league1ontario.com/roster/show/7104608?subseason=809614', 'https://www.league1ontario.com/roster/show/7098782?subseason=809616', '#C5271D'),
 ('Unionville Milliken S.C.', true, true, 'https://www.league1ontario.com/roster/show/7104607?subseason=809614', 'https://www.league1ontario.com/roster/show/7098752?subseason=809616', '#C11A10'),
 ('St. Catherines Roma', true, true, 'https://www.league1ontario.com/roster/show/7104606?subseason=809614', 'https://www.league1ontario.com/roster/show/7098846?subseason=809616', '#643538'),
