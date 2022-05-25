@@ -13,7 +13,7 @@ const List = ({ divisions, teams, fixtures }) => {
     />
   ));
 
-  return (
+  return fixtures.length > 0 ? (
     <>
       <h1>Matches</h1>
       <table className='table-auto'>
@@ -29,7 +29,8 @@ const List = ({ divisions, teams, fixtures }) => {
         <tbody>{mappedFixtures}</tbody>
       </table>
     </>
-  );
+  ) :
+    <p>No fixtures, click on "Create a fixture" in the navigation bar to add some</p>;
 };
 
 export default List;
