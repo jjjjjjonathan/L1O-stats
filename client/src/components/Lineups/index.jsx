@@ -7,26 +7,31 @@ const Lineups = ({ divisions, teams }) => {
   const womensTeams = teams.filter((team) => team.womens);
 
   return (
-    <>
-      <button
-        value={divisions[0].id}
-        onClick={() => setSelectedDivision(divisions[0].id)}
-      >
-        {divisions[0].name}
-      </button>
-      <button
-        value={divisions[1].id}
-        onClick={() => setSelectedDivision(divisions[1].id)}
-      >
-        {divisions[1].name}
-      </button>
+    <div className='flex flex-col items-center'>
+      <div>
+        <button
+          value={divisions[0].id}
+          onClick={() => setSelectedDivision(divisions[0].id)}
+          className='btn btn-primary ml-4 my-6'
+        >
+          {divisions[0].name}
+        </button>
+        <button
+          value={divisions[1].id}
+          onClick={() => setSelectedDivision(divisions[1].id)}
+          className='btn btn-primary ml-4 my-6'
+        >
+          {divisions[1].name}
+        </button>
+
+      </div>
       {selectedDivision === 1 && (
         <TeamSelect teams={mensTeams} selectedDivision={selectedDivision} />
       )}
       {selectedDivision === 2 && (
         <TeamSelect teams={womensTeams} selectedDivision={selectedDivision} />
       )}
-    </>
+    </div>
   );
 };
 

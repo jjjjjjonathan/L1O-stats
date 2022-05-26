@@ -5,8 +5,9 @@ const LineupCanvas = ({ startingXI, goalkeeper, teamName, graphicColour }) => {
     useGraphicGenerator(3);
   return (
     <>
-      <h1>Lineup graphic generator</h1>
-      <div className='mx-auto mt-5 w-96'>
+
+      <div className='mx-auto'>
+        <h1 className='text-center text-2xl'>Lineup graphic generator</h1>
         <label htmlFor=''>Select image</label>
         <input
           type='file'

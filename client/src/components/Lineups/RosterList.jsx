@@ -18,31 +18,39 @@ const RosterList = ({ roster, teamName, graphicColour }) => {
     />
   ));
 
-  // LOOK INTO CHANGING GOALKEEPER CHECKBOXES TO RADIO BUTTONS
+  //  lg:flex-row lg:justify-between lg:w-full
 
   return (
-    <form>
-      <table className='table-fixed'>
-        <thead>
-          <tr>
-            <th>Starter?</th>
-            {startingXI.length <= 0 ? (
-              <th colSpan='2'></th>
-            ) : (
-              <th colSpan='2'>More info</th>
-            )}
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>{mappedRoster}</tbody>
-      </table>
+    <div className='flex flex-col'>
+      <form>
+        <table className='table-fixed'>
+          <thead>
+            <tr>
+              <th className='w-1/4'>Select XI</th>
+              {startingXI.length <= 0 ? (
+                <>
+                  <th className='w-1/4'></th>
+                  <th className='w-1/4'></th>
+                </>
+              ) : (
+                <>
+                  <th className='w-1/8'>GK?</th>
+                  <th className='w-1/8'>Shirt #</th>
+                </>
+              )}
+              <th className='w-1/4'>Name</th>
+            </tr>
+          </thead>
+          <tbody>{mappedRoster}</tbody>
+        </table>
+      </form>
       <LineupCanvas
         startingXI={startingXI}
         goalkeeper={goalkeeper}
         teamName={teamName}
         graphicColour={graphicColour}
       />
-    </form>
+    </div>
   );
 };
 
