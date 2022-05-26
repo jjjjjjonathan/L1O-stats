@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 const RosterListItem = ({
   name,
   value,
@@ -9,7 +7,6 @@ const RosterListItem = ({
   goalkeeper,
   setGoalkeeper,
 }) => {
-  const [errorMsg, setErrorMsg] = useState('');
 
   // LOOK INTO CHANGING GOALKEEPER CHECKBOXES TO RADIO BUTTONS
 
@@ -17,6 +14,7 @@ const RosterListItem = ({
     <tr>
       <td>
         <input
+          className='toggle toggle-secondary'
           disabled={
             startingXI.filter((player) => player.id === value).length <= 0 &&
             startingXI.length >= 11
@@ -53,6 +51,7 @@ const RosterListItem = ({
             <label htmlFor="">gk?</label>
             <input
               disabled={goalkeeper !== null && goalkeeper !== value}
+              className='checkbox checkbox-accent'
               type="checkbox"
               value={value}
               onClick={(e) => {
@@ -73,22 +72,15 @@ const RosterListItem = ({
           <>
             <label htmlFor="">#?</label>
             <input
-              placeholder={errorMsg}
-              type="number"
+              type="text"
+              className='input input-bordered input-accent w-full max-w-xs'
               onChange={(e) => {
                 const newNumber = parseInt(e.target.value, 10);
-                if (Number.isInteger(newNumber)) {
-                  setErrorMsg('');
-                  setStartingXI((prev) =>
-                    prev.map((player) =>
-                      player.id === value
-                        ? { ...player, number: newNumber }
-                        : player
-                    )
-                  );
-                } else {
-                  setErrorMsg('Cannot have a blank number');
-                }
+                setStartingXI((prev) =>
+                  prev.map((player) =>
+                    player.id === value
+                      ? { ...player, number: newNumber }
+                      : player));
               }}
             />
           </>

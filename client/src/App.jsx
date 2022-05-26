@@ -9,10 +9,10 @@ import Lineups from './components/Lineups';
 function App() {
   const { state, dispatch } = useApplicationData();
   return state.isReady ? (
-    <div className="min-h-screen flex-grow bg-gray-300 font-sans font-semibold">
+    <div className="min-h-screen flex-grow font-sans font-semibold">
       <Router>
         <Navbar />
-        <div className="min-h-screen">
+        <div className="min-h-screen container mx-auto">
           <Switch>
             <Route path="/create">
               <Create

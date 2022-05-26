@@ -15,8 +15,8 @@ const TeamSelect = ({ teams, selectedDivision }) => {
   return (
     <>
       <section>
-        <label htmlFor=''>Select team</label>
         <select
+          className='select select-bordered w-full max-w-xs'
           name='teamSelect'
           id='teamSelect'
           onChange={async (e) => {

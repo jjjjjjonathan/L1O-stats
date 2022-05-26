@@ -45,12 +45,14 @@ const Create = ({ divisions, teams, dispatch }) => {
       <button
         value={divisions[0].id}
         onClick={() => setSelectedDivision(divisions[0].id)}
+        className='btn btn-primary'
       >
         {divisions[0].name}
       </button>
       <button
         value={divisions[1].id}
         onClick={() => setSelectedDivision(divisions[1].id)}
+        className='btn btn-primary'
       >
         {divisions[1].name}
       </button>

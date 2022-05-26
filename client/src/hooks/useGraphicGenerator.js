@@ -106,12 +106,18 @@ const useGraphicGenerator = (mode) => {
         }
       },
       validate: function (startingXI, uploadType) {
+        console.log(startingXI);
         if (startingXI.length !== 11) {
           setUploadError('need 11 starters');
           return false;
         }
         if (!acceptedImageTypes.includes(uploadType)) {
           setUploadError('not an accepted file type');
+          return false;
+        }
+        if (startingXI.find((player) => Number.isNaN(player.number))) {
+          console.log('found a NaN');
+          setUploadError('make sure all shirts have proper numbers');
           return false;
         }
         setUploadError('');
