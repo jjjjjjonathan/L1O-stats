@@ -21,7 +21,7 @@ const RosterList = ({ roster, teamName, graphicColour }) => {
   // LOOK INTO CHANGING GOALKEEPER CHECKBOXES TO RADIO BUTTONS
 
   return (
-    <>
+    <form>
       <table className='table-fixed'>
         <thead>
           <tr>
@@ -42,7 +42,7 @@ const RosterList = ({ roster, teamName, graphicColour }) => {
         teamName={teamName}
         graphicColour={graphicColour}
       />
-    </>
+    </form>
   );
 };
 

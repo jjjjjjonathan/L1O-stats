@@ -106,7 +106,6 @@ const useGraphicGenerator = (mode) => {
         }
       },
       validate: function (startingXI, uploadType) {
-        console.log(startingXI);
         if (startingXI.length !== 11) {
           setUploadError('need 11 starters');
           return false;
@@ -116,7 +115,6 @@ const useGraphicGenerator = (mode) => {
           return false;
         }
         if (startingXI.find((player) => Number.isNaN(player.number))) {
-          console.log('found a NaN');
           setUploadError('make sure all shirts have proper numbers');
           return false;
         }

@@ -8,8 +8,6 @@ const RosterListItem = ({
   setGoalkeeper,
 }) => {
 
-  // LOOK INTO CHANGING GOALKEEPER CHECKBOXES TO RADIO BUTTONS
-
   return (
     <tr>
       <td>
@@ -50,9 +48,9 @@ const RosterListItem = ({
           <>
             <label htmlFor="">gk?</label>
             <input
-              disabled={goalkeeper !== null && goalkeeper !== value}
-              className='checkbox checkbox-accent'
-              type="checkbox"
+              name='gk-radio'
+              className='radio radio-accent'
+              type="radio"
               value={value}
               onClick={(e) => {
                 const clickedId = parseInt(e.target.value, 10);
