@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
 
   return (
-    <div className="navbar bg-base-100 top-0 sticky">
+    <div className="navbar bg-base-300 top-0 sticky">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex="0" className="btn btn-ghost lg:hidden">
@@ -18,7 +18,7 @@ const Navbar = () => {
           </ul>
         </div>
         <Link to="/">
-          <img src="/logos/L1C_ON_Alt_Badge_Vertical.png" alt="" className='h-24' />
+          <img src="/logos/L1C_ON_Alt_Badge_Vertical.png" alt="" className='h-16' />
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
