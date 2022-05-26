@@ -10,7 +10,7 @@ const RosterListItem = ({
 
   return (
     <tr>
-      <td>
+      <td className="h-[75px]">
         <div className="flex justify-center items-center py-5">
           <input
             className='toggle toggle-secondary'
@@ -46,7 +46,7 @@ const RosterListItem = ({
         </div>
       </td>
       <td>
-        {startingXI.filter((player) => player.id === value).length > 0 && (
+        {startingXI.filter((player) => player.id === value).length > 0 ? (
           <div className="flex justify-center items-center">
             <input
               name='gk-radio'
@@ -64,7 +64,7 @@ const RosterListItem = ({
               }}
             />
           </div>
-        )}
+        ) : <div className="w-full"></div>}
       </td>
       <td>
         {startingXI.filter((player) => player.id === value).length > 0 && (
