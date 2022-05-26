@@ -9,7 +9,7 @@ const RosterListItem = ({
 }) => {
 
   return (
-    <tr>
+    <tr className="hover:bg-base-300">
       <td className="h-[75px]">
         <div className="flex justify-center items-center py-5">
           <input
