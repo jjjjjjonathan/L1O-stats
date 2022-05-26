@@ -18,7 +18,7 @@ module.exports = (db) => {
     image.print(
       font,
       xAxis,
-      -433,
+      -373,
       {
         text: text.toUpperCase(),
         alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
