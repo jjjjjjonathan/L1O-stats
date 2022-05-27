@@ -43,11 +43,11 @@ const TeamSelect = ({ teams, selectedDivision }) => {
           {mappedTeams}
         </select>
       </section>
-      <div>
-        {roster.length > 0 && (
-          <RosterList roster={roster} teamName={selectedTeamName} graphicColour={graphicColour} />
-        )}
-      </div>
+
+      {roster.length > 0 && (
+        <RosterList roster={roster} teamName={selectedTeamName} graphicColour={graphicColour} />
+      )}
+
     </>
   );
 };
