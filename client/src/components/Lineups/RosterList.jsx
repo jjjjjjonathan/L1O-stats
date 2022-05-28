@@ -21,24 +21,24 @@ const RosterList = ({ roster, teamName, graphicColour }) => {
   //  
 
   return (
-    <div className='flex flex-col lg:flex-row lg:justify-evenly lg:items-start w-full mx-auto'>
+    <div className='flex flex-col-reverse lg:flex-row lg:justify-evenly lg:items-start mx-auto'>
       <form>
-        <table className='table-fixed'>
+        <table className='table table-fixed'>
           <thead>
             <tr>
-              <th className='w-[103px]'>Select XI</th>
+              <th className='w-sm text-center'>Select XI</th>
               {startingXI.length <= 0 ? (
                 <>
-                  <th className='w-[103px]'></th>
-                  <th className='w-[103px]'></th>
+                  <th className='w-sm'></th>
+                  <th className='w-sm'></th>
                 </>
               ) : (
                 <>
-                  <th className='w-[103px]'>GK?</th>
-                  <th className='w-[103px]'>Shirt #</th>
+                  <th className='w-sm text-center'>GK?</th>
+                  <th className='w-sm text-center'>Shirt #</th>
                 </>
               )}
-              <th className='w-[103px]'>Name</th>
+              <th className='w-2 text-center'>Name</th>
             </tr>
           </thead>
           <tbody>{mappedRoster}</tbody>

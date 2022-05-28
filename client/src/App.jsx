@@ -6,13 +6,17 @@ import Fixture from './components/Fixture';
 import Navbar from './components/Navbar';
 import Lineups from './components/Lineups';
 
+// min-h-screen flex-grow font-sans font-semibold
+
+//min-h-screen mx-auto
+
 function App() {
   const { state, dispatch } = useApplicationData();
   return state.isReady ? (
-    <div className="min-h-screen flex-grow font-sans font-semibold">
+    <div className="">
       <Router>
         <Navbar />
-        <div className="min-h-screen container mx-auto">
+        <div className="max-w-xl mx-auto">
           <Switch>
             <Route path="/create">
               <Create

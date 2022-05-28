@@ -1,3 +1,6 @@
+import classNames from "classnames";
+import { useState } from "react";
+
 const RosterListItem = ({
   name,
   value,
@@ -8,8 +11,12 @@ const RosterListItem = ({
   setGoalkeeper,
 }) => {
 
+  const [selected, setSelected] = useState(false);
+
+  const midTableClasses = classNames('flex', 'justify-center', 'items-center', { invisible: !selected }, { visible: selected });
+
   return (
-    <tr className="hover:bg-base-300">
+    <tr className="hover">
       <td className="h-[75px]">
         <div className="flex justify-center items-center py-5">
           <input
@@ -32,6 +39,7 @@ const RosterListItem = ({
                     roster.find((player) => player.id === clickedId),
                   ];
                 });
+                setSelected(true);
               }
               if (
                 !e.target.checked &&
@@ -40,51 +48,52 @@ const RosterListItem = ({
                 setStartingXI((prev) => {
                   return prev.filter((player) => player.id !== clickedId);
                 });
+                setSelected(false);
               }
             }}
           />
         </div>
       </td>
       <td>
-        {startingXI.filter((player) => player.id === value).length > 0 ? (
-          <div className="flex justify-center items-center">
-            <input
-              name='gk-radio'
-              className='radio radio-accent'
-              type="radio"
-              value={value}
-              onClick={(e) => {
-                const clickedId = parseInt(e.target.value, 10);
-                if (e.target.checked && goalkeeper !== clickedId) {
-                  setGoalkeeper(clickedId);
-                }
-                if (!e.target.checked && goalkeeper === clickedId) {
-                  setGoalkeeper(null);
-                }
-              }}
-            />
-          </div>
-        ) : <div className="w-full"></div>}
+        <div className={midTableClasses}>
+          <input
+            name='gk-radio'
+            className='radio radio-accent'
+            type="radio"
+            value={value}
+            onClick={(e) => {
+              const clickedId = parseInt(e.target.value, 10);
+              if (e.target.checked && goalkeeper !== clickedId) {
+                setGoalkeeper(clickedId);
+              }
+              if (!e.target.checked && goalkeeper === clickedId) {
+                setGoalkeeper(null);
+              }
+            }}
+          />
+        </div>
       </td>
       <td>
-        {startingXI.filter((player) => player.id === value).length > 0 && (
-          <div className="flex justify-center items-center">
-            <input
-              type="text"
-              className='input input-bordered input-accent w-16 h-12 text-center'
-              onChange={(e) => {
-                const newNumber = parseInt(e.target.value, 10);
-                setStartingXI((prev) =>
-                  prev.map((player) =>
-                    player.id === value
-                      ? { ...player, number: newNumber }
-                      : player));
-              }}
-            />
-          </div>
-        )}
+
+        <div className={midTableClasses}>
+          <input
+            type="text"
+            className='input input-bordered input-accent w-16 h-12 text-center'
+            onChange={(e) => {
+              const newNumber = parseInt(e.target.value, 10);
+              setStartingXI((prev) =>
+                prev.map((player) =>
+                  player.id === value
+                    ? { ...player, number: newNumber }
+                    : player));
+            }}
+          />
+        </div>
+
       </td>
-      <td>{name}</td>
+      <td className="max-width-sm whitespace-normal">
+        {name}
+      </td>
     </tr>
   );
 };
