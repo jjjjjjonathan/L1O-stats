@@ -20,6 +20,10 @@ const ListItem = ({
     return date.toLocaleString('en-US');
   };
 
+  const homeTeam = teams.find((team) => team.id === home_team_id);
+
+  const awayTeam = teams.find((team) => team.id === away_team_id);
+
   const history = useHistory();
 
   const cardClasses = classNames('card', 'bg-primary', 'text-primary-content', 'w-full', 'mx-auto', { 'col-span-2': Date.now() + 7200000 - Date.parse(date) < 0 }, { 'col-span-1': Date.now() + 7200000 - Date.parse(date) >= 0 }, 'py-4 px-2');
@@ -30,12 +34,12 @@ const ListItem = ({
     <div className={cardClasses} onClick={() => history.push(`/${id}`)}>
       <figure>
         <div className={cardHeroClasses}>
-          <img src="/logos/Darby.png" alt="Alliance United" className='object-contain h-24' />
+          <img src={`/logos/${homeTeam.img}.png`} alt={homeTeam.name} className='object-contain h-24' />
           <div className="flex flex-col items-center justify-between">
             <h1 className='text-2xl'>{home_goals.toString(10)} - {away_goals.toString(10)}</h1>
             <h2 className='text-md'>{findDivisionName(divisions, division)}</h2>
           </div>
-          <img src="/logos/Alliance.png" alt="Alliance United" className='object-contain h-24' />
+          <img src={`/logos/${awayTeam.img}.png`} alt={awayTeam.name} className='object-contain h-24' />
         </div>
       </figure>
       <div className="card-body">
