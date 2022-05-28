@@ -14,7 +14,7 @@ const List = ({ divisions, teams, fixtures }) => {
   ));
 
   return fixtures.length > 0 ? (
-    <div className='grid grid-cols-2 md:grid-cols-4 gap-4 p-4 max-w-screen-2xl mx-auto'>
+    <div className='grid grid-cols-2 md:grid-cols-4 gap-4 p-4 md:p-8 max-w-screen-2xl mx-auto'>
       {mappedFixtures}
     </div>
   ) :
