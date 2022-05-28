@@ -2,7 +2,7 @@ import ListItem from './ListItem';
 
 const List = ({ divisions, teams, fixtures }) => {
   const sortedFixtures = [...fixtures].sort(
-    (a, b) => Date.parse(a.date) - Date.parse(b.date)
+    (a, b) => Date.parse(b.date) - Date.parse(a.date)
   );
   const mappedFixtures = sortedFixtures.map((fixture) => (
     <ListItem
