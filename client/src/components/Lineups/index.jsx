@@ -12,7 +12,7 @@ const Lineups = ({ divisions, teams }) => {
         <button
           value={divisions[0].id}
           onClick={() => setSelectedDivision(divisions[0].id)}
-          className='btn btn-primary ml-4 my-6'
+          className='btn btn-primary ml-4 my-6 md:btn-secondary'
         >
           {divisions[0].name}
         </button>

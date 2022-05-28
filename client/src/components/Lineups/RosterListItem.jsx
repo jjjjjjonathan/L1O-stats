@@ -91,7 +91,7 @@ const RosterListItem = ({
         </div>
 
       </td>
-      <td className="max-width-sm whitespace-normal">
+      <td className="w-sm md:w-md whitespace-normal">
         {name}
       </td>
     </tr>

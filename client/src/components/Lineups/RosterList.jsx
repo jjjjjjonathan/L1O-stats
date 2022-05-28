@@ -26,19 +26,19 @@ const RosterList = ({ roster, teamName, graphicColour }) => {
         <table className='table table-fixed'>
           <thead>
             <tr>
-              <th className='w-sm text-center'>Select XI</th>
+              <th className='w-sm md:w-md text-center'>Select XI</th>
               {startingXI.length <= 0 ? (
                 <>
-                  <th className='w-sm'></th>
-                  <th className='w-sm'></th>
+                  <th className='w-sm md:w-md '></th>
+                  <th className='w-sm md:w-md '></th>
                 </>
               ) : (
                 <>
-                  <th className='w-sm text-center'>GK?</th>
-                  <th className='w-sm text-center'>Shirt #</th>
+                  <th className='w-sm md:w-md  text-center'>GK?</th>
+                  <th className='w-sm md:w-md  text-center'>Shirt #</th>
                 </>
               )}
-              <th className='w-2 text-center'>Name</th>
+              <th className='w-sm  md:w-md  text-center'>Name</th>
             </tr>
           </thead>
           <tbody>{mappedRoster}</tbody>

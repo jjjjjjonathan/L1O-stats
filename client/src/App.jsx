@@ -16,7 +16,7 @@ function App() {
     <div className="">
       <Router>
         <Navbar />
-        <div className="max-w-xl mx-auto">
+        <div className="mx-auto">
           <Switch>
             <Route path="/create">
               <Create
