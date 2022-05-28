@@ -22,7 +22,7 @@ const ListItem = ({
 
   const history = useHistory();
 
-  const cardClasses = classNames('card', 'bg-primary', 'text-primary-content', 'w-full', 'mx-auto', { 'col-span-2': Date.now() + 7200000 - Date.parse(date) < 0 }, { 'col-span-1': Date.now() + 7200000 - Date.parse(date) >= 0 });
+  const cardClasses = classNames('card', 'bg-primary', 'text-primary-content', 'w-full', 'mx-auto', { 'col-span-2': Date.now() + 7200000 - Date.parse(date) < 0 }, { 'col-span-1': Date.now() + 7200000 - Date.parse(date) >= 0 }, 'py-4 px-2');
 
   const cardHeroClasses = classNames('flex', 'flex-row', 'justify-around', 'w-full', 'items-center', { 'hidden': Date.now() + 7200000 - Date.parse(date) >= 0 });
 
@@ -31,7 +31,10 @@ const ListItem = ({
       <figure>
         <div className={cardHeroClasses}>
           <img src="/logos/Darby.png" alt="Alliance United" className='object-contain h-24' />
-          <h1 className='text-2xl'>{home_goals.toString(10)} - {away_goals.toString(10)}</h1>
+          <div className="flex flex-col items-center justify-between">
+            <h1 className='text-2xl'>{home_goals.toString(10)} - {away_goals.toString(10)}</h1>
+            <h2 className='text-md'>{findDivisionName(divisions, division)}</h2>
+          </div>
           <img src="/logos/Alliance.png" alt="Alliance United" className='object-contain h-24' />
         </div>
       </figure>
