@@ -60,108 +60,128 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
   const [graphicMode, setGraphicMode] = useState(null);
 
   return (
-    <div className='flex flex-col items-center justify-center'>
-      <h1 className='text-5xl my-5'>
-        {findTeamName(teams, selectedFixture.home_team_id)} vs.{' '}
-        {findTeamName(teams, selectedFixture.away_team_id)}
-      </h1>
-      <h2 className='text-2xl mb-5'>
-        {findDivisionName(divisions, selectedFixture.division)}
-      </h2>
-      {err.length > 0 && <p className='text-red-700'>{err}</p>}
-      <table className='border border-purple-700 border-collapse'>
-        <thead>
-          <tr>
-            <th></th>
-            <th></th>
-            <th>{findTeamName(teams, selectedFixture.home_team_id)}</th>
-            <th></th>
-            <th></th>
-            <th>{findTeamName(teams, selectedFixture.away_team_id)}</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <ConsoleRow
-            key='goals'
-            fixture={selectedFixture}
-            label={'Goals'}
-            id={id}
-            validate={validate}
-          />
-          <ConsoleRow
-            key='total shots'
-            fixture={selectedFixture}
-            label={'Total Shots'}
-            id={id}
-            validate={validate}
-          />
-          <ConsoleRow
-            key='on target shots'
-            fixture={selectedFixture}
-            label={'On Target'}
-            id={id}
-            validate={validate}
-          />
-          <ConsoleRow
-            key='corners'
-            fixture={selectedFixture}
-            label={'Corners'}
-            id={id}
-            validate={validate}
-          />
-          <ConsoleRow
-            key='offsides'
-            fixture={selectedFixture}
-            label={'Offsides'}
-            id={id}
-            validate={validate}
-          />
-          <ConsoleRow
-            key='fouls'
-            fixture={selectedFixture}
-            label={'Fouls'}
-            id={id}
-            validate={validate}
-          />
-          <ConsoleRow
-            key='yellows'
-            fixture={selectedFixture}
-            label={'Yellow Cards'}
-            id={id}
-            validate={validate}
-          />
-          <ConsoleRow
-            key='reds'
-            fixture={selectedFixture}
-            label={'Red Cards'}
-            id={id}
-            validate={validate}
-          />
-        </tbody>
-      </table>
-      <div>
-        <button
-          onClick={() => setGraphicMode(1)}
-          className='py-2.5 px-5 mr-2 mb-2 mt-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'
-        >
-          Half-time graphic
-        </button>
-        <button
-          onClick={() => setGraphicMode(2)}
-          className='py-2.5 px-5 mr-2 mb-2 mt-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'
-        >
-          Full-time graphic
-        </button>
+    <>
+      <div className='grid grid-cols-2 mx-auto gap-4 p-4 mx-auto'>
+        <ConsoleRow
+          key='goals'
+          fixture={selectedFixture}
+          label={'Goals'}
+          id={id}
+          validate={validate}
+          teams={teams}
+        />
+        <ConsoleRow
+          key='total shots'
+          fixture={selectedFixture}
+          label={'Total Shots'}
+          id={id}
+          validate={validate}
+          teams={teams}
+        />
+        <ConsoleRow
+          key='on target shots'
+          fixture={selectedFixture}
+          label={'On Target'}
+          id={id}
+          validate={validate}
+          teams={teams}
+        />
+        <ConsoleRow
+          key='corners'
+          fixture={selectedFixture}
+          label={'Corners'}
+          id={id}
+          validate={validate}
+          teams={teams}
+        />
+        <ConsoleRow
+          key='offsides'
+          fixture={selectedFixture}
+          label={'Offsides'}
+          id={id}
+          validate={validate}
+          teams={teams}
+        />
+        <ConsoleRow
+          key='fouls'
+          fixture={selectedFixture}
+          label={'Fouls'}
+          id={id}
+          validate={validate}
+          teams={teams}
+        />
+        <ConsoleRow
+          key='yellows'
+          fixture={selectedFixture}
+          label={'Yellow Cards'}
+          id={id}
+          validate={validate}
+          teams={teams}
+        />
+        <ConsoleRow
+          key='reds'
+          fixture={selectedFixture}
+          label={'Red Cards'}
+          id={id}
+          validate={validate}
+          teams={teams}
+        />
       </div>
+    </>
+    // <div className='flex flex-col items-center justify-center'>
+    //   <h1 className='text-5xl my-5'>
+    //     {findTeamName(teams, selectedFixture.home_team_id)} vs.{' '}
+    //     {findTeamName(teams, selectedFixture.away_team_id)}
+    //   </h1>
+    //   <h2 className='text-2xl mb-5'>
+    //     {findDivisionName(divisions, selectedFixture.division)}
+    //   </h2>
+    //   {err.length > 0 && <p className='text-red-700'>{err}</p>}
+    //   <table className='border border-purple-700 border-collapse'>
+    //     <thead>
+    //       <tr>
+    //         <th></th>
+    //         <th></th>
+    //         <th>{findTeamName(teams, selectedFixture.home_team_id)}</th>
+    //         <th></th>
+    //         <th></th>
+    //         <th>{findTeamName(teams, selectedFixture.away_team_id)}</th>
+    //         <th></th>
+    //       </tr>
+    //     </thead>
+    //     <tbody>
 
-      {graphicMode === 1 && (
-        <SocialCanvas stats={stats} graphicMode={graphicMode} />
-      )}
-      {graphicMode === 2 && (
-        <SocialCanvas stats={stats} graphicMode={graphicMode} />
-      )}
-    </div>
+
+
+
+
+
+
+
+    //     </tbody>
+    //   </table>
+    //   <div>
+    //     <button
+    //       onClick={() => setGraphicMode(1)}
+    //       className='py-2.5 px-5 mr-2 mb-2 mt-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'
+    //     >
+    //       Half-time graphic
+    //     </button>
+    //     <button
+    //       onClick={() => setGraphicMode(2)}
+    //       className='py-2.5 px-5 mr-2 mb-2 mt-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'
+    //     >
+    //       Full-time graphic
+    //     </button>
+    //   </div>
+
+    //   {graphicMode === 1 && (
+    //     <SocialCanvas stats={stats} graphicMode={graphicMode} />
+    //   )}
+    //   {graphicMode === 2 && (
+    //     <SocialCanvas stats={stats} graphicMode={graphicMode} />
+    //   )}
+    // </div>
   );
 };
 

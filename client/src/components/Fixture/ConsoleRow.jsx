@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import classNames from 'classnames';
+import { HiOutlinePlus, HiOutlineMinus } from 'react-icons/hi';
 
-const ConsoleRow = ({ fixture, label, id, validate }) => {
+const ConsoleRow = ({ fixture, label, id, validate, teams }) => {
   const getStatName = (label) => {
+
     const statStrings = {
       Goals: { h: 'home_goals', a: 'away_goals' },
       'Total Shots': { h: 'home_total_shots', a: 'away_total_shots' },
@@ -24,64 +27,36 @@ const ConsoleRow = ({ fixture, label, id, validate }) => {
     a: fixture[getStatName(label).a] - 1,
   };
 
-  const valueUpClassesBtn = classNames(
-    'relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800'
-  );
+  const [team, setTeam] = useState('h');
 
-  const valueUpClassesSpan = classNames(
-    'relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0'
-  );
+  const homeTeamLogo = teams.find((team) => team.id === fixture.home_team_id).img;
 
-  const valueDownClassesBtn = classNames(
-    'relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800'
-  );
+  const awayTeamLogo = teams.find((team) => team.id === fixture.away_team_id).img;
 
-  const valueDownClassesSpan = classNames(
-    'relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0'
-  );
+  const statClasses = classNames('stats text-primary-content', { 'bg-secondary': team === 'h' }, { 'bg-accent': team === 'a' });
 
   return (
-    <tr>
-      <th className='px-6 py-1'>{label}</th>
-      <td className='px-6 py-1'>
-        <button
-          onClick={() => validate(getStatName(label).h, valueDown.h, id)}
-          className={valueDownClassesBtn}
-        >
-          <span className={valueDownClassesSpan}>-</span>
-        </button>
-      </td>
-      <td className='px-6 py-1 text-center text-xl'>
-        {fixture[getStatName(label).h]}
-      </td>
-      <td className='px-6 py-1'>
-        <button
-          onClick={() => validate(getStatName(label).h, valueUp.h, id)}
-          className={valueUpClassesBtn}
-        >
-          <span className={valueUpClassesSpan}>+</span>
-        </button>
-      </td>
-      <td className='px-6 py-1'>
-        <button
-          onClick={() => validate(getStatName(label).a, valueDown.a, id)}
-          className={valueDownClassesBtn}
-        >
-          <span className={valueDownClassesSpan}>-</span>
-        </button>
-      </td>
-      <td className='px-6 py-1 text-center text-xl'>
-        {fixture[getStatName(label).a]}
-      </td>
-      <td className='px-6 py-1'>
-        <button
-          onClick={() => validate(getStatName(label).a, valueUp.a, id)}
-          className={valueUpClassesBtn}
-        >
-          <span className={valueUpClassesSpan}>+</span>
-        </button>
-      </td>
-    </tr>
+    <>
+      <div>
+        <label className="swap swap-flip text-9xl">
+          <input type="checkbox" onChange={(e) => e.target.checked ? setTeam('a') : setTeam('h')} />
+
+          <div className="swap-on"><img src={`/logos/${awayTeamLogo}.png`} alt={awayTeamLogo} /></div>
+          <div className="swap-off"><img src={`/logos/${homeTeamLogo}.png`} alt={homeTeamLogo} /></div>
+        </label>
+      </div>
+      <div className={statClasses}>
+
+        <div className="stat">
+          <div className="stat-title mx-auto text-xl">{label}</div>
+          <div className="stat-value mx-auto">{fixture[getStatName(label)[team]]}</div>
+          <div className="stat-actions flex flex-row justify-around">
+            <button className="btn btn-md btn-error" onClick={() => validate(getStatName(label)[team], valueDown[team], id)}><HiOutlineMinus /></button>
+            <button className="btn btn-md btn-success" onClick={() => validate(getStatName(label)[team], valueUp[team], id)}><HiOutlinePlus /></button>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
