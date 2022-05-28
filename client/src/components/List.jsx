@@ -14,21 +14,9 @@ const List = ({ divisions, teams, fixtures }) => {
   ));
 
   return fixtures.length > 0 ? (
-    <>
-      <h1>Matches</h1>
-      <table className='table-auto'>
-        <thead>
-          <tr>
-            <th>E2E ID</th>
-            <th>Division</th>
-            <th>Home Team</th>
-            <th>Away Team</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>{mappedFixtures}</tbody>
-      </table>
-    </>
+    <div className='grid grid-cols-2 gap-4 p-4'>
+      {mappedFixtures}
+    </div>
   ) :
     <p>No fixtures, click on "Create a fixture" in the navigation bar to add some</p>;
 };
