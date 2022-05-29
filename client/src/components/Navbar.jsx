@@ -14,7 +14,6 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             <li tabIndex="0">
               <Link to="/">See list of fixtures</Link>
             </li>
-            <li><Link to="/lineups">Create lineup graphics</Link></li>
           </ul>
         </div>
         <Link to="/">
@@ -27,7 +26,6 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           <li tabIndex="0">
             <Link to="/">See list of fixtures</Link>
           </li>
-          <li><Link to="/lineups">Create lineup graphics</Link></li>
         </ul>
       </div>
       <div className="navbar-end">
