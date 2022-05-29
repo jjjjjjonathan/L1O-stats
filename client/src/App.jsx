@@ -5,17 +5,16 @@ import List from './components/List';
 import Fixture from './components/Fixture';
 import Navbar from './components/Navbar';
 import Lineups from './components/Lineups';
-
-// min-h-screen flex-grow font-sans font-semibold
-
-//min-h-screen mx-auto
+import { useState } from 'react';
 
 function App() {
   const { state, dispatch } = useApplicationData();
+  const [darkMode, setDarkMode] = useState(false);
+  const visualMode = darkMode ? 'night' : 'winter';
   return state.isReady ? (
-    <div className="">
+    <div data-theme={visualMode}>
       <Router>
-        <Navbar />
+        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
         <div className="mx-auto">
           <Switch>
             <Route path="/create">
