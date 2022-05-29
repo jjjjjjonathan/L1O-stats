@@ -73,11 +73,19 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
     'tab-active': tab === 3
   });
 
-  const halfTimeClasses = classNames('tab tab-bordered', {
+  const halfTimeClasses = classNames('tab tab-bordered md:hidden', {
     'tab-active': tab === 1
   });
 
-  const fullTimeClasses = classNames('tab tab-bordered', {
+  const halfTimeClassesMd = classNames('tab tab-bordered hidden md:block', {
+    'tab-active': tab === 1
+  });
+
+  const fullTimeClasses = classNames('tab tab-bordered md:hidden', {
+    'tab-active': tab === 2
+  });
+
+  const fullTimeClassesMd = classNames('tab tab-bordered hidden md:block', {
     'tab-active': tab === 2
   });
 
@@ -106,12 +114,17 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
         </button>
         <button className={halfTimeClasses} onClick={() => setTab(1)}>
           HT
+        </button><button className={halfTimeClassesMd} onClick={() => setTab(1)}>
+          Half-time
         </button>
         <button className={statsTabClasses} onClick={() => setTab(3)}>
           Stats
         </button>
         <button className={fullTimeClasses} onClick={() => setTab(2)}>
           FT
+        </button>
+        <button className={fullTimeClassesMd} onClick={() => setTab(2)}>
+          Full-time
         </button>
         <button className={awayXIClasses} onClick={() => setTab(5)}>Away XI</button>
       </div>
