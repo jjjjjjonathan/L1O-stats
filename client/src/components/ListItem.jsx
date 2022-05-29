@@ -32,7 +32,7 @@ const ListItem = ({
 
   const titleClasses = classNames('card-title', { hidden: Date.now() + 7200000 - Date.parse(date) < 0 });
 
-  const divisionClasses = classNames({ 'card-title': Date.now() + 7200000 - Date.parse(date) < 0 }, 'mx-auto');
+  const badgeClasses = classNames('badge font-bold', { hidden: Date.now() + 7200000 - Date.parse(date) >= 0, 'badge-accent': division === 2, 'badge-secondary': division === 1 });
 
   return (
     <div className={cardClasses} onClick={() => history.push(`/${id}`)}>
@@ -40,15 +40,17 @@ const ListItem = ({
         <div className={cardHeroClasses}>
           <img src={`/logos/${homeTeam.img}.png`} alt={homeTeam.name} className='object-contain w-1/3 px-2 pt-2' />
 
-          <p className='text-4xl'>{home_goals.toString(10)} - {away_goals.toString(10)}</p>
+          <p className='text-4xl font-bold'>{home_goals.toString(10)} - {away_goals.toString(10)}</p>
 
           <img src={`/logos/${awayTeam.img}.png`} alt={awayTeam.name} className='object-contain w-1/3 px-2 pt-2' />
         </div>
       </figure>
       <div className="card-body">
         <h2 className={titleClasses}>{findTeamName(teams, home_team_id)} v. {findTeamName(teams, away_team_id)}</h2>
-        <h2 className={divisionClasses}>{findDivisionName(divisions, division)}</h2>
         <p>{parsedDate(date)}</p>
+        <div className="card-actions justify-end">
+          <div class={badgeClasses}>{findDivisionName(divisions, division)}</div>
+        </div>
       </div>
     </div>
   );
