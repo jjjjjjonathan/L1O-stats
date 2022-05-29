@@ -9,9 +9,9 @@ const SocialCanvas = ({ stats, graphicMode }) => {
 
   return (
     <div className='mx-6'>
-      <label htmlFor='' className='block mb-2 text-md font-medium text-gray-900 dark:text-gray-300'>Generate {graphicGenerator.text} Graphic</label>
+      <label htmlFor='' className='block mb-2 text-md font-medium text-content'>Generate {graphicGenerator.text} Graphic</label>
       <input
-        className='w-full text-sm text-gray-900 bg-gray-500 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:btn file:btn-accent file:font-medium hover:file:btn-secondary'
+        className='w-full text-sm text-content bg-base-300 rounded-lg border border-content cursor-pointer  focus:outline-none file:btn file:btn-accent file:font-medium hover:file:btn-secondary'
         type='file'
         id='imageFileInput'
         onChange={(e) => {

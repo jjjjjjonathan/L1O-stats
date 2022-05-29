@@ -12,7 +12,7 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const visualMode = darkMode ? 'night' : 'winter';
   return state.isReady ? (
-    <div data-theme={visualMode}>
+    <div data-theme={visualMode} className='h-screen'>
       <Router>
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
         <div className="mx-auto">
