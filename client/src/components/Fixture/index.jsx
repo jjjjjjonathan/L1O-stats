@@ -4,6 +4,7 @@ import { findDivisionName, findTeamName } from '../../helpers/helpers';
 import ConsoleRow from './ConsoleRow';
 import SocialCanvas from './SocialCanvas';
 import { useState } from 'react';
+import classNames from 'classnames';
 
 const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
   const id = parseInt(useParams().id, 10);
@@ -57,76 +58,99 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
     },
   };
 
-  const [graphicMode, setGraphicMode] = useState(null);
+  const [tab, setTab] = useState(3);
+
+  const statsTabClasses = classNames('tab tab-bordered', { 'tab-active': tab === 3 });
+
+  const halfTimeClasses = classNames('tab tab-bordered', { 'tab-active': tab === 1 });
+
+  const fullTimeClasses = classNames('tab tab-bordered', { 'tab-active': tab === 2 });
 
   return (
     <>
-      <div className='grid grid-cols-2 mx-auto gap-4 p-4 mx-auto'>
-        <ConsoleRow
-          key='goals'
-          fixture={selectedFixture}
-          label={'Goals'}
-          id={id}
-          validate={validate}
-          teams={teams}
-        />
-        <ConsoleRow
-          key='total shots'
-          fixture={selectedFixture}
-          label={'Total Shots'}
-          id={id}
-          validate={validate}
-          teams={teams}
-        />
-        <ConsoleRow
-          key='on target shots'
-          fixture={selectedFixture}
-          label={'On Target'}
-          id={id}
-          validate={validate}
-          teams={teams}
-        />
-        <ConsoleRow
-          key='corners'
-          fixture={selectedFixture}
-          label={'Corners'}
-          id={id}
-          validate={validate}
-          teams={teams}
-        />
-        <ConsoleRow
-          key='offsides'
-          fixture={selectedFixture}
-          label={'Offsides'}
-          id={id}
-          validate={validate}
-          teams={teams}
-        />
-        <ConsoleRow
-          key='fouls'
-          fixture={selectedFixture}
-          label={'Fouls'}
-          id={id}
-          validate={validate}
-          teams={teams}
-        />
-        <ConsoleRow
-          key='yellows'
-          fixture={selectedFixture}
-          label={'Yellow Cards'}
-          id={id}
-          validate={validate}
-          teams={teams}
-        />
-        <ConsoleRow
-          key='reds'
-          fixture={selectedFixture}
-          label={'Red Cards'}
-          id={id}
-          validate={validate}
-          teams={teams}
-        />
+      <div className="tabs justify-center py-8">
+        <a className='tab tab-bordered'>Home XI</a>
+        <a className={halfTimeClasses} onClick={() => setTab(1)}>HT</a>
+        <a className={statsTabClasses} onClick={() => setTab(3)}>Stats</a>
+        <a className={fullTimeClasses} onClick={() => setTab(2)}>FT</a>
+        <a className='tab tab-bordered'>Away XI</a>
       </div>
+
+      {tab === 3 && (
+
+        <div className='grid grid-cols-2 mx-auto gap-y-4 gap-x-2 p-4 mx-auto'>
+          <ConsoleRow
+            key='goals'
+            fixture={selectedFixture}
+            label={'Goals'}
+            id={id}
+            validate={validate}
+            teams={teams}
+          />
+          <ConsoleRow
+            key='total shots'
+            fixture={selectedFixture}
+            label={'Total Shots'}
+            id={id}
+            validate={validate}
+            teams={teams}
+          />
+          <ConsoleRow
+            key='on target shots'
+            fixture={selectedFixture}
+            label={'On Target'}
+            id={id}
+            validate={validate}
+            teams={teams}
+          />
+          <ConsoleRow
+            key='corners'
+            fixture={selectedFixture}
+            label={'Corners'}
+            id={id}
+            validate={validate}
+            teams={teams}
+          />
+          <ConsoleRow
+            key='offsides'
+            fixture={selectedFixture}
+            label={'Offsides'}
+            id={id}
+            validate={validate}
+            teams={teams}
+          />
+          <ConsoleRow
+            key='fouls'
+            fixture={selectedFixture}
+            label={'Fouls'}
+            id={id}
+            validate={validate}
+            teams={teams}
+          />
+          <ConsoleRow
+            key='yellows'
+            fixture={selectedFixture}
+            label={'Yellow Cards'}
+            id={id}
+            validate={validate}
+            teams={teams}
+          />
+          <ConsoleRow
+            key='reds'
+            fixture={selectedFixture}
+            label={'Red Cards'}
+            id={id}
+            validate={validate}
+            teams={teams}
+          />
+        </div>
+      )}
+      {tab === 1 && (
+        <SocialCanvas stats={stats} graphicMode={tab} />
+      )}
+      {tab === 2 && (
+        <SocialCanvas stats={stats} graphicMode={tab} />
+      )}
     </>
     // <div className='flex flex-col items-center justify-center'>
     //   <h1 className='text-5xl my-5'>
@@ -175,12 +199,7 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
     //     </button>
     //   </div>
 
-    //   {graphicMode === 1 && (
-    //     <SocialCanvas stats={stats} graphicMode={graphicMode} />
-    //   )}
-    //   {graphicMode === 2 && (
-    //     <SocialCanvas stats={stats} graphicMode={graphicMode} />
-    //   )}
+
     // </div>
   );
 };

@@ -37,22 +37,23 @@ const ConsoleRow = ({ fixture, label, id, validate, teams }) => {
 
   return (
     <>
-      <div>
+      {/* small screens only */}
+      <div className='mx-auto md:hidden'>
         <label className="swap swap-flip text-9xl">
           <input type="checkbox" onChange={(e) => e.target.checked ? setTeam('a') : setTeam('h')} />
 
-          <div className="swap-on"><img src={`/logos/${awayTeamLogo}.png`} alt={awayTeamLogo} /></div>
-          <div className="swap-off"><img src={`/logos/${homeTeamLogo}.png`} alt={homeTeamLogo} /></div>
+          <div className="swap-on mx-auto"><img src={`/logos/${awayTeamLogo}.png`} alt={awayTeamLogo} /></div>
+          <div className="swap-off mx-auto"><img src={`/logos/${homeTeamLogo}.png`} alt={homeTeamLogo} /></div>
         </label>
       </div>
       <div className={statClasses}>
 
-        <div className="stat">
-          <div className="stat-title mx-auto text-xl">{label}</div>
+        <div className="stat md:hidden">
+          <div className="stat-title mx-auto text-xl font-bold">{label}</div>
           <div className="stat-value mx-auto">{fixture[getStatName(label)[team]]}</div>
-          <div className="stat-actions flex flex-row justify-around">
-            <button className="btn btn-md btn-error" onClick={() => validate(getStatName(label)[team], valueDown[team], id)}><HiOutlineMinus /></button>
-            <button className="btn btn-md btn-success" onClick={() => validate(getStatName(label)[team], valueUp[team], id)}><HiOutlinePlus /></button>
+          <div className="stat-actions flex flex-row justify-between">
+            <button className="btn btn-sm btn-error" onClick={() => validate(getStatName(label)[team], valueDown[team], id)}><HiOutlineMinus /></button>
+            <button className="btn btn-sm btn-success" onClick={() => validate(getStatName(label)[team], valueUp[team], id)}><HiOutlinePlus /></button>
           </div>
         </div>
       </div>
