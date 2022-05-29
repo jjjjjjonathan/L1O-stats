@@ -69,11 +69,11 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
   return (
     <>
       <div className="tabs justify-center py-8">
-        <a className='tab tab-bordered'>Home XI</a>
-        <a className={halfTimeClasses} onClick={() => setTab(1)}>HT</a>
-        <a className={statsTabClasses} onClick={() => setTab(3)}>Stats</a>
-        <a className={fullTimeClasses} onClick={() => setTab(2)}>FT</a>
-        <a className='tab tab-bordered'>Away XI</a>
+        <button className='tab tab-bordered'>Home XI</button>
+        <button className={halfTimeClasses} onClick={() => setTab(1)}>HT</button>
+        <button className={statsTabClasses} onClick={() => setTab(3)}>Stats</button>
+        <button className={fullTimeClasses} onClick={() => setTab(2)}>FT</button>
+        <button className='tab tab-bordered'>Away XI</button>
       </div>
 
       {tab === 3 && (
