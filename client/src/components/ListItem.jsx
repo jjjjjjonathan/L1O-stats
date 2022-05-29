@@ -49,7 +49,7 @@ const ListItem = ({
         <h2 className={titleClasses}>{findTeamName(teams, home_team_id)} v. {findTeamName(teams, away_team_id)}</h2>
         <p>{parsedDate(date)}</p>
         <div className="card-actions justify-end">
-          <div class={badgeClasses}>{findDivisionName(divisions, division)}</div>
+          <div className={badgeClasses}>{findDivisionName(divisions, division)}</div>
         </div>
       </div>
     </div>
