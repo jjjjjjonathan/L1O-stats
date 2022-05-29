@@ -85,6 +85,19 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
     'tab-active': tab === 4
   });
 
+  const awayXIClasses = classNames('tab tab-bordered', { 'tab-active': tab === 5 });
+
+  const rows = ['Goals', 'Total Shots', 'On Target', 'Corners', 'Offsides', 'Fouls', 'Yellow Cards', 'Red Cards'];
+
+  const mappedRows = rows.map((row) => <ConsoleRow
+    key={row}
+    label={row}
+    fixture={selectedFixture}
+    id={id}
+    validate={validate}
+    teams={teams}
+  />);
+
   return (
     <>
       <div className='tabs justify-center py-8'>
@@ -100,122 +113,28 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
         <button className={fullTimeClasses} onClick={() => setTab(2)}>
           FT
         </button>
-        <button className='tab tab-bordered'>Away XI</button>
+        <button className={awayXIClasses} onClick={() => setTab(5)}>Away XI</button>
       </div>
 
+      {/* Stats tab content */}
       {tab === 3 && (
         <div className='grid grid-cols-2 mx-auto gap-y-4 gap-x-2 p-4 mx-auto'>
-          <ConsoleRow
-            key='goals'
-            fixture={selectedFixture}
-            label={'Goals'}
-            id={id}
-            validate={validate}
-            teams={teams}
-          />
-          <ConsoleRow
-            key='total shots'
-            fixture={selectedFixture}
-            label={'Total Shots'}
-            id={id}
-            validate={validate}
-            teams={teams}
-          />
-          <ConsoleRow
-            key='on target shots'
-            fixture={selectedFixture}
-            label={'On Target'}
-            id={id}
-            validate={validate}
-            teams={teams}
-          />
-          <ConsoleRow
-            key='corners'
-            fixture={selectedFixture}
-            label={'Corners'}
-            id={id}
-            validate={validate}
-            teams={teams}
-          />
-          <ConsoleRow
-            key='offsides'
-            fixture={selectedFixture}
-            label={'Offsides'}
-            id={id}
-            validate={validate}
-            teams={teams}
-          />
-          <ConsoleRow
-            key='fouls'
-            fixture={selectedFixture}
-            label={'Fouls'}
-            id={id}
-            validate={validate}
-            teams={teams}
-          />
-          <ConsoleRow
-            key='yellows'
-            fixture={selectedFixture}
-            label={'Yellow Cards'}
-            id={id}
-            validate={validate}
-            teams={teams}
-          />
-          <ConsoleRow
-            key='reds'
-            fixture={selectedFixture}
-            label={'Red Cards'}
-            id={id}
-            validate={validate}
-            teams={teams}
-          />
+          {mappedRows}
         </div>
       )}
+
+      {/* Half-time tab content */}
       {tab === 1 && <SocialCanvas stats={stats} graphicMode={tab} />}
+
+      {/* Full-time tab content */}
       {tab === 2 && <SocialCanvas stats={stats} graphicMode={tab} />}
-      {tab === 4 && <RosterSelect />}
+
+      {/* Home XI tab content */}
+      {tab === 4 && <RosterSelect division={selectedFixture.division} team={homeTeam} />}
+
+      {/* Away XI tab content */}
+      {tab === 5 && <RosterSelect division={selectedFixture.division} team={awayTeam} />}
     </>
-    // <div className='flex flex-col items-center justify-center'>
-    //   <h1 className='text-5xl my-5'>
-    //     {findTeamName(teams, selectedFixture.home_team_id)} vs.{' '}
-    //     {findTeamName(teams, selectedFixture.away_team_id)}
-    //   </h1>
-    //   <h2 className='text-2xl mb-5'>
-    //     {findDivisionName(divisions, selectedFixture.division)}
-    //   </h2>
-    //   {err.length > 0 && <p className='text-red-700'>{err}</p>}
-    //   <table className='border border-purple-700 border-collapse'>
-    //     <thead>
-    //       <tr>
-    //         <th></th>
-    //         <th></th>
-    //         <th>{findTeamName(teams, selectedFixture.home_team_id)}</th>
-    //         <th></th>
-    //         <th></th>
-    //         <th>{findTeamName(teams, selectedFixture.away_team_id)}</th>
-    //         <th></th>
-    //       </tr>
-    //     </thead>
-    //     <tbody>
-
-    //     </tbody>
-    //   </table>
-    //   <div>
-    //     <button
-    //       onClick={() => setGraphicMode(1)}
-    //       className='py-2.5 px-5 mr-2 mb-2 mt-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'
-    //     >
-    //       Half-time graphic
-    //     </button>
-    //     <button
-    //       onClick={() => setGraphicMode(2)}
-    //       className='py-2.5 px-5 mr-2 mb-2 mt-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'
-    //     >
-    //       Full-time graphic
-    //     </button>
-    //   </div>
-
-    // </div>
   );
 };
 
