@@ -21,7 +21,7 @@ const RosterList = ({ roster, teamName, graphicColour }) => {
   //  
 
   return (
-    <div className='flex flex-col-reverse lg:flex-row lg:justify-evenly lg:items-start mx-auto'>
+    <div className='flex flex-col lg:flex-row lg:justify-evenly lg:items-start mx-auto'>
       <form>
         <table className='table table-fixed'>
           <thead>

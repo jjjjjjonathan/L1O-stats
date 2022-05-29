@@ -1,23 +1,30 @@
 import useGraphicGenerator from '../../hooks/useGraphicGenerator';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import classNames from 'classnames';
+import { HiSave } from 'react-icons/hi';
 
 const LineupCanvas = ({ startingXI, goalkeeper, teamName, graphicColour }) => {
   const { graphicGenerator, graphic, altText, uploadError } = useGraphicGenerator(3);
 
+  const inputRef = useRef(null);
+
   const [checked, setChecked] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  const stickyButtonClasses = classNames('btn btn-circle btn-accent', { hidden: (startingXI.length < 11 || goalkeeper === null) });
+
+  const onBtnClick = () => {
+    inputRef.current.click();
+  };
 
   return (
     <div className='flex flex-col xl:w-1/4 h-full justify-items-center'>
 
-
-      <label htmlFor='' className='block mb-2 text-md font-medium text-gray-900 dark:text-gray-300'>Generate lineup graphic</label>
-      <input
-        className='block w-full text-sm text-gray-900 bg-gray-500 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 file:btn file:btn-accent file:font-medium hover:file:btn-secondary'
-        type='file'
-        id='lineupFileInput'
-        onChange={(e) => {
+      <div className='fixed bottom-8 right-8'>
+        <button className={stickyButtonClasses} onClick={onBtnClick}><HiSave />
+        </button>
+        <input type="file" className='hidden' ref={inputRef} onChange={(e) => {
           e.preventDefault();
           if (graphicGenerator.validate(startingXI, e.target.files[0].type)) {
             const updatedXI = startingXI
@@ -36,8 +43,8 @@ const LineupCanvas = ({ startingXI, goalkeeper, teamName, graphicColour }) => {
             setChecked(true);
             setCopied(false);
           }
-        }}
-      />
+        }} />
+      </div>
 
       {uploadError.length > 0 && <p className='text-red-600'>{uploadError}</p>}
       {graphic.length > 0 && checked && (
