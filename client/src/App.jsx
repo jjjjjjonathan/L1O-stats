@@ -12,39 +12,42 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const visualMode = darkMode ? 'night' : 'winter';
   return state.isReady ? (
-    <div data-theme={visualMode} className='h-full'>
-      <Router>
-        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-        <div className="mx-auto">
-          <Switch>
-            <Route path="/create">
-              <Create
-                divisions={state.divisions}
-                teams={state.teams}
-                dispatch={dispatch}
-              />
-            </Route>
-            <Route path="/lineups">
-              <Lineups divisions={state.divisions} teams={state.teams} />
-            </Route>
-            <Route path="/:id">
-              <Fixture
-                divisions={state.divisions}
-                teams={state.teams}
-                fixtures={state.fixtures}
-                dispatch={dispatch}
-              />
-            </Route>
-            <Route path="/">
-              <List
-                fixtures={state.fixtures}
-                teams={state.teams}
-                divisions={state.divisions}
-              />
-            </Route>
-          </Switch>
-        </div>
-      </Router>
+    <div data-theme={visualMode} className='min-h-screen flex flex-col justify-between'>
+      <div>
+        <Router>
+          <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+          <div className="mx-auto">
+            <Switch>
+              <Route path="/create">
+                <Create
+                  divisions={state.divisions}
+                  teams={state.teams}
+                  dispatch={dispatch}
+                />
+              </Route>
+              <Route path="/lineups">
+                <Lineups divisions={state.divisions} teams={state.teams} />
+              </Route>
+              <Route path="/:id">
+                <Fixture
+                  divisions={state.divisions}
+                  teams={state.teams}
+                  fixtures={state.fixtures}
+                  dispatch={dispatch}
+                />
+              </Route>
+              <Route path="/">
+                <List
+                  fixtures={state.fixtures}
+                  teams={state.teams}
+                  divisions={state.divisions}
+                />
+              </Route>
+            </Switch>
+          </div>
+        </Router>
+      </div>
+      <div>Footer goes here</div>
     </div>
   ) : (
     <p>Loading</p>
