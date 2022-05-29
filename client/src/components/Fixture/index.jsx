@@ -5,18 +5,27 @@ import ConsoleRow from './ConsoleRow';
 import SocialCanvas from './SocialCanvas';
 import { useState } from 'react';
 import classNames from 'classnames';
+import RosterSelect from './RosterSelect';
 
 const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
   const id = parseInt(useParams().id, 10);
 
   const selectedFixture = fixtures.find((fixture) => fixture.id === id);
 
+  const homeTeam = teams.find(
+    (team) => team.id === selectedFixture.home_team_id
+  );
+
+  const awayTeam = teams.find(
+    (team) => team.id === selectedFixture.away_team_id
+  );
+
   const updateStats = async (stat, value, fixtureId) => {
     try {
       const { data } = await axios.post('/api/fixtures', {
         stat,
         value,
-        fixtureId,
+        fixtureId
       });
       dispatch({ type: 'UPDATE_FIXTURE', content: data });
     } catch (err) {
@@ -43,7 +52,7 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
       fouls: selectedFixture.home_fouls,
       yellows: selectedFixture.home_yellows,
       reds: selectedFixture.home_reds,
-      name: findTeamName(teams, selectedFixture.home_team_id),
+      name: findTeamName(teams, selectedFixture.home_team_id)
     },
     a: {
       goals: selectedFixture.away_goals,
@@ -54,30 +63,47 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
       fouls: selectedFixture.away_fouls,
       yellows: selectedFixture.away_yellows,
       reds: selectedFixture.away_reds,
-      name: findTeamName(teams, selectedFixture.away_team_id),
-    },
+      name: findTeamName(teams, selectedFixture.away_team_id)
+    }
   };
 
   const [tab, setTab] = useState(3);
 
-  const statsTabClasses = classNames('tab tab-bordered', { 'tab-active': tab === 3 });
+  const statsTabClasses = classNames('tab tab-bordered', {
+    'tab-active': tab === 3
+  });
 
-  const halfTimeClasses = classNames('tab tab-bordered', { 'tab-active': tab === 1 });
+  const halfTimeClasses = classNames('tab tab-bordered', {
+    'tab-active': tab === 1
+  });
 
-  const fullTimeClasses = classNames('tab tab-bordered', { 'tab-active': tab === 2 });
+  const fullTimeClasses = classNames('tab tab-bordered', {
+    'tab-active': tab === 2
+  });
+
+  const homeXIClasses = classNames('tab tab-bordered', {
+    'tab-active': tab === 4
+  });
 
   return (
     <>
-      <div className="tabs justify-center py-8">
-        <button className='tab tab-bordered'>Home XI</button>
-        <button className={halfTimeClasses} onClick={() => setTab(1)}>HT</button>
-        <button className={statsTabClasses} onClick={() => setTab(3)}>Stats</button>
-        <button className={fullTimeClasses} onClick={() => setTab(2)}>FT</button>
+      <div className='tabs justify-center py-8'>
+        <button className={homeXIClasses} onClick={() => setTab(4)}>
+          Home XI
+        </button>
+        <button className={halfTimeClasses} onClick={() => setTab(1)}>
+          HT
+        </button>
+        <button className={statsTabClasses} onClick={() => setTab(3)}>
+          Stats
+        </button>
+        <button className={fullTimeClasses} onClick={() => setTab(2)}>
+          FT
+        </button>
         <button className='tab tab-bordered'>Away XI</button>
       </div>
 
       {tab === 3 && (
-
         <div className='grid grid-cols-2 mx-auto gap-y-4 gap-x-2 p-4 mx-auto'>
           <ConsoleRow
             key='goals'
@@ -145,12 +171,9 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
           />
         </div>
       )}
-      {tab === 1 && (
-        <SocialCanvas stats={stats} graphicMode={tab} />
-      )}
-      {tab === 2 && (
-        <SocialCanvas stats={stats} graphicMode={tab} />
-      )}
+      {tab === 1 && <SocialCanvas stats={stats} graphicMode={tab} />}
+      {tab === 2 && <SocialCanvas stats={stats} graphicMode={tab} />}
+      {tab === 4 && <RosterSelect />}
     </>
     // <div className='flex flex-col items-center justify-center'>
     //   <h1 className='text-5xl my-5'>
@@ -175,13 +198,6 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
     //     </thead>
     //     <tbody>
 
-
-
-
-
-
-
-
     //     </tbody>
     //   </table>
     //   <div>
@@ -198,7 +214,6 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
     //       Full-time graphic
     //     </button>
     //   </div>
-
 
     // </div>
   );
