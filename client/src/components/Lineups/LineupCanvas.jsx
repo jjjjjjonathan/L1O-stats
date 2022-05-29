@@ -1,5 +1,6 @@
 import useGraphicGenerator from '../../hooks/useGraphicGenerator';
 import { useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const LineupCanvas = ({ startingXI, goalkeeper, teamName, graphicColour }) => {
   const { graphicGenerator, graphic, altText, uploadError } = useGraphicGenerator(3);
@@ -50,7 +51,9 @@ const LineupCanvas = ({ startingXI, goalkeeper, teamName, graphicColour }) => {
               <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
               <img src={graphic} alt={altText} />
               <div className="modal-action">
-                <button className='btn btn-primary' onClick={() => setCopied(true)}>{copied ? 'You\'ve Copied!' : 'Copy to Clipboard'}</button>
+                <CopyToClipboard text={altText} onCopy={() => setCopied(true)}>
+                  <button className="btn btn-primary">{copied ? 'Copied!' : 'Copy'}</button>
+                </CopyToClipboard>
               </div>
             </div>
           </div>

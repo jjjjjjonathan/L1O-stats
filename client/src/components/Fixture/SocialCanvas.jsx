@@ -1,5 +1,6 @@
 import useGraphicGenerator from '../../hooks/useGraphicGenerator';
 import { useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const SocialCanvas = ({ stats, graphicMode }) => {
   const { graphicGenerator, graphic, altText, uploadError } = useGraphicGenerator(graphicMode);
@@ -40,14 +41,15 @@ const SocialCanvas = ({ stats, graphicMode }) => {
               <label htmlFor="my-modal-3" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
               <img src={graphic} alt={altText} />
               <div className="modal-action">
-                <button className='btn btn-primary' onClick={() => setCopied(true)}>{copied ? 'You\'ve Copied!' : 'Copy to Clipboard'}</button>
+                <CopyToClipboard text={altText} onCopy={() => setCopied(true)}>
+                  <button className="btn btn-primary">{copied ? 'Copied!' : 'Copy'}</button>
+                </CopyToClipboard>
               </div>
             </div>
           </div>
         </>
 
       )}
-      {altText.length > 0 && <textarea value={altText} readOnly={true} className='hidden' />}
       {uploadError && <p className='text-red-600'>{uploadError}</p>}
     </div>
   );
