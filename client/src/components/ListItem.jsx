@@ -61,31 +61,43 @@ const ListItem = ({
     <div className={cardClasses} onClick={() => history.push(`/${id}`)}>
       <figure>
         <div className={cardHeroClasses}>
-          <div className='h-[100px]'>
+          <div className='h-[100px] w-[100px] flex justify-center'>
             <img
               src={`/logos/${homeTeam.img}.png`}
               alt={homeTeam.name}
-              className='object-contain max-h-[100px] px-2 pt-2'
+              className='object-contain max-h-[100px] max-w[100px] px-2 pt-2'
             />
           </div>
 
           <p className='text-4xl font-bold'>
             {home_goals.toString(10)} - {away_goals.toString(10)}
           </p>
-          <div className='h-[100px]'>
+          <div className='h-[100px] w-[100px] flex justify-center'>
             <img
               src={`/logos/${awayTeam.img}.png`}
               alt={awayTeam.name}
-              className='object-contain max-h-[100px] px-2 pt-2'
+              className='object-contain max-h-[100px] max-w[100px] px-2 pt-2'
             />
           </div>
         </div>
       </figure>
       <div className='card-body'>
-        <h2 className={titleClasses}>
+        <div className='flex flex-col'>
+          <div className='flex flex-row justify-between'>
+            <h2 className='card-title'>{homeTeam.abbreviation}</h2>
+            <h2 className='card-title'>{home_goals.toString(10)}</h2>
+          </div>
+
+          <div className='flex flex-row justify-between'>
+            <h2 className='card-title'>{awayTeam.abbreviation}</h2>
+            <h2 className='card-title'>{away_goals.toString(10)}</h2>
+          </div>
+        </div>
+
+        {/* <h2 className={titleClasses}>
           {findTeamName(teams, home_team_id)} v.{' '}
           {findTeamName(teams, away_team_id)}
-        </h2>
+        </h2> */}
         <p>{parsedDate(date)}</p>
         <div className='card-actions justify-end'>
           <div className={badgeClasses}>
