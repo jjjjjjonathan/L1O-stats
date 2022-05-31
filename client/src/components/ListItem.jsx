@@ -1,6 +1,7 @@
 import { useHistory } from 'react-router-dom';
 import { findDivisionName, findTeamName } from '../helpers/helpers';
 import classNames from 'classnames';
+import { formatISO9075 } from 'date-fns';
 
 const ListItem = ({
   id,
@@ -29,13 +30,13 @@ const ListItem = ({
   const cardClasses = classNames(
     'card',
     'bg-primary',
-    'xl:bg-secondary',
+    'hover:bg-primary-focus',
     'text-primary-content',
     'w-full',
     'mx-auto',
-    { 'col-span-2': Date.now() + 7200000 - Date.parse(date) < 0 },
+    { 'col-span-2 md:px-6': Date.now() + 7200000 - Date.parse(date) < 0 },
     { 'col-span-1': Date.now() + 7200000 - Date.parse(date) >= 0 },
-    'py-2 px-2 md:px-6'
+    'py-2 px-1'
   );
 
   const cardHeroClasses = classNames(
@@ -47,9 +48,14 @@ const ListItem = ({
     { hidden: Date.now() + 7200000 - Date.parse(date) >= 0 }
   );
 
-  const titleClasses = classNames('card-title', {
+  const titleClasses = classNames('card-title text-primary-content text-3xl', {
     hidden: Date.now() + 7200000 - Date.parse(date) < 0
   });
+
+  const abbreviationClasses = classNames(
+    'card-title text-primary-content text-2xl hidden px-3',
+    { 'lg:block': Date.now() + 7200000 - Date.parse(date) >= 0 }
+  );
 
   const badgeClasses = classNames('badge font-bold', {
     hidden: Date.now() + 7200000 - Date.parse(date) >= 0,
@@ -76,32 +82,59 @@ const ListItem = ({
             <img
               src={`/logos/${awayTeam.img}.png`}
               alt={awayTeam.name}
-              className='object-contain max-h-[100px] max-w[100px] px-2 pt-2'
+              className='object-contain max-h-[100px] max-w-[100px] px-2 pt-2'
             />
           </div>
         </div>
       </figure>
-      <div className='card-body'>
+      <div className='card-body flex flex-col justify-between'>
         <div className='flex flex-col'>
-          <div className='flex flex-row justify-between'>
-            <h2 className='card-title'>{homeTeam.abbreviation}</h2>
-            <h2 className='card-title'>{home_goals.toString(10)}</h2>
+          <div className='flex flex-row justify-between items-center'>
+            <div className='flex flex-row items-center'>
+              <div className='flex flex-row'>
+                <img
+                  src={`/logos/${homeTeam.img}.png`}
+                  alt={homeTeam.name}
+                  className={classNames(
+                    'max-h-[28px] max-w-[28px] object-contain overflow-y-clip',
+                    { hidden: Date.now() + 7200000 - Date.parse(date) < 0 }
+                  )}
+                />
+                <h2 className={abbreviationClasses}>{homeTeam.abbreviation}</h2>
+                {/* <h2 className={titleClasses}>{homeTeam.abbreviation}</h2> */}
+              </div>
+            </div>
+            <h2 className={titleClasses}>{home_goals.toString(10)}</h2>
           </div>
 
-          <div className='flex flex-row justify-between'>
-            <h2 className='card-title'>{awayTeam.abbreviation}</h2>
-            <h2 className='card-title'>{away_goals.toString(10)}</h2>
+          <div className='flex flex-row justify-between items-center'>
+            <div className='flex flex-row items-center'>
+              <div className='flex flex-row items-center'>
+                <img
+                  src={`/logos/${awayTeam.img}.png`}
+                  alt={awayTeam.name}
+                  className={classNames(
+                    'max-h-[28px] max-w-[28px] object-contain overflow-y-clip',
+                    { hidden: Date.now() + 7200000 - Date.parse(date) < 0 }
+                  )}
+                />
+                <h2 className={abbreviationClasses}>{awayTeam.abbreviation}</h2>
+                {/* <h2 className={titleClasses}>{awayTeam.abbreviation}</h2> */}
+              </div>
+            </div>
+            <h2 className={titleClasses}>{away_goals.toString(10)}</h2>
           </div>
         </div>
 
-        {/* <h2 className={titleClasses}>
-          {findTeamName(teams, home_team_id)} v.{' '}
-          {findTeamName(teams, away_team_id)}
-        </h2> */}
-        <p>{parsedDate(date)}</p>
-        <div className='card-actions justify-end'>
+        <div className='card-actions justify-end pt-2'>
+          <div className='badge badge-warning font-bold text-content'>
+            {formatISO9075(new Date(date), { representation: 'date' })}
+          </div>
           <div className={badgeClasses}>
             {findDivisionName(divisions, division)}
+          </div>
+          <div className='badge badge-success font-bold text-content'>
+            #{e2e_id.toString(10)}
           </div>
         </div>
       </div>
