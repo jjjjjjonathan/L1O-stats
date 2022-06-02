@@ -93,18 +93,31 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
     'tab-active': tab === 4
   });
 
-  const awayXIClasses = classNames('tab tab-bordered', { 'tab-active': tab === 5 });
+  const awayXIClasses = classNames('tab tab-bordered', {
+    'tab-active': tab === 5
+  });
 
-  const rows = ['Goals', 'Total Shots', 'On Target', 'Corners', 'Offsides', 'Fouls', 'Yellow Cards', 'Red Cards'];
+  const rows = [
+    'Goals',
+    'Total Shots',
+    'On Target',
+    'Corners',
+    'Offsides',
+    'Fouls',
+    'Yellow Cards',
+    'Red Cards'
+  ];
 
-  const mappedRows = rows.map((row) => <ConsoleRow
-    key={row}
-    label={row}
-    fixture={selectedFixture}
-    id={id}
-    validate={validate}
-    teams={teams}
-  />);
+  const mappedRows = rows.map((row) => (
+    <ConsoleRow
+      key={row}
+      label={row}
+      fixture={selectedFixture}
+      id={id}
+      validate={validate}
+      teams={teams}
+    />
+  ));
 
   return (
     <>
@@ -114,7 +127,8 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
         </button>
         <button className={halfTimeClasses} onClick={() => setTab(1)}>
           HT
-        </button><button className={halfTimeClassesMd} onClick={() => setTab(1)}>
+        </button>
+        <button className={halfTimeClassesMd} onClick={() => setTab(1)}>
           Half-time
         </button>
         <button className={statsTabClasses} onClick={() => setTab(3)}>
@@ -126,7 +140,9 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
         <button className={fullTimeClassesMd} onClick={() => setTab(2)}>
           Full-time
         </button>
-        <button className={awayXIClasses} onClick={() => setTab(5)}>Away XI</button>
+        <button className={awayXIClasses} onClick={() => setTab(5)}>
+          Away XI
+        </button>
       </div>
 
       {/* Stats tab content */}
@@ -143,10 +159,14 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
       {tab === 2 && <SocialCanvas stats={stats} graphicMode={tab} />}
 
       {/* Home XI tab content */}
-      {tab === 4 && <RosterSelect division={selectedFixture.division} team={homeTeam} />}
+      {tab === 4 && (
+        <RosterSelect division={selectedFixture.division} team={homeTeam} />
+      )}
 
       {/* Away XI tab content */}
-      {tab === 5 && <RosterSelect division={selectedFixture.division} team={awayTeam} />}
+      {tab === 5 && (
+        <RosterSelect division={selectedFixture.division} team={awayTeam} />
+      )}
     </>
   );
 };

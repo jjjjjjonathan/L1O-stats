@@ -61,8 +61,8 @@ const ListItem = ({
 
   const badgeClasses = classNames('badge font-bold shadow-md', {
     hidden: Date.now() + 7200000 - Date.parse(date) >= 0,
-    'badge-accent': division === 2,
-    'badge-secondary': division === 1
+    'badge-accent text-accent-content': division === 2,
+    'badge-secondary text-secondary-content': division === 1
   });
 
   return (
@@ -129,13 +129,13 @@ const ListItem = ({
         </div>
 
         <div className='card-actions justify-end pt-2'>
-          <div className='badge badge-warning font-bold text-content'>
+          <div className='badge badge-info font-bold text-info-content'>
             {formatISO9075(new Date(date), { representation: 'date' })}
           </div>
           <div className={badgeClasses}>
             {findDivisionName(divisions, division)}
           </div>
-          <div className='badge badge-success font-bold text-content'>
+          <div className='badge badge-primary font-bold text-primary-content'>
             #{e2e_id.toString(10)}
           </div>
         </div>
