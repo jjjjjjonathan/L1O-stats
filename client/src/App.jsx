@@ -9,9 +9,18 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const { state, dispatch } = useApplicationData();
+  const checkPreferredMode = () => {
+    if (window.matchMedia) {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return false;
+  };
+
+  const lastSelectedMode = JSON.parse(localStorage.getItem('DARK_MODE'));
   const [darkMode, setDarkMode] = useState(
-    JSON.parse(localStorage.getItem('DARK_MODE')) || false
+    lastSelectedMode !== null ? lastSelectedMode : checkPreferredMode()
   );
+
   const visualMode = darkMode ? 'night' : 'winter';
 
   useEffect(() => {
