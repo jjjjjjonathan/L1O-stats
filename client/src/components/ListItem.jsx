@@ -29,11 +29,13 @@ const ListItem = ({
 
   const cardClasses = classNames(
     'card',
-    'bg-primary',
+    'bg-base-100',
     'hover:bg-primary-focus',
-    'text-primary-content',
+    'text-base-content',
     'w-full',
     'mx-auto',
+    'shadow-lg',
+    'hover:shadow-xl',
     { 'col-span-2 md:px-6': Date.now() + 7200000 - Date.parse(date) < 0 },
     { 'col-span-1': Date.now() + 7200000 - Date.parse(date) >= 0 },
     'py-2 px-1'
@@ -48,16 +50,16 @@ const ListItem = ({
     { hidden: Date.now() + 7200000 - Date.parse(date) >= 0 }
   );
 
-  const titleClasses = classNames('card-title text-primary-content text-3xl', {
+  const titleClasses = classNames('card-title text-base-content text-3xl', {
     hidden: Date.now() + 7200000 - Date.parse(date) < 0
   });
 
   const abbreviationClasses = classNames(
-    'card-title text-primary-content text-2xl hidden px-3',
+    'card-title text-base-content text-2xl hidden px-3',
     { 'lg:block': Date.now() + 7200000 - Date.parse(date) >= 0 }
   );
 
-  const badgeClasses = classNames('badge font-bold', {
+  const badgeClasses = classNames('badge font-bold shadow-md', {
     hidden: Date.now() + 7200000 - Date.parse(date) >= 0,
     'badge-accent': division === 2,
     'badge-secondary': division === 1

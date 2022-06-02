@@ -5,30 +5,40 @@ import List from './components/List';
 import Fixture from './components/Fixture';
 import Navbar from './components/Navbar';
 import Lineups from './components/Lineups';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
   const { state, dispatch } = useApplicationData();
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(
+    JSON.parse(localStorage.getItem('DARK_MODE')) || false
+  );
   const visualMode = darkMode ? 'night' : 'winter';
+
+  useEffect(() => {
+    localStorage.setItem('DARK_MODE', darkMode);
+  }, [darkMode]);
+
   return state.isReady ? (
-    <div data-theme={visualMode} className='min-h-screen flex flex-col justify-between'>
+    <div
+      data-theme={visualMode}
+      className='min-h-screen flex flex-col justify-between bg-base-200'
+    >
       <div>
         <Router>
           <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-          <div className="mx-auto">
+          <div className='mx-auto'>
             <Switch>
-              <Route path="/create">
+              <Route path='/create'>
                 <Create
                   divisions={state.divisions}
                   teams={state.teams}
                   dispatch={dispatch}
                 />
               </Route>
-              <Route path="/lineups">
+              <Route path='/lineups'>
                 <Lineups divisions={state.divisions} teams={state.teams} />
               </Route>
-              <Route path="/:id">
+              <Route path='/:id'>
                 <Fixture
                   divisions={state.divisions}
                   teams={state.teams}
@@ -36,7 +46,7 @@ function App() {
                   dispatch={dispatch}
                 />
               </Route>
-              <Route path="/">
+              <Route path='/'>
                 <List
                   fixtures={state.fixtures}
                   teams={state.teams}
