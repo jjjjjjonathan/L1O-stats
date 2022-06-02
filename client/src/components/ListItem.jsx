@@ -30,7 +30,7 @@ const ListItem = ({
   const cardClasses = classNames(
     'card',
     'bg-base-100',
-    'hover:bg-primary-focus',
+    'hover:bg-base-200',
     'text-base-content',
     'w-full',
     'mx-auto',

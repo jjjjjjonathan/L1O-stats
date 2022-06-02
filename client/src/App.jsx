@@ -21,7 +21,7 @@ function App() {
   return state.isReady ? (
     <div
       data-theme={visualMode}
-      className='min-h-screen flex flex-col justify-between bg-base-200'
+      className='min-h-screen flex flex-col justify-between bg-base-300'
     >
       <div>
         <Router>
