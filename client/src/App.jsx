@@ -5,10 +5,11 @@ import List from './components/List';
 import Fixture from './components/Fixture';
 import Navbar from './components/Navbar';
 import Lineups from './components/Lineups';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 
 function App() {
   const { state, dispatch } = useApplicationData();
+  const DispatchContext = createContext(dispatch);
   const checkPreferredMode = () => {
     if (window.matchMedia) {
       return window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -28,46 +29,48 @@ function App() {
   }, [darkMode]);
 
   return state.isReady ? (
-    <div
-      data-theme={visualMode}
-      className='min-h-screen flex flex-col justify-between bg-base-300'
-    >
-      <div>
-        <Router>
-          <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-          <div className='mx-auto'>
-            <Switch>
-              <Route path='/create'>
-                <Create
-                  divisions={state.divisions}
-                  teams={state.teams}
-                  dispatch={dispatch}
-                />
-              </Route>
-              <Route path='/lineups'>
-                <Lineups divisions={state.divisions} teams={state.teams} />
-              </Route>
-              <Route path='/:id'>
-                <Fixture
-                  divisions={state.divisions}
-                  teams={state.teams}
-                  fixtures={state.fixtures}
-                  dispatch={dispatch}
-                />
-              </Route>
-              <Route path='/'>
-                <List
-                  fixtures={state.fixtures}
-                  teams={state.teams}
-                  divisions={state.divisions}
-                />
-              </Route>
-            </Switch>
-          </div>
-        </Router>
+    <DispatchContext.Provider value={dispatch}>
+      <div
+        data-theme={visualMode}
+        className='min-h-screen flex flex-col justify-between bg-base-300'
+      >
+        <div>
+          <Router>
+            <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+            <div className='mx-auto'>
+              <Switch>
+                <Route path='/create'>
+                  <Create
+                    divisions={state.divisions}
+                    teams={state.teams}
+                    dispatch={dispatch}
+                  />
+                </Route>
+                <Route path='/lineups'>
+                  <Lineups divisions={state.divisions} teams={state.teams} />
+                </Route>
+                <Route path='/:id'>
+                  <Fixture
+                    divisions={state.divisions}
+                    teams={state.teams}
+                    fixtures={state.fixtures}
+                    dispatch={dispatch}
+                  />
+                </Route>
+                <Route path='/'>
+                  <List
+                    fixtures={state.fixtures}
+                    teams={state.teams}
+                    divisions={state.divisions}
+                  />
+                </Route>
+              </Switch>
+            </div>
+          </Router>
+        </div>
+        <div>Footer goes here</div>
       </div>
-      <div>Footer goes here</div>
-    </div>
+    </DispatchContext.Provider>
   ) : (
     <p>Loading</p>
   );
