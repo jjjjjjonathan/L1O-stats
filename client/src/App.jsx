@@ -7,9 +7,11 @@ import Navbar from './components/Navbar';
 import Lineups from './components/Lineups';
 import { useState, useEffect, createContext } from 'react';
 
+export const DispatchContext = createContext();
+
 function App() {
   const { state, dispatch } = useApplicationData();
-  const DispatchContext = createContext(dispatch);
+
   const checkPreferredMode = () => {
     if (window.matchMedia) {
       return window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -29,22 +31,18 @@ function App() {
   }, [darkMode]);
 
   return state.isReady ? (
-    <DispatchContext.Provider value={dispatch}>
-      <div
-        data-theme={visualMode}
-        className='min-h-screen flex flex-col justify-between bg-base-300'
-      >
-        <div>
-          <Router>
+    <div
+      data-theme={visualMode}
+      className='min-h-screen flex flex-col justify-between bg-base-300'
+    >
+      <div>
+        <Router>
+          <DispatchContext.Provider value={dispatch}>
             <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
             <div className='mx-auto'>
               <Switch>
                 <Route path='/create'>
-                  <Create
-                    divisions={state.divisions}
-                    teams={state.teams}
-                    dispatch={dispatch}
-                  />
+                  <Create divisions={state.divisions} teams={state.teams} />
                 </Route>
                 <Route path='/lineups'>
                   <Lineups divisions={state.divisions} teams={state.teams} />
@@ -54,7 +52,6 @@ function App() {
                     divisions={state.divisions}
                     teams={state.teams}
                     fixtures={state.fixtures}
-                    dispatch={dispatch}
                   />
                 </Route>
                 <Route path='/'>
@@ -66,11 +63,11 @@ function App() {
                 </Route>
               </Switch>
             </div>
-          </Router>
-        </div>
-        <div>Footer goes here</div>
+          </DispatchContext.Provider>
+        </Router>
       </div>
-    </DispatchContext.Provider>
+      <div>Footer goes here</div>
+    </div>
   ) : (
     <p>Loading</p>
   );

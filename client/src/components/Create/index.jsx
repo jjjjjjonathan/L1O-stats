@@ -1,8 +1,10 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Form from './Form';
+import { DispatchContext } from '../../App';
 
-const Create = ({ divisions, teams, dispatch }) => {
+const Create = ({ divisions, teams }) => {
+  const dispatch = useContext(DispatchContext);
   const mensTeams = teams.filter((team) => team.mens);
   const womensTeams = teams.filter((team) => team.womens);
 
@@ -35,7 +37,7 @@ const Create = ({ divisions, teams, dispatch }) => {
           homeTeam,
           awayTeam,
           e2eId,
-          date,
+          date
         });
         dispatch({ type: 'CREATE_FIXTURE', content: data });
         setSuccess(true);
@@ -49,17 +51,41 @@ const Create = ({ divisions, teams, dispatch }) => {
   return (
     <div className='flex flex-col items-center'>
       {success && (
-        <div className="alert alert-success shadow-lg">
+        <div className='alert alert-success shadow-lg'>
           <div>
-            <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='stroke-current flex-shrink-0 h-6 w-6'
+              fill='none'
+              viewBox='0 0 24 24'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth='2'
+                d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'
+              />
+            </svg>
             <span>{successMsg}</span>
           </div>
         </div>
       )}
       {err && (
-        <div className="alert alert-error shadow-lg">
+        <div className='alert alert-error shadow-lg'>
           <div>
-            <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='stroke-current flex-shrink-0 h-6 w-6'
+              fill='none'
+              viewBox='0 0 24 24'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth='2'
+                d='M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z'
+              />
+            </svg>
             <span>{errMsg}</span>
           </div>
         </div>

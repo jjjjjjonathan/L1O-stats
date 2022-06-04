@@ -3,12 +3,15 @@ import { useParams } from 'react-router-dom';
 import { findDivisionName, findTeamName } from '../../helpers/helpers';
 import ConsoleRow from './ConsoleRow';
 import SocialCanvas from './SocialCanvas';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import classNames from 'classnames';
 import RosterSelect from './RosterSelect';
+import { DispatchContext } from '../../App';
 
-const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
+const Fixture = ({ divisions, teams, fixtures }) => {
   const id = parseInt(useParams().id, 10);
+
+  const dispatch = useContext(DispatchContext);
 
   const selectedFixture = fixtures.find((fixture) => fixture.id === id);
 
