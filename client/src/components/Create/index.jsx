@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { useState, useContext } from 'react';
 import Form from './Form';
-import { DispatchContext } from '../../App';
+import { DispatchContext, AlertContext } from '../../App';
 
 const Create = ({ divisions, teams }) => {
   const dispatch = useContext(DispatchContext);
+  const setAlert = useContext(AlertContext);
   const mensTeams = teams.filter((team) => team.mens);
   const womensTeams = teams.filter((team) => team.womens);
 
@@ -13,10 +14,6 @@ const Create = ({ divisions, teams }) => {
   const [awayTeam, setAwayTeam] = useState(null);
   const [e2eId, setE2eId] = useState(null);
   const [date, setDate] = useState(null);
-  const [success, setSuccess] = useState(false);
-  const [successMsg, setSuccessMsg] = useState('');
-  const [err, setErr] = useState(false);
-  const [errMsg, setErrMsg] = useState('');
 
   const submitNewFixture = async (
     event,
@@ -29,8 +26,15 @@ const Create = ({ divisions, teams }) => {
     try {
       event.preventDefault();
       if (Number.isNaN(e2eId)) {
-        setErr(true);
-        setErrMsg('E2E ID needs to be a number');
+        setAlert({
+          type: 'error',
+          msg: 'E2E ID needs to be a number.'
+        });
+      } else if (homeTeam === awayTeam) {
+        setAlert({
+          type: 'error',
+          msg: 'You cannot select the same teams for home and away.'
+        });
       } else {
         const { data } = await axios.put('/api/fixtures', {
           selectedDivision,
@@ -40,8 +44,10 @@ const Create = ({ divisions, teams }) => {
           date
         });
         dispatch({ type: 'CREATE_FIXTURE', content: data });
-        setSuccess(true);
-        setSuccessMsg(`You just created match #${data.e2e_id}`);
+        setAlert({
+          type: 'success',
+          msg: `You just created match #${data.e2e_id}`
+        });
       }
     } catch (err) {
       console.error(err);
@@ -50,46 +56,6 @@ const Create = ({ divisions, teams }) => {
 
   return (
     <div className='flex flex-col items-center'>
-      {success && (
-        <div className='alert alert-success shadow-lg'>
-          <div>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              className='stroke-current flex-shrink-0 h-6 w-6'
-              fill='none'
-              viewBox='0 0 24 24'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'
-              />
-            </svg>
-            <span>{successMsg}</span>
-          </div>
-        </div>
-      )}
-      {err && (
-        <div className='alert alert-error shadow-lg'>
-          <div>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              className='stroke-current flex-shrink-0 h-6 w-6'
-              fill='none'
-              viewBox='0 0 24 24'
-            >
-              <path
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                strokeWidth='2'
-                d='M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z'
-              />
-            </svg>
-            <span>{errMsg}</span>
-          </div>
-        </div>
-      )}
       <div>
         <button
           value={divisions[0].id}
@@ -114,8 +80,6 @@ const Create = ({ divisions, teams }) => {
             setAwayTeam={setAwayTeam}
             setE2eId={setE2eId}
             setDate={setDate}
-            setSuccess={setSuccess}
-            setErr={setErr}
           />
           <button
             onClick={(event) =>

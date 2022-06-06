@@ -1,6 +1,6 @@
 import FormOption from './FormOption';
 
-const Form = ({ teams, setHomeTeam, setAwayTeam, setE2eId, setDate, setSuccess, setErr }) => {
+const Form = ({ teams, setHomeTeam, setAwayTeam, setE2eId, setDate }) => {
   const mappedTeams = teams.map((team) => (
     <FormOption key={team.id} value={team.id} name={team.name} />
   ));
@@ -9,11 +9,10 @@ const Form = ({ teams, setHomeTeam, setAwayTeam, setE2eId, setDate, setSuccess, 
     <>
       <section>
         <select
-          name="homeTeamSelect"
-          id="homeTeamSelect"
+          name='homeTeamSelect'
+          id='homeTeamSelect'
           onChange={(event) => {
             setHomeTeam(parseInt(event.target.value, 10));
-            setSuccess(false);
           }}
           defaultValue={'label'}
           className='select select-bordered w-full max-w-xs'
@@ -26,8 +25,8 @@ const Form = ({ teams, setHomeTeam, setAwayTeam, setE2eId, setDate, setSuccess, 
       </section>
       <section>
         <select
-          name="awayTeamSelect"
-          id="awayTeamSelect"
+          name='awayTeamSelect'
+          id='awayTeamSelect'
           onChange={(event) => setAwayTeam(parseInt(event.target.value, 10))}
           defaultValue={'label'}
           className='select select-bordered w-full max-w-xs'
@@ -40,23 +39,20 @@ const Form = ({ teams, setHomeTeam, setAwayTeam, setE2eId, setDate, setSuccess, 
       </section>
       <section>
         <input
-          type="text"
+          type='text'
           onChange={(event) => {
             setE2eId(parseInt(event.target.value, 10));
-            setSuccess(false);
-            setErr(false);
           }}
           className='input input-bordered w-full max-w-xs'
           placeholder='Select E2EID'
         />
       </section>
       <section>
-        <label htmlFor="">Set date and time</label>
+        <label htmlFor=''>Set date and time</label>
         <input
-          type="datetime-local"
+          type='datetime-local'
           onChange={(event) => {
             setDate(event.target.value);
-            setSuccess(false);
           }}
         />
       </section>

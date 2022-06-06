@@ -36,6 +36,19 @@ function App() {
     localStorage.setItem('DARK_MODE', darkMode);
   }, [darkMode]);
 
+  useEffect(() => {
+    if (alert.type) {
+      setTimeout(() => {
+        setAlert((prev) => {
+          return {
+            ...prev,
+            type: null
+          };
+        });
+      }, 4000);
+    }
+  }, [alert]);
+
   return state.isReady ? (
     <div
       data-theme={visualMode}
