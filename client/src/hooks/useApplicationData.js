@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const useApplicationData = () => {
   const reducers = {
-    'SET_APPLICATION_DATA'(state, action) {
+    SET_APPLICATION_DATA(state, action) {
       return {
         ...state,
         divisions: action.divisions.data,
@@ -13,22 +13,25 @@ const useApplicationData = () => {
       };
     },
 
-    'CREATE_FIXTURE'(state, action) {
+    CREATE_FIXTURE(state, action) {
       return {
         ...state,
         fixtures: [...state.fixtures, action.content]
       };
     },
 
-    'UPDATE_FIXTURE'(state, action) {
+    UPDATE_FIXTURE(state, action) {
       return {
         ...state,
-        fixtures: state.fixtures.map(fixture => fixture.id === action.content.id ? action.content : fixture)
+        fixtures: state.fixtures.map((fixture) =>
+          fixture.id === action.content.id ? action.content : fixture
+        )
       };
     }
   };
 
-  const reducer = (state, action) => reducers[action.type](state, action) || state;
+  const reducer = (state, action) =>
+    reducers[action.type](state, action) || state;
   const initState = {
     divisions: [],
     teams: [],
@@ -45,8 +48,7 @@ const useApplicationData = () => {
         axios.get('/api/fixtures')
       ]);
       dispatch({ type: 'SET_APPLICATION_DATA', divisions, teams, fixtures });
-    }
-    catch (err) {
+    } catch (err) {
       console.error(err);
     }
   };

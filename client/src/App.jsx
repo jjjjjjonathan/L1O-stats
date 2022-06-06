@@ -8,9 +8,15 @@ import Lineups from './components/Lineups';
 import { useState, useEffect, createContext } from 'react';
 
 export const DispatchContext = createContext();
+export const AlertContext = createContext();
 
 function App() {
   const { state, dispatch } = useApplicationData();
+
+  const [alert, setAlert] = useState({
+    type: null,
+    msg: ''
+  });
 
   const checkPreferredMode = () => {
     if (window.matchMedia) {
@@ -38,31 +44,37 @@ function App() {
       <div>
         <Router>
           <DispatchContext.Provider value={dispatch}>
-            <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-            <div className='mx-auto'>
-              <Switch>
-                <Route path='/create'>
-                  <Create divisions={state.divisions} teams={state.teams} />
-                </Route>
-                <Route path='/lineups'>
-                  <Lineups divisions={state.divisions} teams={state.teams} />
-                </Route>
-                <Route path='/:id'>
-                  <Fixture
-                    divisions={state.divisions}
-                    teams={state.teams}
-                    fixtures={state.fixtures}
-                  />
-                </Route>
-                <Route path='/'>
-                  <List
-                    fixtures={state.fixtures}
-                    teams={state.teams}
-                    divisions={state.divisions}
-                  />
-                </Route>
-              </Switch>
-            </div>
+            <AlertContext.Provider value={setAlert}>
+              <Navbar
+                darkMode={darkMode}
+                setDarkMode={setDarkMode}
+                alert={alert}
+              />
+              <div className='mx-auto'>
+                <Switch>
+                  <Route path='/create'>
+                    <Create divisions={state.divisions} teams={state.teams} />
+                  </Route>
+                  <Route path='/lineups'>
+                    <Lineups divisions={state.divisions} teams={state.teams} />
+                  </Route>
+                  <Route path='/:id'>
+                    <Fixture
+                      divisions={state.divisions}
+                      teams={state.teams}
+                      fixtures={state.fixtures}
+                    />
+                  </Route>
+                  <Route path='/'>
+                    <List
+                      fixtures={state.fixtures}
+                      teams={state.teams}
+                      divisions={state.divisions}
+                    />
+                  </Route>
+                </Switch>
+              </div>
+            </AlertContext.Provider>
           </DispatchContext.Provider>
         </Router>
       </div>

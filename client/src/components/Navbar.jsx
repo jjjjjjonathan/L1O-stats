@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const Navbar = ({ darkMode, setDarkMode }) => {
+const Navbar = ({ darkMode, setDarkMode, alert }) => {
   return (
     <div className='navbar bg-neutral top-0 sticky z-50 w-full text-neutral-content shadow-sm shadow-neutral-focus'>
       <div className='navbar-start'>
@@ -48,7 +48,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
         </ul>
       </div>
       <div className='navbar-end'>
-        <label className='swap swap-rotate pr-4'>
+        <label className='swap swap-rotate pr-4' data-testid='dark-mode-check'>
           <input
             type='checkbox'
             onChange={() => {

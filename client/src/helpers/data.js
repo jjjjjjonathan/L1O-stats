@@ -16,8 +16,10 @@ export const fixtures = {
       name: 'Alliance United FC',
       mens: true,
       womens: true,
-      mens_roster_url: 'https://www.league1ontario.com/roster/show/7104584?subseason=809614',
-      womens_roster_url: 'https://www.league1ontario.com/roster/show/7098640?subseason=809616'
+      mens_roster_url:
+        'https://www.league1ontario.com/roster/show/7104584?subseason=809614',
+      womens_roster_url:
+        'https://www.league1ontario.com/roster/show/7098640?subseason=809616'
     },
     {
       id: 18,
@@ -25,14 +27,16 @@ export const fixtures = {
       mens: false,
       womens: true,
       mens_roster_url: null,
-      womens_roster_url: 'https://www.league1ontario.com/roster/show/7098669?subseason=809616'
+      womens_roster_url:
+        'https://www.league1ontario.com/roster/show/7098669?subseason=809616'
     },
     {
       id: 17,
       name: 'Guelph United',
       mens: true,
       womens: false,
-      mens_roster_url: 'https://www.league1ontario.com/roster/show/7104596?subseason=809614',
+      mens_roster_url:
+        'https://www.league1ontario.com/roster/show/7104596?subseason=809614',
       womens_roster_url: null
     }
   ],
@@ -60,6 +64,7 @@ export const fixtures = {
       away_yellows: 0,
       home_reds: 0,
       away_reds: 0,
+      date: '2022-06-11 20:00:00'
     },
     {
       id: 2,
@@ -83,6 +88,7 @@ export const fixtures = {
       away_yellows: 0,
       home_reds: 0,
       away_reds: 0,
+      date: '2022-06-11 20:00:00'
     }
   ]
 };
