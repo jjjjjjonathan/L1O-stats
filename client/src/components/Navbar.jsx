@@ -1,6 +1,11 @@
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
 const Navbar = ({ darkMode, setDarkMode, alert }) => {
+  const alertClasses = classNames('alert shadow-lg', {
+    'alert-success': alert.type === 'success',
+    'alert-error': alert.type === 'error'
+  });
   return (
     <div className='navbar bg-neutral top-0 sticky z-50 w-full text-neutral-content shadow-sm shadow-neutral-focus'>
       <div className='navbar-start'>
@@ -33,20 +38,46 @@ const Navbar = ({ darkMode, setDarkMode, alert }) => {
             </li>
           </ul>
         </div>
-        <Link to='/'>
+
+        <Link to='/' className='hidden lg:block'>
           <img src='/logos/league.png' alt='' className='h-16' />
         </Link>
       </div>
-      <div className='navbar-center hidden lg:flex'>
-        <ul className='menu menu-horizontal p-0'>
-          <li>
-            <Link to='/create'>Create a fixture</Link>
-          </li>
-          <li tabIndex='0'>
-            <Link to='/'>See list of fixtures</Link>
-          </li>
-        </ul>
-      </div>
+      {(alert.type === 'success' || alert.type === 'error') && (
+        <div className={alertClasses}>
+          <div>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='stroke-current flex-shrink-0 h-6 w-6'
+              fill='none'
+              viewBox='0 0 24 24'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth='2'
+                d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'
+              />
+            </svg>
+            <span>{alert.msg}</span>
+          </div>
+        </div>
+      )}
+      {alert.type === null && (
+        <div className='navbar-center'>
+          <Link to='/' className='block lg:hidden'>
+            <img src='/logos/league.png' alt='' className='h-16' />
+          </Link>
+          <ul className='menu menu-horizontal p-0 hidden lg:flex'>
+            <li>
+              <Link to='/create'>Create a fixture</Link>
+            </li>
+            <li tabIndex='0'>
+              <Link to='/'>See list of fixtures</Link>
+            </li>
+          </ul>
+        </div>
+      )}
       <div className='navbar-end'>
         <label className='swap swap-rotate pr-4' data-testid='dark-mode-check'>
           <input
