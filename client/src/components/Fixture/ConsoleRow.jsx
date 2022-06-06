@@ -95,14 +95,7 @@ const ConsoleRow = ({ fixture, label, id, validate, teams }) => {
           <div className='stat-desc'>{homeTeam.name}</div>
         </div>
 
-        <div className='stat'>
-          <div className='stat-figure text-secondary'>
-            <div className='avatar'>
-              <div className='w-16'>
-                <img src={`/logos/${homeTeam.img}.png`} alt={homeTeam.img} />
-              </div>
-            </div>
-          </div>
+        <div className='stat flex justify-center items-center'>
           <div className='flex flex-col lg:flex-row-reverse lg:items-center lg:mt-6'>
             <button
               className='btn btn-success btn-sm w-24 font-bold lg:ml-1 my-2 lg:my-0'
@@ -119,6 +112,16 @@ const ConsoleRow = ({ fixture, label, id, validate, teams }) => {
             </button>
           </div>
         </div>
+
+        <div className='stat place-items-center flex justify-center items-center'>
+          <div className='stat-figure text-secondary'>
+            <div className='avatar'>
+              <div className='w-16'>
+                <img src={`/logos/${homeTeam.img}.png`} alt={homeTeam.img} />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className='stats shadow-ms hover:bg-base-200 hover:shadow-lg'>
@@ -130,14 +133,7 @@ const ConsoleRow = ({ fixture, label, id, validate, teams }) => {
           <div className='stat-desc'>{awayTeam.name}</div>
         </div>
 
-        <div className='stat'>
-          <div className='stat-figure text-secondary'>
-            <div className='avatar'>
-              <div className='w-16'>
-                <img src={`/logos/${awayTeam.img}.png`} alt={awayTeam.img} />
-              </div>
-            </div>
-          </div>
+        <div className='stat flex justify-center items-center'>
           <div className='flex flex-col lg:flex-row-reverse lg:items-center lg:mt-6'>
             <button
               className='btn btn-success btn-sm w-24 font-bold lg:ml-1 my-2 lg:my-0'
@@ -152,6 +148,15 @@ const ConsoleRow = ({ fixture, label, id, validate, teams }) => {
             >
               -1
             </button>
+          </div>
+        </div>
+        <div className='stat place-items-center flex justify-center items-center'>
+          <div className='stat-figure text-secondary'>
+            <div className='avatar'>
+              <div className='w-16 '>
+                <img src={`/logos/${awayTeam.img}.png`} alt={awayTeam.img} />
+              </div>
+            </div>
           </div>
         </div>
       </div>
