@@ -5,6 +5,7 @@ import List from './components/List';
 import Fixture from './components/Fixture';
 import Navbar from './components/Navbar';
 import Lineups from './components/Lineups';
+import Footer from './components/Footer';
 import { useState, useEffect, createContext } from 'react';
 
 export const DispatchContext = createContext();
@@ -91,7 +92,7 @@ function App() {
           </DispatchContext.Provider>
         </Router>
       </div>
-      <div>Footer goes here</div>
+      <Footer />
     </div>
   ) : (
     <p>Loading</p>
