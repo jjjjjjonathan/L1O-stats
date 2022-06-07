@@ -83,16 +83,15 @@ const ConsoleRow = ({ fixture, label, id, validate, teams }) => {
         </div>
       </div>
       {/* medium + screens */}
-      <div className='stats shadow-ms hover:bg-base-200 hover:shadow-lg hidden md:block'>
-        <div className='stat place-items-center'>
-          <div className='stat-title'>{label}</div>
-          <div className='flex flex-row justify-between items-center'>
-            <div className='stat-value text-primary w-full'>
-              {fixture[getStatName(label).h]}
+      <div className='stats shadow-ms hover:bg-base-200 hover:shadow-lg hidden md:flex'>
+        <div className='stat place-items-center flex justify-center items-center'>
+          <div className='stat-figure text-secondary'>
+            <div className='avatar'>
+              <div className='w-16'>
+                <img src={`/logos/${homeTeam.img}.png`} alt={homeTeam.img} />
+              </div>
             </div>
           </div>
-
-          <div className='stat-desc'>{homeTeam.name}</div>
         </div>
 
         <div className='stat flex justify-center items-center'>
@@ -113,18 +112,19 @@ const ConsoleRow = ({ fixture, label, id, validate, teams }) => {
           </div>
         </div>
 
-        <div className='stat place-items-center flex justify-center items-center'>
-          <div className='stat-figure text-secondary'>
-            <div className='avatar'>
-              <div className='w-16'>
-                <img src={`/logos/${homeTeam.img}.png`} alt={homeTeam.img} />
-              </div>
+        <div className='stat place-items-center'>
+          <div className='stat-title'>{label}</div>
+          <div className='flex flex-row justify-between items-center'>
+            <div className='stat-value text-primary w-full'>
+              {fixture[getStatName(label).h]}
             </div>
           </div>
+
+          <div className='stat-desc'>{homeTeam.name}</div>
         </div>
       </div>
 
-      <div className='stats shadow-ms hover:bg-base-200 hover:shadow-lg hidden md:block'>
+      <div className='stats shadow-ms hover:bg-base-200 hover:shadow-lg hidden md:flex'>
         <div className='stat place-items-center'>
           <div className='stat-title'>{label}</div>
           <div className='stat-value text-secondary'>
