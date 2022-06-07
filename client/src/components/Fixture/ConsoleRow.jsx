@@ -83,7 +83,7 @@ const ConsoleRow = ({ fixture, label, id, validate, teams }) => {
         </div>
       </div>
       {/* medium + screens */}
-      <div className='stats shadow-ms hover:bg-base-200 hover:shadow-lg'>
+      <div className='stats shadow-ms hover:bg-base-200 hover:shadow-lg hidden md:block'>
         <div className='stat place-items-center'>
           <div className='stat-title'>{label}</div>
           <div className='flex flex-row justify-between items-center'>
@@ -124,7 +124,7 @@ const ConsoleRow = ({ fixture, label, id, validate, teams }) => {
         </div>
       </div>
 
-      <div className='stats shadow-ms hover:bg-base-200 hover:shadow-lg'>
+      <div className='stats shadow-ms hover:bg-base-200 hover:shadow-lg hidden md:block'>
         <div className='stat place-items-center'>
           <div className='stat-title'>{label}</div>
           <div className='stat-value text-secondary'>
