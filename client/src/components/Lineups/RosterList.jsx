@@ -18,32 +18,11 @@ const RosterList = ({ roster, teamName, graphicColour }) => {
     />
   ));
 
-  //  
+  //
 
   return (
-    <div className='flex flex-col lg:flex-row lg:justify-evenly lg:items-start mx-auto'>
-      <form>
-        <table className='table table-fixed'>
-          <thead>
-            <tr>
-              <th className='w-sm md:w-md text-center'>Select XI</th>
-              {startingXI.length <= 0 ? (
-                <>
-                  <th className='w-sm md:w-md '></th>
-                  <th className='w-sm md:w-md '></th>
-                </>
-              ) : (
-                <>
-                  <th className='w-sm md:w-md  text-center'>GK?</th>
-                  <th className='w-sm md:w-md  text-center'>Shirt #</th>
-                </>
-              )}
-              <th className='w-sm  md:w-md  text-center'>Name</th>
-            </tr>
-          </thead>
-          <tbody>{mappedRoster}</tbody>
-        </table>
-      </form>
+    <div className='grid grid-cols-1'>
+      <form>{mappedRoster}</form>
       <LineupCanvas
         startingXI={startingXI}
         goalkeeper={goalkeeper}
