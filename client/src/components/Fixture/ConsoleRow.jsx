@@ -62,7 +62,7 @@ const ConsoleRow = ({ fixture, label, id, validate, teams }) => {
           <div className='stat-value mx-auto'>
             {fixture[getStatName(label)[team]]}
           </div>
-          <div className='stat-actions flex flex-row justify-between'>
+          <div className='stat-actions flex flex-row justify-around'>
             <button
               className='btn btn-sm btn-error'
               onClick={() =>
