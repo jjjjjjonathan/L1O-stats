@@ -3,19 +3,32 @@ import { useParams } from 'react-router-dom';
 import { findDivisionName, findTeamName } from '../../helpers/helpers';
 import ConsoleRow from './ConsoleRow';
 import SocialCanvas from './SocialCanvas';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import classNames from 'classnames';
+import RosterSelect from './RosterSelect';
+import { DispatchContext } from '../../App';
 
-const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
+const Fixture = ({ divisions, teams, fixtures }) => {
   const id = parseInt(useParams().id, 10);
 
+  const dispatch = useContext(DispatchContext);
+
   const selectedFixture = fixtures.find((fixture) => fixture.id === id);
+
+  const homeTeam = teams.find(
+    (team) => team.id === selectedFixture.home_team_id
+  );
+
+  const awayTeam = teams.find(
+    (team) => team.id === selectedFixture.away_team_id
+  );
 
   const updateStats = async (stat, value, fixtureId) => {
     try {
       const { data } = await axios.post('/api/fixtures', {
         stat,
         value,
-        fixtureId,
+        fixtureId
       });
       dispatch({ type: 'UPDATE_FIXTURE', content: data });
     } catch (err) {
@@ -42,7 +55,7 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
       fouls: selectedFixture.home_fouls,
       yellows: selectedFixture.home_yellows,
       reds: selectedFixture.home_reds,
-      name: findTeamName(teams, selectedFixture.home_team_id),
+      name: findTeamName(teams, selectedFixture.home_team_id)
     },
     a: {
       goals: selectedFixture.away_goals,
@@ -53,115 +66,111 @@ const Fixture = ({ divisions, teams, fixtures, dispatch }) => {
       fouls: selectedFixture.away_fouls,
       yellows: selectedFixture.away_yellows,
       reds: selectedFixture.away_reds,
-      name: findTeamName(teams, selectedFixture.away_team_id),
-    },
+      name: findTeamName(teams, selectedFixture.away_team_id)
+    }
   };
 
-  const [graphicMode, setGraphicMode] = useState(null);
+  const [tab, setTab] = useState(3);
+
+  const statsTabClasses = classNames('tab tab-bordered', {
+    'tab-active': tab === 3
+  });
+
+  const halfTimeClasses = classNames('tab tab-bordered md:hidden', {
+    'tab-active': tab === 1
+  });
+
+  const halfTimeClassesMd = classNames('tab tab-bordered hidden md:block', {
+    'tab-active': tab === 1
+  });
+
+  const fullTimeClasses = classNames('tab tab-bordered md:hidden', {
+    'tab-active': tab === 2
+  });
+
+  const fullTimeClassesMd = classNames('tab tab-bordered hidden md:block', {
+    'tab-active': tab === 2
+  });
+
+  const homeXIClasses = classNames('tab tab-bordered', {
+    'tab-active': tab === 4
+  });
+
+  const awayXIClasses = classNames('tab tab-bordered', {
+    'tab-active': tab === 5
+  });
+
+  const rows = [
+    'Goals',
+    'Total Shots',
+    'On Target',
+    'Corners',
+    'Offsides',
+    'Fouls',
+    'Yellow Cards',
+    'Red Cards'
+  ];
+
+  const mappedRows = rows.map((row) => (
+    <ConsoleRow
+      key={row}
+      label={row}
+      fixture={selectedFixture}
+      id={id}
+      validate={validate}
+      teams={teams}
+    />
+  ));
 
   return (
-    <div className='flex flex-col items-center justify-center'>
-      <h1 className='text-5xl my-5'>
-        {findTeamName(teams, selectedFixture.home_team_id)} vs.{' '}
-        {findTeamName(teams, selectedFixture.away_team_id)}
-      </h1>
-      <h2 className='text-2xl mb-5'>
-        {findDivisionName(divisions, selectedFixture.division)}
-      </h2>
-      {err.length > 0 && <p className='text-red-700'>{err}</p>}
-      <table className='border border-purple-700 border-collapse'>
-        <thead>
-          <tr>
-            <th></th>
-            <th></th>
-            <th>{findTeamName(teams, selectedFixture.home_team_id)}</th>
-            <th></th>
-            <th></th>
-            <th>{findTeamName(teams, selectedFixture.away_team_id)}</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <ConsoleRow
-            key='goals'
-            fixture={selectedFixture}
-            label={'Goals'}
-            id={id}
-            validate={validate}
-          />
-          <ConsoleRow
-            key='total shots'
-            fixture={selectedFixture}
-            label={'Total Shots'}
-            id={id}
-            validate={validate}
-          />
-          <ConsoleRow
-            key='on target shots'
-            fixture={selectedFixture}
-            label={'On Target'}
-            id={id}
-            validate={validate}
-          />
-          <ConsoleRow
-            key='corners'
-            fixture={selectedFixture}
-            label={'Corners'}
-            id={id}
-            validate={validate}
-          />
-          <ConsoleRow
-            key='offsides'
-            fixture={selectedFixture}
-            label={'Offsides'}
-            id={id}
-            validate={validate}
-          />
-          <ConsoleRow
-            key='fouls'
-            fixture={selectedFixture}
-            label={'Fouls'}
-            id={id}
-            validate={validate}
-          />
-          <ConsoleRow
-            key='yellows'
-            fixture={selectedFixture}
-            label={'Yellow Cards'}
-            id={id}
-            validate={validate}
-          />
-          <ConsoleRow
-            key='reds'
-            fixture={selectedFixture}
-            label={'Red Cards'}
-            id={id}
-            validate={validate}
-          />
-        </tbody>
-      </table>
-      <div>
-        <button
-          onClick={() => setGraphicMode(1)}
-          className='py-2.5 px-5 mr-2 mb-2 mt-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'
-        >
-          Half-time graphic
+    <>
+      <div className='tabs justify-center py-8'>
+        <button className={homeXIClasses} onClick={() => setTab(4)}>
+          Home XI
         </button>
-        <button
-          onClick={() => setGraphicMode(2)}
-          className='py-2.5 px-5 mr-2 mb-2 mt-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'
-        >
-          Full-time graphic
+        <button className={halfTimeClasses} onClick={() => setTab(1)}>
+          HT
+        </button>
+        <button className={halfTimeClassesMd} onClick={() => setTab(1)}>
+          Half-time
+        </button>
+        <button className={statsTabClasses} onClick={() => setTab(3)}>
+          Stats
+        </button>
+        <button className={fullTimeClasses} onClick={() => setTab(2)}>
+          FT
+        </button>
+        <button className={fullTimeClassesMd} onClick={() => setTab(2)}>
+          Full-time
+        </button>
+        <button className={awayXIClasses} onClick={() => setTab(5)}>
+          Away XI
         </button>
       </div>
 
-      {graphicMode === 1 && (
-        <SocialCanvas stats={stats} graphicMode={graphicMode} />
+      {/* Stats tab content */}
+      {tab === 3 && (
+        <div className='grid grid-cols-2 mx-auto gap-y-4 gap-x-2 p-4 mx-auto'>
+          {mappedRows}
+        </div>
       )}
-      {graphicMode === 2 && (
-        <SocialCanvas stats={stats} graphicMode={graphicMode} />
+
+      {/* Half-time tab content */}
+      {tab === 1 && <SocialCanvas stats={stats} graphicMode={tab} />}
+
+      {/* Full-time tab content */}
+      {tab === 2 && <SocialCanvas stats={stats} graphicMode={tab} />}
+
+      {/* Home XI tab content */}
+      {tab === 4 && (
+        <RosterSelect division={selectedFixture.division} team={homeTeam} />
       )}
-    </div>
+
+      {/* Away XI tab content */}
+      {tab === 5 && (
+        <RosterSelect division={selectedFixture.division} team={awayTeam} />
+      )}
+    </>
   );
 };
 

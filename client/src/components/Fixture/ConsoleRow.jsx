@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import classNames from 'classnames';
+import { HiOutlinePlus, HiOutlineMinus } from 'react-icons/hi';
 
-const ConsoleRow = ({ fixture, label, id, validate }) => {
+const ConsoleRow = ({ fixture, label, id, validate, teams }) => {
   const getStatName = (label) => {
     const statStrings = {
       Goals: { h: 'home_goals', a: 'away_goals' },
@@ -10,78 +12,155 @@ const ConsoleRow = ({ fixture, label, id, validate }) => {
       Offsides: { h: 'home_offsides', a: 'away_offsides' },
       Fouls: { h: 'home_fouls', a: 'away_fouls' },
       'Yellow Cards': { h: 'home_yellows', a: 'away_yellows' },
-      'Red Cards': { h: 'home_reds', a: 'away_reds' },
+      'Red Cards': { h: 'home_reds', a: 'away_reds' }
     };
     return statStrings[label];
   };
 
   const valueUp = {
     h: fixture[getStatName(label).h] + 1,
-    a: fixture[getStatName(label).a] + 1,
+    a: fixture[getStatName(label).a] + 1
   };
   const valueDown = {
     h: fixture[getStatName(label).h] - 1,
-    a: fixture[getStatName(label).a] - 1,
+    a: fixture[getStatName(label).a] - 1
   };
 
-  const valueUpClassesBtn = classNames(
-    'relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800'
-  );
+  const [team, setTeam] = useState('h');
 
-  const valueUpClassesSpan = classNames(
-    'relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0'
-  );
+  const homeTeam = teams.find((team) => team.id === fixture.home_team_id);
 
-  const valueDownClassesBtn = classNames(
-    'relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800'
-  );
+  const awayTeam = teams.find((team) => team.id === fixture.away_team_id);
 
-  const valueDownClassesSpan = classNames(
-    'relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0'
+  const statClasses = classNames(
+    'stats md:hidden',
+    { 'bg-secondary text-secondary-content': team === 'h' },
+    { 'bg-accent text-accent-content': team === 'a' }
   );
 
   return (
-    <tr>
-      <th className='px-6 py-1'>{label}</th>
-      <td className='px-6 py-1'>
-        <button
-          onClick={() => validate(getStatName(label).h, valueDown.h, id)}
-          className={valueDownClassesBtn}
-        >
-          <span className={valueDownClassesSpan}>-</span>
-        </button>
-      </td>
-      <td className='px-6 py-1 text-center text-xl'>
-        {fixture[getStatName(label).h]}
-      </td>
-      <td className='px-6 py-1'>
-        <button
-          onClick={() => validate(getStatName(label).h, valueUp.h, id)}
-          className={valueUpClassesBtn}
-        >
-          <span className={valueUpClassesSpan}>+</span>
-        </button>
-      </td>
-      <td className='px-6 py-1'>
-        <button
-          onClick={() => validate(getStatName(label).a, valueDown.a, id)}
-          className={valueDownClassesBtn}
-        >
-          <span className={valueDownClassesSpan}>-</span>
-        </button>
-      </td>
-      <td className='px-6 py-1 text-center text-xl'>
-        {fixture[getStatName(label).a]}
-      </td>
-      <td className='px-6 py-1'>
-        <button
-          onClick={() => validate(getStatName(label).a, valueUp.a, id)}
-          className={valueUpClassesBtn}
-        >
-          <span className={valueUpClassesSpan}>+</span>
-        </button>
-      </td>
-    </tr>
+    <>
+      {/* small screens only */}
+      <div className='mx-auto md:hidden'>
+        <label className='swap swap-rotate text-9xl'>
+          <input
+            type='checkbox'
+            onChange={(e) => (e.target.checked ? setTeam('a') : setTeam('h'))}
+          />
+
+          <div className='swap-on mx-auto'>
+            <img src={`/logos/${awayTeam.img}.png`} alt={awayTeam.img} />
+          </div>
+          <div className='swap-off mx-auto'>
+            <img src={`/logos/${homeTeam.img}.png`} alt={homeTeam.img} />
+          </div>
+        </label>
+      </div>
+      <div className={statClasses}>
+        <div className='stat md:hidden'>
+          <div className='stat-title mx-auto text-xl font-bold'>{label}</div>
+          <div className='stat-value mx-auto'>
+            {fixture[getStatName(label)[team]]}
+          </div>
+          <div className='stat-actions flex flex-row justify-around'>
+            <button
+              className='btn btn-sm btn-error'
+              onClick={() =>
+                validate(getStatName(label)[team], valueDown[team], id)
+              }
+            >
+              <HiOutlineMinus />
+            </button>
+            <button
+              className='btn btn-sm btn-success'
+              onClick={() =>
+                validate(getStatName(label)[team], valueUp[team], id)
+              }
+            >
+              <HiOutlinePlus />
+            </button>
+          </div>
+        </div>
+      </div>
+      {/* medium + screens */}
+      <div className='stats shadow-ms hover:bg-base-200 hover:shadow-lg hidden md:flex'>
+        <div className='stat place-items-center flex justify-center items-center'>
+          <div className='stat-figure text-secondary'>
+            <div className='avatar'>
+              <div className='w-16'>
+                <img src={`/logos/${homeTeam.img}.png`} alt={homeTeam.img} />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className='stat flex justify-center items-center'>
+          <div className='flex flex-col lg:flex-row-reverse lg:items-center lg:mt-6'>
+            <button
+              className='btn btn-success btn-sm w-24 font-bold lg:ml-1 my-2 lg:my-0'
+              onClick={() => validate(getStatName(label).h, valueUp.h, id)}
+            >
+              +1
+            </button>
+
+            <button
+              className='btn-error btn btn-sm w-24 font-bold lg:mr-1'
+              onClick={() => validate(getStatName(label).h, valueDown.h, id)}
+            >
+              -1
+            </button>
+          </div>
+        </div>
+
+        <div className='stat place-items-center'>
+          <div className='stat-title'>{label}</div>
+          <div className='flex flex-row justify-between items-center'>
+            <div className='stat-value text-primary w-full'>
+              {fixture[getStatName(label).h]}
+            </div>
+          </div>
+
+          <div className='stat-desc'>{homeTeam.name}</div>
+        </div>
+      </div>
+
+      <div className='stats shadow-ms hover:bg-base-200 hover:shadow-lg hidden md:flex'>
+        <div className='stat place-items-center'>
+          <div className='stat-title'>{label}</div>
+          <div className='stat-value text-secondary'>
+            {fixture[getStatName(label).a]}
+          </div>
+          <div className='stat-desc'>{awayTeam.name}</div>
+        </div>
+
+        <div className='stat flex justify-center items-center'>
+          <div className='flex flex-col lg:flex-row-reverse lg:items-center lg:mt-6'>
+            <button
+              className='btn btn-success btn-sm w-24 font-bold lg:ml-1 my-2 lg:my-0'
+              onClick={() => validate(getStatName(label).a, valueUp.a, id)}
+            >
+              +1
+            </button>
+
+            <button
+              className='btn-error btn btn-sm w-24 font-bold lg:mr-1'
+              onClick={() => validate(getStatName(label).a, valueDown.a, id)}
+            >
+              -1
+            </button>
+          </div>
+        </div>
+        <div className='stat place-items-center flex justify-center items-center'>
+          <div className='stat-figure text-secondary'>
+            <div className='avatar'>
+              <div className='w-16 '>
+                <img src={`/logos/${awayTeam.img}.png`} alt={awayTeam.img} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

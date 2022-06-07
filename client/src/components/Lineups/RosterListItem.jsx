@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useState } from 'react';
 
 const RosterListItem = ({
@@ -7,53 +8,70 @@ const RosterListItem = ({
   setStartingXI,
   startingXI,
   goalkeeper,
-  setGoalkeeper,
+  setGoalkeeper
 }) => {
-  const [errorMsg, setErrorMsg] = useState('');
+  const [selected, setSelected] = useState(false);
 
-  // LOOK INTO CHANGING GOALKEEPER CHECKBOXES TO RADIO BUTTONS
+  const cardClasses = classNames('card w-full shadow-xl', {
+    'bg-base-200 shadow-neutral-focus': selected
+  });
+
+  const extraInfoClasses = classNames('card-actions flex-col', {
+    invisible: !selected,
+    visible: selected
+  });
 
   return (
-    <tr>
-      <td>
-        <input
-          disabled={
-            startingXI.filter((player) => player.id === value).length <= 0 &&
-            startingXI.length >= 11
-          }
-          type="checkbox"
-          value={value}
-          onClick={(e) => {
-            const clickedId = parseInt(e.target.value, 10);
-            if (
-              e.target.checked &&
-              startingXI.filter((player) => player.id === clickedId).length <= 0
-            ) {
-              setStartingXI((prev) => {
-                return [
-                  ...prev,
-                  roster.find((player) => player.id === clickedId),
-                ];
-              });
+    <div className={cardClasses}>
+      <div className='card-body'>
+        <h2 className='card-title'>{name}</h2>
+
+        <div className='flex flex-row'>
+          <label htmlFor=''>Starter?</label>
+
+          <input
+            className='toggle toggle-primary mx-2'
+            disabled={
+              startingXI.filter((player) => player.id === value).length <= 0 &&
+              startingXI.length >= 11
             }
-            if (
-              !e.target.checked &&
-              startingXI.filter((player) => player.id === clickedId).length > 0
-            ) {
-              setStartingXI((prev) => {
-                return prev.filter((player) => player.id !== clickedId);
-              });
-            }
-          }}
-        />
-      </td>
-      <td>
-        {startingXI.filter((player) => player.id === value).length > 0 && (
-          <>
-            <label htmlFor="">gk?</label>
+            type='checkbox'
+            value={value}
+            onClick={(e) => {
+              const clickedId = parseInt(e.target.value, 10);
+              if (
+                e.target.checked &&
+                startingXI.filter((player) => player.id === clickedId).length <=
+                  0
+              ) {
+                setStartingXI((prev) => {
+                  return [
+                    ...prev,
+                    roster.find((player) => player.id === clickedId)
+                  ];
+                });
+                setSelected(true);
+              }
+              if (
+                !e.target.checked &&
+                startingXI.filter((player) => player.id === clickedId).length >
+                  0
+              ) {
+                setStartingXI((prev) => {
+                  return prev.filter((player) => player.id !== clickedId);
+                });
+                setSelected(false);
+              }
+            }}
+          />
+        </div>
+        <div className={extraInfoClasses}>
+          <div className='flex flex-row'>
+            <label htmlFor=''>Check if goalkeeper</label>
             <input
-              disabled={goalkeeper !== null && goalkeeper !== value}
-              type="checkbox"
+              name='gk-radio'
+              className='radio radio-primary mx-2'
+              type='radio'
               value={value}
               onClick={(e) => {
                 const clickedId = parseInt(e.target.value, 10);
@@ -65,37 +83,106 @@ const RosterListItem = ({
                 }
               }}
             />
-          </>
-        )}
-      </td>
-      <td>
-        {startingXI.filter((player) => player.id === value).length > 0 && (
-          <>
-            <label htmlFor="">#?</label>
+          </div>
+          <div>
+            <label htmlFor=''>Shirt number:</label>
             <input
-              placeholder={errorMsg}
-              type="number"
+              type='text'
+              className='input input-bordered input-primary w-16 h-12 text-center mx-2'
               onChange={(e) => {
                 const newNumber = parseInt(e.target.value, 10);
-                if (Number.isInteger(newNumber)) {
-                  setErrorMsg('');
-                  setStartingXI((prev) =>
-                    prev.map((player) =>
-                      player.id === value
-                        ? { ...player, number: newNumber }
-                        : player
-                    )
-                  );
-                } else {
-                  setErrorMsg('Cannot have a blank number');
-                }
+                setStartingXI((prev) =>
+                  prev.map((player) =>
+                    player.id === value
+                      ? { ...player, number: newNumber }
+                      : player
+                  )
+                );
               }}
             />
-          </>
-        )}
-      </td>
-      <td>{name}</td>
-    </tr>
+          </div>
+        </div>
+      </div>
+    </div>
+    // <tr className="hover">
+    //   <td className="h-[75px]">
+    //     <div className="flex justify-center items-center py-5">
+    // <input
+    //   className='toggle toggle-secondary'
+    //   disabled={
+    //     startingXI.filter((player) => player.id === value).length <= 0 &&
+    //     startingXI.length >= 11
+    //   }
+    //   type="checkbox"
+    //   value={value}
+    //   onClick={(e) => {
+    //     const clickedId = parseInt(e.target.value, 10);
+    //     if (
+    //       e.target.checked &&
+    //       startingXI.filter((player) => player.id === clickedId).length <= 0
+    //     ) {
+    //       setStartingXI((prev) => {
+    //         return [
+    //           ...prev,
+    //           roster.find((player) => player.id === clickedId),
+    //         ];
+    //       });
+    //       setSelected(true);
+    //     }
+    //     if (
+    //       !e.target.checked &&
+    //       startingXI.filter((player) => player.id === clickedId).length > 0
+    //     ) {
+    //       setStartingXI((prev) => {
+    //         return prev.filter((player) => player.id !== clickedId);
+    //       });
+    //       setSelected(false);
+    //     }
+    //   }}
+    // />
+    //     </div>
+    //   </td>
+    //   <td>
+    //     <div className={midTableClasses}>
+    // <input
+    //   name='gk-radio'
+    //   className='radio radio-accent'
+    //   type="radio"
+    //   value={value}
+    //   onClick={(e) => {
+    //     const clickedId = parseInt(e.target.value, 10);
+    //     if (e.target.checked && goalkeeper !== clickedId) {
+    //       setGoalkeeper(clickedId);
+    //     }
+    //     if (!e.target.checked && goalkeeper === clickedId) {
+    //       setGoalkeeper(null);
+    //     }
+    //   }}
+    // />
+    //     </div>
+    //   </td>
+    //   <td>
+
+    //     <div className={midTableClasses}>
+    //       <input
+    //         type="text"
+    //         className='input input-bordered input-accent w-16 h-12 text-center'
+    //         onChange={(e) => {
+    //           const newNumber = parseInt(e.target.value, 10);
+    //           setStartingXI((prev) =>
+    //             prev.map((player) =>
+    //               player.id === value
+    //                 ? { ...player, number: newNumber }
+    //                 : player));
+    //         }}
+    //       />
+    //     </div>
+
+    //   </td>
+    //   <td className="w-sm md:w-md whitespace-normal">
+    //     {name}
+    //   </td>
+    // </tr>
   );
 };
 

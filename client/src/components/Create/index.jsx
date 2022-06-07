@@ -1,9 +1,11 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Form from './Form';
-import { Link } from 'react-router-dom';
+import { DispatchContext, AlertContext } from '../../App';
 
-const Create = ({ divisions, teams, dispatch }) => {
+const Create = ({ divisions, teams }) => {
+  const dispatch = useContext(DispatchContext);
+  const setAlert = useContext(AlertContext);
   const mensTeams = teams.filter((team) => team.mens);
   const womensTeams = teams.filter((team) => team.womens);
 
@@ -12,8 +14,6 @@ const Create = ({ divisions, teams, dispatch }) => {
   const [awayTeam, setAwayTeam] = useState(null);
   const [e2eId, setE2eId] = useState(null);
   const [date, setDate] = useState(null);
-  const [success, setSuccess] = useState(false);
-  const [successMsg, setSuccessMsg] = useState('');
 
   const submitNewFixture = async (
     event,
@@ -25,45 +25,64 @@ const Create = ({ divisions, teams, dispatch }) => {
   ) => {
     try {
       event.preventDefault();
-      const { data } = await axios.put('/api/fixtures', {
-        selectedDivision,
-        homeTeam,
-        awayTeam,
-        e2eId,
-        date,
-      });
-      dispatch({ type: 'CREATE_FIXTURE', content: data });
-      setSuccess(true);
-      setSuccessMsg(`You just created match #${data.e2e_id}`);
+      if (Number.isNaN(e2eId)) {
+        setAlert({
+          type: 'error',
+          msg: `E2E ID isn't a number.`
+        });
+      } else if (homeTeam === awayTeam) {
+        setAlert({
+          type: 'error',
+          msg: `Teams can't play themselves.`
+        });
+      } else {
+        const { data } = await axios.put('/api/fixtures', {
+          selectedDivision,
+          homeTeam,
+          awayTeam,
+          e2eId,
+          date
+        });
+        dispatch({ type: 'CREATE_FIXTURE', content: data });
+        setAlert({
+          type: 'success',
+          msg: `You just created match #${data.e2e_id}!`
+        });
+      }
     } catch (err) {
       console.error(err);
     }
   };
 
   return (
-    <>
-      <button
-        value={divisions[0].id}
-        onClick={() => setSelectedDivision(divisions[0].id)}
-      >
-        {divisions[0].name}
-      </button>
-      <button
-        value={divisions[1].id}
-        onClick={() => setSelectedDivision(divisions[1].id)}
-      >
-        {divisions[1].name}
-      </button>
-      {selectedDivision === 1 && (
+    <div className='flex flex-col items-center'>
+      <div>
+        <button
+          value={divisions[0].id}
+          onClick={() => setSelectedDivision(divisions[0].id)}
+          className='btn btn-primary ml-4 my-6'
+        >
+          {divisions[0].name}
+        </button>
+        <button
+          value={divisions[1].id}
+          onClick={() => setSelectedDivision(divisions[1].id)}
+          className='btn btn-primary ml-4 my-6'
+        >
+          {divisions[1].name}
+        </button>
+      </div>
+      {selectedDivision && (
         <>
           <Form
-            teams={mensTeams}
+            teams={selectedDivision === 1 ? mensTeams : womensTeams}
             setHomeTeam={setHomeTeam}
             setAwayTeam={setAwayTeam}
             setE2eId={setE2eId}
             setDate={setDate}
           />
           <button
+            className='btn btn-secondary my-5'
             onClick={(event) =>
               submitNewFixture(
                 event,
@@ -79,38 +98,7 @@ const Create = ({ divisions, teams, dispatch }) => {
           </button>
         </>
       )}
-      {selectedDivision === 2 && (
-        <>
-          <Form
-            teams={womensTeams}
-            setHomeTeam={setHomeTeam}
-            setAwayTeam={setAwayTeam}
-            setE2eId={setE2eId}
-            setDate={setDate}
-          />
-          <button
-            onClick={(event) =>
-              submitNewFixture(
-                event,
-                selectedDivision,
-                homeTeam,
-                awayTeam,
-                e2eId,
-                date
-              )
-            }
-          >
-            Submit
-          </button>
-        </>
-      )}
-      {success && (
-        <>
-          <p>{successMsg}</p>
-          <Link to='/'>Go to list of fixtures</Link>
-        </>
-      )}
-    </>
+    </div>
   );
 };
 

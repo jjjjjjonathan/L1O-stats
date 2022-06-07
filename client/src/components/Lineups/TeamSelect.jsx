@@ -15,8 +15,8 @@ const TeamSelect = ({ teams, selectedDivision }) => {
   return (
     <>
       <section>
-        <label htmlFor=''>Select team</label>
         <select
+          className='select select-bordered w-full max-w-xs'
           name='teamSelect'
           id='teamSelect'
           onChange={async (e) => {
@@ -43,11 +43,11 @@ const TeamSelect = ({ teams, selectedDivision }) => {
           {mappedTeams}
         </select>
       </section>
-      <section>
-        {roster.length > 0 && (
-          <RosterList roster={roster} teamName={selectedTeamName} graphicColour={graphicColour} />
-        )}
-      </section>
+
+      {roster.length > 0 && (
+        <RosterList roster={roster} teamName={selectedTeamName} graphicColour={graphicColour} />
+      )}
+
     </>
   );
 };

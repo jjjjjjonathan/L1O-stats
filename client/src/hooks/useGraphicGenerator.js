@@ -114,6 +114,10 @@ const useGraphicGenerator = (mode) => {
           setUploadError('not an accepted file type');
           return false;
         }
+        if (startingXI.find((player) => Number.isNaN(player.number))) {
+          setUploadError('make sure all shirts have proper numbers');
+          return false;
+        }
         setUploadError('');
         return true;
       }

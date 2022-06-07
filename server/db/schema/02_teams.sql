@@ -8,5 +8,7 @@ CREATE TABLE teams (
   womens_roster_url TEXT,
   graphic_colour VARCHAR(255) NOT NULL,
   created_at TIMESTAMP default now(),
-  updated_at TIMESTAMP default now()
+  updated_at TIMESTAMP default now(),
+  img VARCHAR(255) NOT NULL,
+  abbreviation VARCHAR(6) NOT NULL
 );

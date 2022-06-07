@@ -6,14 +6,16 @@ const Form = ({ teams, setHomeTeam, setAwayTeam, setE2eId, setDate }) => {
   ));
 
   return (
-    <>
+    <div className='flex flex-col gap-y-4 items-center'>
       <section>
-        <label htmlFor="">Select home team</label>
         <select
-          name="homeTeamSelect"
-          id="homeTeamSelect"
-          onChange={(event) => setHomeTeam(parseInt(event.target.value, 10))}
+          name='homeTeamSelect'
+          id='homeTeamSelect'
+          onChange={(event) => {
+            setHomeTeam(parseInt(event.target.value, 10));
+          }}
           defaultValue={'label'}
+          className='select select-bordered w-full max-w-xs'
         >
           <option key={'label'} disabled value={'label'}>
             Select home team
@@ -22,12 +24,12 @@ const Form = ({ teams, setHomeTeam, setAwayTeam, setE2eId, setDate }) => {
         </select>
       </section>
       <section>
-        <label htmlFor="">Select away team</label>
         <select
-          name="awayTeamSelect"
-          id="awayTeamSelect"
+          name='awayTeamSelect'
+          id='awayTeamSelect'
           onChange={(event) => setAwayTeam(parseInt(event.target.value, 10))}
           defaultValue={'label'}
+          className='select select-bordered w-full max-w-xs'
         >
           <option key={'label'} disabled value={'label'}>
             Select away team
@@ -36,20 +38,26 @@ const Form = ({ teams, setHomeTeam, setAwayTeam, setE2eId, setDate }) => {
         </select>
       </section>
       <section>
-        <label htmlFor="">Select E2E game ID</label>
         <input
-          type="number"
-          onChange={(event) => setE2eId(parseInt(event.target.value, 10))}
+          type='text'
+          onChange={(event) => {
+            setE2eId(parseInt(event.target.value, 10));
+          }}
+          className='input input-bordered w-full max-w-xs'
+          placeholder='Select E2EID'
         />
       </section>
-      <section>
-        <label htmlFor="">Set date and time</label>
+      <section className='flex flex-row gap-x-4'>
+        <label htmlFor=''>Set date and time</label>
         <input
-          type="datetime-local"
-          onChange={(event) => setDate(event.target.value)}
+          type='datetime-local'
+          onChange={(event) => {
+            setDate(event.target.value);
+          }}
+          className='bg-base-200 border border-base-content rounded-lg px-4'
         />
       </section>
-    </>
+    </div>
   );
 };
 

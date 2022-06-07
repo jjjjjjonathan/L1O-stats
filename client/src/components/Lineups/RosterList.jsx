@@ -18,31 +18,18 @@ const RosterList = ({ roster, teamName, graphicColour }) => {
     />
   ));
 
-  // LOOK INTO CHANGING GOALKEEPER CHECKBOXES TO RADIO BUTTONS
+  //
 
   return (
-    <>
-      <table className='table-fixed'>
-        <thead>
-          <tr>
-            <th>Starter?</th>
-            {startingXI.length <= 0 ? (
-              <th colSpan='2'></th>
-            ) : (
-              <th colSpan='2'>More info</th>
-            )}
-            <th>Name</th>
-          </tr>
-        </thead>
-        <tbody>{mappedRoster}</tbody>
-      </table>
+    <form action=''>
+      <div className='grid grid-cols-1 gap-4'>{mappedRoster}</div>
       <LineupCanvas
         startingXI={startingXI}
         goalkeeper={goalkeeper}
         teamName={teamName}
         graphicColour={graphicColour}
       />
-    </>
+    </form>
   );
 };
 

@@ -30,8 +30,8 @@ test('it should show Loading if state is not set', async () => {
   expect(teamName).toBeVisible();
 });
 
-test('it should show Matches if state is set', async () => {
+test('it should show Mens Division if state is set', async () => {
   render(<App />);
-  const teamName = await screen.findByText('Matches');
+  const teamName = await screen.findByText("Men's Division");
   expect(teamName).toBeVisible();
 });
