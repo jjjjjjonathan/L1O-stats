@@ -6,7 +6,7 @@ const Form = ({ teams, setHomeTeam, setAwayTeam, setE2eId, setDate }) => {
   ));
 
   return (
-    <>
+    <div className='flex flex-col gap-y-4 items-center'>
       <section>
         <select
           name='homeTeamSelect'
@@ -47,16 +47,17 @@ const Form = ({ teams, setHomeTeam, setAwayTeam, setE2eId, setDate }) => {
           placeholder='Select E2EID'
         />
       </section>
-      <section>
+      <section className='flex flex-row gap-x-4'>
         <label htmlFor=''>Set date and time</label>
         <input
           type='datetime-local'
           onChange={(event) => {
             setDate(event.target.value);
           }}
+          className='bg-base-200 border border-base-content rounded-lg px-4'
         />
       </section>
-    </>
+    </div>
   );
 };
 

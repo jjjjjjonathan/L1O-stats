@@ -82,6 +82,7 @@ const Create = ({ divisions, teams }) => {
             setDate={setDate}
           />
           <button
+            className='btn btn-secondary my-5'
             onClick={(event) =>
               submitNewFixture(
                 event,
