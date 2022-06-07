@@ -1,7 +1,8 @@
 import { useHistory } from 'react-router-dom';
-import { findDivisionName, findTeamName } from '../helpers/helpers';
+import { findDivisionName } from '../helpers/helpers';
 import classNames from 'classnames';
 import { formatISO9075 } from 'date-fns';
+import EditListItem from './EditListItem';
 
 const ListItem = ({
   id,
@@ -15,12 +16,6 @@ const ListItem = ({
   home_goals,
   away_goals
 }) => {
-  // Function to parse date into something readable to people
-  const parsedDate = (newDate) => {
-    const date = new Date(newDate);
-    return date.toLocaleString('en-US');
-  };
-
   const homeTeam = teams.find((team) => team.id === home_team_id);
 
   const awayTeam = teams.find((team) => team.id === away_team_id);
@@ -47,6 +42,7 @@ const ListItem = ({
     'justify-around',
     'w-full',
     'items-center',
+    'pb-8',
     { hidden: Date.now() + 7200000 - Date.parse(date) >= 0 }
   );
 
@@ -66,9 +62,9 @@ const ListItem = ({
   });
 
   return (
-    <div className={cardClasses} onClick={() => history.push(`/${id}`)}>
+    <div className={cardClasses}>
       <figure>
-        <div className={cardHeroClasses}>
+        <div className={cardHeroClasses} onClick={() => history.push(`/${id}`)}>
           <div className='h-[100px] w-[100px] flex justify-center'>
             <img
               src={`/logos/${homeTeam.img}.png`}
@@ -89,7 +85,7 @@ const ListItem = ({
           </div>
         </div>
       </figure>
-      <div className='card-body flex flex-col justify-between'>
+      <div className='card-body flex flex-col justify-between py-0'>
         <div className='flex flex-col'>
           <div className='flex flex-row justify-between items-center'>
             <div className='flex flex-row items-center'>
@@ -103,7 +99,6 @@ const ListItem = ({
                   )}
                 />
                 <h2 className={abbreviationClasses}>{homeTeam.abbreviation}</h2>
-                {/* <h2 className={titleClasses}>{homeTeam.abbreviation}</h2> */}
               </div>
             </div>
             <h2 className={titleClasses}>{home_goals.toString(10)}</h2>
@@ -121,22 +116,72 @@ const ListItem = ({
                   )}
                 />
                 <h2 className={abbreviationClasses}>{awayTeam.abbreviation}</h2>
-                {/* <h2 className={titleClasses}>{awayTeam.abbreviation}</h2> */}
               </div>
             </div>
             <h2 className={titleClasses}>{away_goals.toString(10)}</h2>
           </div>
         </div>
 
-        <div className='card-actions justify-end pt-2'>
-          <div className='badge badge-info font-bold text-info-content'>
-            {formatISO9075(new Date(date), { representation: 'date' })}
+        <div className='card-actions justify-between pt-2'>
+          <div className='flex flex-row justify-start gap-x-2 items-center'>
+            <label
+              htmlFor={`edit-modal${id}`}
+              className='btn modal-button btn-success btn-sm hover:scale-110'
+            >
+              Edit
+            </label>
+            <input
+              type='checkbox'
+              id={`edit-modal${id}`}
+              className='modal-toggle'
+            />
+            <div className='modal'>
+              <div className='modal-box'>
+                <h3 className='font-bold text-lg'>Edit Match Details</h3>
+                <EditListItem
+                  teams={teams}
+                  division={division}
+                  home_team_id={home_team_id}
+                  away_team_id={away_team_id}
+                  e2e_id={e2e_id}
+                  date={date}
+                  id={id}
+                />
+              </div>
+            </div>
+            <label
+              htmlFor='delete-modal'
+              className='btn modal-button btn-error btn-sm hover:scale-110'
+            >
+              Delete
+            </label>
+            <input type='checkbox' id='delete-modal' className='modal-toggle' />
+            <div className='modal'>
+              <div className='modal-box'>
+                <h3 className='font-bold text-lg'>THIS IS FOR DELETE MODAL</h3>
+                <p className='py-4'>SHOULD NOT SEE THIS IF I GO EDIT MODAL</p>
+                <div className='modal-action'>
+                  <button className='btn btn-error'>Yes I'm sure</button>
+                  <label htmlFor='delete-modal' className='btn btn-warning'>
+                    Cancel
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className={badgeClasses}>
-            {findDivisionName(divisions, division)}
-          </div>
-          <div className='badge badge-primary font-bold text-primary-content'>
-            #{e2e_id.toString(10)}
+          <div
+            className='flex flex-row justify-end gap-x-2 items-center h-full'
+            onClick={() => history.push(`/${id}`)}
+          >
+            <div className='badge badge-info font-bold text-info-content'>
+              {formatISO9075(new Date(date), { representation: 'date' })}
+            </div>
+            <div className={badgeClasses}>
+              {findDivisionName(divisions, division)}
+            </div>
+            <div className='badge badge-primary font-bold text-primary-content'>
+              #{e2e_id.toString(10)}
+            </div>
           </div>
         </div>
       </div>

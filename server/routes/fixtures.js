@@ -8,6 +8,15 @@ module.exports = (db) => {
     res.json(data.rows);
   });
 
+  router.put('/edit', async (req, res) => {
+    const { homeTeam, awayTeam, e2eID, matchDate, id } = req.body;
+    const data = await db.query(
+      'UPDATE fixtures SET home_team_id = $1, away_team_id = $2, e2e_id = $3, date = $4 WHERE id = $5 RETURNING *;',
+      [homeTeam, awayTeam, e2eID, matchDate, id]
+    );
+    res.status(200).json(data.rows[0]);
+  });
+
   router.put('/score', async (req, res) => {
     const { Base64, text, hScore, aScore, xAxis, hName, aName } = req.body;
     const splitted = Base64.split(',');
