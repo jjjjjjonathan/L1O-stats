@@ -28,12 +28,12 @@ const Create = ({ divisions, teams }) => {
       if (Number.isNaN(e2eId)) {
         setAlert({
           type: 'error',
-          msg: 'E2E ID needs to be a number.'
+          msg: `E2E ID isn't a number.`
         });
       } else if (homeTeam === awayTeam) {
         setAlert({
           type: 'error',
-          msg: 'You cannot select the same teams for home and away.'
+          msg: `Teams can't play themselves.`
         });
       } else {
         const { data } = await axios.put('/api/fixtures', {
@@ -46,7 +46,7 @@ const Create = ({ divisions, teams }) => {
         dispatch({ type: 'CREATE_FIXTURE', content: data });
         setAlert({
           type: 'success',
-          msg: `You just created match #${data.e2e_id}`
+          msg: `You just created match #${data.e2e_id}!`
         });
       }
     } catch (err) {
