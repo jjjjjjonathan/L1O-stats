@@ -21,15 +21,15 @@ const RosterList = ({ roster, teamName, graphicColour }) => {
   //
 
   return (
-    <div className='grid grid-cols-1'>
-      <form>{mappedRoster}</form>
+    <form action=''>
+      <div className='grid grid-cols-1 gap-4'>{mappedRoster}</div>
       <LineupCanvas
         startingXI={startingXI}
         goalkeeper={goalkeeper}
         teamName={teamName}
         graphicColour={graphicColour}
       />
-    </div>
+    </form>
   );
 };
 
