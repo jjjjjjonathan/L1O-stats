@@ -3,7 +3,7 @@ import { VscGithubInverted } from 'react-icons/vsc';
 const Footer = () => {
   return (
     <footer className='footer items-center p-4 bg-neutral text-neutral-content'>
-      <div className='items-center grid-flow-col'>
+      <div className='items-center grid-flow-col ml-4'>
         <svg
           width='36'
           height='36'
@@ -17,7 +17,7 @@ const Footer = () => {
         </svg>
         <p>Created by Jonathan Cheng</p>
       </div>
-      <div className='grid-flow-col gap-4 md:place-self-center md:justify-self-end'>
+      <div className='grid-flow-col gap-4 md:place-self-center md:justify-self-end mr-4'>
         <a href='http://' target='_blank' rel='noopener noreferrer'>
           <VscGithubInverted size={32} />
         </a>
