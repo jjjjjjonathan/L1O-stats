@@ -3,6 +3,9 @@ import { findDivisionName } from '../helpers/helpers';
 import classNames from 'classnames';
 import { formatISO9075 } from 'date-fns';
 import EditListItem from './EditListItem';
+import axios from 'axios';
+import { DispatchContext, AlertContext } from '../App';
+import { useContext } from 'react';
 
 const ListItem = ({
   id,
@@ -16,6 +19,9 @@ const ListItem = ({
   home_goals,
   away_goals
 }) => {
+  const dispatch = useContext(DispatchContext);
+  const setAlert = useContext(AlertContext);
+
   const homeTeam = teams.find((team) => team.id === home_team_id);
 
   const awayTeam = teams.find((team) => team.id === away_team_id);
@@ -60,6 +66,12 @@ const ListItem = ({
     'badge-accent text-accent-content': division === 2,
     'badge-secondary text-secondary-content': division === 1
   });
+
+  const deleteFixture = async (id) => {
+    const { data } = await axios.delete(`/api/fixtures/delete/${id}`);
+    dispatch({ type: 'DELETE_FIXTURE', content: data });
+    setAlert({ type: 'success', msg: `Match ${data.e2e_id} is now deleted.` });
+  };
 
   return (
     <div className={cardClasses}>
@@ -150,19 +162,36 @@ const ListItem = ({
               </div>
             </div>
             <label
-              htmlFor='delete-modal'
+              htmlFor={`delete-modal${id}`}
               className='btn modal-button btn-error btn-sm hover:scale-110'
             >
               Delete
             </label>
-            <input type='checkbox' id='delete-modal' className='modal-toggle' />
+            <input
+              type='checkbox'
+              id={`delete-modal${id}`}
+              className='modal-toggle'
+            />
             <div className='modal'>
               <div className='modal-box'>
-                <h3 className='font-bold text-lg'>THIS IS FOR DELETE MODAL</h3>
-                <p className='py-4'>SHOULD NOT SEE THIS IF I GO EDIT MODAL</p>
+                <h3 className='font-bold text-lg'>
+                  Are you sure you want to delete?
+                </h3>
+                <p className='py-4'>
+                  You will have to re-create the fixture if you need it later.
+                </p>
                 <div className='modal-action'>
-                  <button className='btn btn-error'>Yes I'm sure</button>
-                  <label htmlFor='delete-modal' className='btn btn-warning'>
+                  <label
+                    htmlFor={`delete-modal${id}`}
+                    className='btn btn-error'
+                    onClick={() => deleteFixture(id)}
+                  >
+                    Yes I'm sure
+                  </label>
+                  <label
+                    htmlFor={`delete-modal${id}`}
+                    className='btn btn-warning'
+                  >
                     Cancel
                   </label>
                 </div>

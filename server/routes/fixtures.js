@@ -17,6 +17,14 @@ module.exports = (db) => {
     res.status(200).json(data.rows[0]);
   });
 
+  router.delete('/delete/:id', async (req, res) => {
+    const data = await db.query(
+      'DELETE FROM fixtures WHERE id = $1 RETURNING *;',
+      [req.params.id]
+    );
+    res.status(200).json(data.rows[0]);
+  });
+
   router.put('/score', async (req, res) => {
     const { Base64, text, hScore, aScore, xAxis, hName, aName } = req.body;
     const splitted = Base64.split(',');

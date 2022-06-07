@@ -27,6 +27,15 @@ const useApplicationData = () => {
           fixture.id === action.content.id ? action.content : fixture
         )
       };
+    },
+
+    DELETE_FIXTURE(state, action) {
+      return {
+        ...state,
+        fixtures: state.fixtures.filter(
+          (fixture) => fixture.id !== action.content.id
+        )
+      };
     }
   };
 
