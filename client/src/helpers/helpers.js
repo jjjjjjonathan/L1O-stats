@@ -6,4 +6,8 @@ const findTeamName = (teams, teamId) => {
   return teams.find((team) => team.id === teamId).name;
 };
 
-export { findDivisionName, findTeamName };
+const findDivisionAbbreviation = (divisions, divisionId) => {
+  return divisions.find((division) => division.id === divisionId).abbreviation;
+};
+
+export { findDivisionName, findTeamName, findDivisionAbbreviation };

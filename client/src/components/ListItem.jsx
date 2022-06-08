@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import { findDivisionName } from '../helpers/helpers';
+import { findDivisionName, findDivisionAbbreviation } from '../helpers/helpers';
 import classNames from 'classnames';
 import { formatISO9075 } from 'date-fns';
 import EditListItem from './EditListItem';
@@ -61,11 +61,23 @@ const ListItem = ({
     { 'lg:block': Date.now() + 7200000 - Date.parse(date) >= 0 }
   );
 
-  const badgeClasses = classNames('badge font-bold shadow-md', {
-    hidden: Date.now() + 7200000 - Date.parse(date) >= 0,
+  const badgeClassesAbbrev = classNames('badge font-bold shadow-md lg:hidden', {
     'badge-accent text-accent-content': division === 2,
     'badge-secondary text-secondary-content': division === 1
   });
+
+  const badgeClassesFull = classNames(
+    'badge font-bold shadow-md hidden lg:flex',
+    {
+      'badge-accent text-accent-content': division === 2,
+      'badge-secondary text-secondary-content': division === 1
+    }
+  );
+
+  const badgeGroupClasses = classNames(
+    'flex flex-row justify-end gap-x-2 items-center h-full',
+    { hidden: Date.now() + 7200000 - Date.parse(date) >= 0 }
+  );
 
   const deleteFixture = async (id) => {
     const { data } = await axios.delete(`/api/fixtures/delete/${id}`);
@@ -134,11 +146,11 @@ const ListItem = ({
           </div>
         </div>
 
-        <div className='card-actions justify-between pt-2'>
+        <div className='card-actions justify-between py-4'>
           <div className='flex flex-row justify-start gap-x-2 items-center'>
             <label
               htmlFor={`edit-modal${id}`}
-              className='btn modal-button btn-success btn-sm hover:scale-110'
+              className='btn modal-button btn-success btn-xs lg:btn-sm hover:scale-110'
             >
               Edit
             </label>
@@ -163,7 +175,7 @@ const ListItem = ({
             </div>
             <label
               htmlFor={`delete-modal${id}`}
-              className='btn modal-button btn-error btn-sm hover:scale-110'
+              className='btn modal-button btn-error btn-xs lg:btn-sm hover:scale-110'
             >
               Delete
             </label>
@@ -199,14 +211,17 @@ const ListItem = ({
             </div>
           </div>
           <div
-            className='flex flex-row justify-end gap-x-2 items-center h-full'
+            className={badgeGroupClasses}
             onClick={() => history.push(`/${id}`)}
           >
             <div className='badge badge-info font-bold text-info-content'>
               {formatISO9075(new Date(date), { representation: 'date' })}
             </div>
-            <div className={badgeClasses}>
+            <div className={badgeClassesFull}>
               {findDivisionName(divisions, division)}
+            </div>
+            <div className={badgeClassesAbbrev}>
+              {findDivisionAbbreviation(divisions, division)}
             </div>
             <div className='badge badge-primary font-bold text-primary-content'>
               #{e2e_id.toString(10)}
