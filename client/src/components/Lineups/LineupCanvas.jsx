@@ -13,9 +13,12 @@ const LineupCanvas = ({ startingXI, goalkeeper, teamName, graphicColour }) => {
   const [checked, setChecked] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const stickyButtonClasses = classNames('btn btn-circle btn-accent', {
-    hidden: startingXI.length < 11 || goalkeeper === null
-  });
+  const stickyButtonClasses = classNames(
+    'btn btn-circle btn-accent animate-bounce',
+    {
+      hidden: startingXI.length < 11 || goalkeeper === null
+    }
+  );
 
   const onBtnClick = (e) => {
     e.preventDefault();
@@ -26,7 +29,7 @@ const LineupCanvas = ({ startingXI, goalkeeper, teamName, graphicColour }) => {
     <div className='flex flex-col xl:w-1/4 h-full justify-items-center'>
       <div className='fixed bottom-8 right-8'>
         <button className={stickyButtonClasses} onClick={onBtnClick}>
-          <HiSave />
+          <HiSave size={24} />
         </button>
         <input
           type='file'
