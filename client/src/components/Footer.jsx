@@ -18,7 +18,11 @@ const Footer = () => {
         <p>Created by Jonathan Cheng</p>
       </div>
       <div className='grid-flow-col gap-4 md:place-self-center md:justify-self-end mr-4'>
-        <a href='http://' target='_blank' rel='noopener noreferrer'>
+        <a
+          href='https://github.com/jjjjjjonathan/L1O-stats'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
           <VscGithubInverted size={32} />
         </a>
       </div>
