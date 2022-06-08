@@ -23,10 +23,10 @@ const RosterListItem = ({
 
   return (
     <div className={cardClasses}>
-      <div className='card-body'>
+      <div className={classNames('card-body', { 'pt-5 pb-3': selected })}>
         {selected ? (
           <input
-            className='input input-ghost card-title text-primary pl-0'
+            className='input input-ghost card-title text-primary p-0'
             type='text'
             defaultValue={name}
             onChange={(e) => {
