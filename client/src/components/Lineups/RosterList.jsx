@@ -18,8 +18,6 @@ const RosterList = ({ roster, teamName, graphicColour }) => {
     />
   ));
 
-  //
-
   return (
     <form action=''>
       <div className='grid grid-cols-1 gap-4'>{mappedRoster}</div>
