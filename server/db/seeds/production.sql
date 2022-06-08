@@ -1,0 +1,30 @@
+INSERT INTO divisions (name, abbreviation)
+VALUES ('Men''s Premier Division', 'Men''s'),
+('Women''s Premier Division', 'Women''s');
+
+INSERT INTO teams (name, mens, womens, mens_roster_url, womens_roster_url, graphic_colour, img, abbreviation)
+VALUES ('Pickering FC', true, true, 'https://www.league1ontario.com/roster/show/7104601?subseason=809614', 'https://www.league1ontario.com/roster/show/7098694?subseason=809616', '#404040', 'Pickering', 'PICK'),
+('BVB IA Waterloo', true, true, 'https://www.league1ontario.com/roster/show/7104611?subseason=809614', 'https://www.league1ontario.com/roster/show/7098798?subseason=809616', '#D6C200', 'BVB', 'WLOO'),
+('Woodbridge Strikers', true, true, 'https://www.league1ontario.com/roster/show/7104610?subseason=809614', 'https://www.league1ontario.com/roster/show/7098804?subseason=809616', '#24469B', 'Woodbridge', 'WOOD'),
+('Windsor TFC', true, false, 'https://www.league1ontario.com/roster/show/7104609?subseason=809614', null, '#9D1007', 'Windsor', 'WTFC'),
+('Vaughan Azzurri', true, true, 'https://www.league1ontario.com/roster/show/7104608?subseason=809614', 'https://www.league1ontario.com/roster/show/7098782?subseason=809616', '#C5271D', 'Vaughan', 'VGHN'),
+('Unionville Milliken S.C.', true, true, 'https://www.league1ontario.com/roster/show/7104607?subseason=809614', 'https://www.league1ontario.com/roster/show/7098752?subseason=809616', '#C11A10', 'UMSC', 'UMSC'),
+('St. Catherines Roma', true, true, 'https://www.league1ontario.com/roster/show/7104606?subseason=809614', 'https://www.league1ontario.com/roster/show/7098846?subseason=809616', '#643538', 'StCatherines', 'STCR'),
+('Simcoe County', true, true, 'https://www.league1ontario.com/roster/show/7104605?subseason=809614', 'https://www.league1ontario.com/roster/show/7098697?subseason=809616', '#486D96', 'Simcoe', 'SCR'),
+('Sigma FC', true, false, 'https://www.league1ontario.com/roster/show/7104604?subseason=809614', null, '#154988', 'Sigma', 'SGMA'),
+('Scrosoppi FC', true, false, 'https://www.league1ontario.com/roster/show/7104603?subseason=809614', null, '#664B15', 'Scrosoppi', 'SCRO'),
+('ProStars FC', true, true, 'https://www.league1ontario.com/roster/show/7104602?subseason=809614', 'https://www.league1ontario.com/roster/show/7098829?subseason=809616', '#0023B7', 'ProStars', 'PSTR'),
+('Alliance United FC', true, true, 'https://www.league1ontario.com/roster/show/7104584?subseason=809614', 'https://www.league1ontario.com/roster/show/7098640?subseason=809616', '#DF6316', 'Alliance', 'AUFC'),
+('North Toronto Nitros', true, true, 'https://www.league1ontario.com/roster/show/7104600?subseason=809614', 'https://www.league1ontario.com/roster/show/7098686?subseason=809616', '#356631', 'Nitros', 'NTRO'),
+('North Mississauga SC', true, true, 'https://www.league1ontario.com/roster/show/7104599?subseason=809614', 'https://www.league1ontario.com/roster/show/7098685?subseason=809616', '#CD2329', 'NMSC', 'NMSC'),
+('Master''s FA', true, false, 'https://www.league1ontario.com/roster/show/7104598?subseason=809614', null, '#C4261D', 'MFA', 'MFA'),
+('Hamilton United', true, true, 'https://www.league1ontario.com/roster/show/7104597?subseason=809614', 'https://www.league1ontario.com/roster/show/7098674?subseason=809616', '#E1A730', 'Hamilton', 'HUE'),
+('Guelph United', true, false, 'https://www.league1ontario.com/roster/show/7104596?subseason=809614', null, '#9D1007', 'GuelphUnited', 'GLPH'),
+('Guelph Union', false, true, null, 'https://www.league1ontario.com/roster/show/7098669?subseason=809616', '#9D1007', 'GuelphUnion', 'GLPH'),
+('FC London', true, true, 'https://www.league1ontario.com/roster/show/7104595?subseason=809614', 'https://www.league1ontario.com/roster/show/7098666?subseason=809616', '#525150', 'London', 'FCL'),
+('Electric City FC', true, true, 'https://www.league1ontario.com/roster/show/7104594?subseason=809614', 'https://www.league1ontario.com/roster/show/7098659?subseason=809616', '#C58A2E', 'ECFC', 'ECFC'),
+('Darby FC', true, true, 'https://www.league1ontario.com/roster/show/7104591?subseason=809614', 'https://www.league1ontario.com/roster/show/7098649?subseason=809616', '#4C9EB8', 'Darby', 'DRBY'),
+('Burlington SC', true, true, 'https://www.league1ontario.com/roster/show/7104587?subseason=809614', 'https://www.league1ontario.com/roster/show/7098859?subseason=809616', '#4663AD', 'Burlington', 'BURL'),
+('Blue Devils FC', true, true, 'https://www.league1ontario.com/roster/show/7104585?subseason=809614', 'https://www.league1ontario.com/roster/show/7098646?subseason=809616', '#22356F', 'OBD', 'BDFC'),
+('NDC-Ontario', false, true, null, 'https://www.league1ontario.com/roster/show/7098853?subseason=809616', '#C11A10', 'NDC', 'NDC'),
+('Tecumseh SC', false, true, null, 'https://www.league1ontario.com/roster/show/7098719?subseason=809616', '#22346F', 'Tecumseh', 'TSEH');
