@@ -12,7 +12,12 @@ const path = require('path');
 // PG database client/connection setup
 const { Pool } = require('pg');
 const dbParams = require('./db');
-const db = new Pool(dbParams);
+const db = new Pool(
+  {
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }
+  } || dbParams
+);
 db.connect();
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -24,7 +29,7 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/public')));
+  app.use(express.static(path.join(__dirname, 'client/build')));
 }
 
 // Separated routes
@@ -42,7 +47,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/public/index.html'));
+  res.sendFile(path.join(__dirname, 'client/build/index.html'));
 });
 
 app.listen(PORT, () => {
