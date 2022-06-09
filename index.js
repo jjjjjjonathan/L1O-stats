@@ -1,5 +1,5 @@
 // Load .env data into process.env
-require("dotenv").config();
+require('dotenv').config();
 
 // Web server config
 const PORT = process.env.PORT || 3001;
@@ -7,6 +7,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
+const path = require('path');
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -22,6 +23,11 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
+if (process.env.NODE_ENV === 'production') {
+  // static content
+  // app.use(express.static(path.join(__dirname, 'client/build')))
+}
+
 // Separated routes
 const divisionRoutes = require('./routes/divisions');
 const teamRoutes = require('./routes/teams');
@@ -33,7 +39,7 @@ app.use('/api/teams', teamRoutes(db));
 app.use('/api/fixtures', fixtureRoutes(db));
 
 app.get('/', (req, res) => {
-  res.send("home");
+  res.send('home');
 });
 
 app.listen(PORT, () => {

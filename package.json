@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./node_modules/.bin/nodemon -L --ignore public/",
+    "start": "node index.js",
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "start dev": "./node_modules/.bin/nodemon -L --ignore public/",
     "db:reset": "node bin/resetdb.js"
   },
   "keywords": [],
