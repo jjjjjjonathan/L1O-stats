@@ -13,10 +13,12 @@ const path = require('path');
 const { Pool } = require('pg');
 const dbParams = require('./db');
 const db = new Pool(
-  {
-    connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false }
-  } || dbParams
+  process.env.DATABASE_URL
+    ? {
+        connectionString: process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false }
+      }
+    : dbParams
 );
 db.connect();
 
