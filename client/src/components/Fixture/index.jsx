@@ -3,15 +3,16 @@ import { useParams } from 'react-router-dom';
 import { findDivisionName, findTeamName } from '../../helpers/helpers';
 import ConsoleRow from './ConsoleRow';
 import SocialCanvas from './SocialCanvas';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import classNames from 'classnames';
 import RosterSelect from './RosterSelect';
-import { DispatchContext } from '../../App';
+import { DispatchContext, AlertContext } from '../../App';
 
 const Fixture = ({ divisions, teams, fixtures }) => {
   const id = parseInt(useParams().id, 10);
 
   const dispatch = useContext(DispatchContext);
+  const setAlert = useContext(AlertContext);
 
   const selectedFixture = fixtures.find((fixture) => fixture.id === id);
 
@@ -121,6 +122,13 @@ const Fixture = ({ divisions, teams, fixtures }) => {
       teams={teams}
     />
   ));
+
+  useEffect(() => {
+    setAlert({
+      type: 'info',
+      msg: 'Press logos to change teams.'
+    });
+  }, [setAlert]);
 
   return (
     <>

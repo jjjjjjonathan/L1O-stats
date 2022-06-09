@@ -4,7 +4,8 @@ import classNames from 'classnames';
 const Navbar = ({ darkMode, setDarkMode, alert }) => {
   const alertClasses = classNames('alert shadow-lg', {
     'alert-success': alert.type === 'success',
-    'alert-error': alert.type === 'error'
+    'alert-error': alert.type === 'error',
+    'alert-info flex md:hidden': alert.type === 'info'
   });
   return (
     <div className='navbar bg-neutral top-0 sticky z-50 w-full text-neutral-content shadow-sm shadow-neutral-focus h-20'>
@@ -43,7 +44,9 @@ const Navbar = ({ darkMode, setDarkMode, alert }) => {
           <img src='/logos/league.png' alt='' className='h-16' />
         </Link>
       </div>
-      {(alert.type === 'success' || alert.type === 'error') && (
+      {(alert.type === 'success' ||
+        alert.type === 'error' ||
+        alert.type === 'info') && (
         <div className={alertClasses}>
           <div>
             <svg
