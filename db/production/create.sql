@@ -1,6 +1,40 @@
+DROP TABLE IF EXISTS divisions CASCADE;
+DROP TABLE IF EXISTS teams CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS fixtures CASCADE;
+
+CREATE TABLE divisions (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP default now(),
+  updated_at TIMESTAMP default now(),
+  abbreviation VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE teams (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  mens BOOLEAN NOT NULL,
+  womens BOOLEAN NOT NULL,
+  mens_roster_url TEXT,
+  womens_roster_url TEXT,
+  graphic_colour VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP default now(),
+  updated_at TIMESTAMP default now(),
+  img VARCHAR(255) NOT NULL,
+  abbreviation VARCHAR(6) NOT NULL
+);
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255) NOT NULL UNIQUE,
+  password_digest VARCHAR(255),
+  created_at TIMESTAMP default now()
+);
+
 CREATE TABLE fixtures (
   id SERIAL PRIMARY KEY NOT NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE NOT NULL,
   e2e_id INTEGER NOT NULL,
   division INTEGER REFERENCES divisions(id) ON DELETE CASCADE NOT NULL,
   home_team_id INTEGER REFERENCES teams(id) ON DELETE CASCADE NOT NULL,
