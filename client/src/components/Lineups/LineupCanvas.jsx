@@ -88,7 +88,12 @@ const LineupCanvas = ({ startingXI, goalkeeper, teamName, graphicColour }) => {
               <img src={graphic} alt={altText} />
               <div className='modal-action'>
                 <CopyToClipboard text={altText} onCopy={() => setCopied(true)}>
-                  <button className='btn btn-primary'>
+                  <button
+                    className='btn btn-primary'
+                    onClick={(e) => {
+                      e.preventDefault();
+                    }}
+                  >
                     {copied ? 'Copied!' : 'Copy'}
                   </button>
                 </CopyToClipboard>
