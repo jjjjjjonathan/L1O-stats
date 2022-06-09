@@ -10,6 +10,10 @@
     "start dev": "./node_modules/.bin/nodemon -L --ignore public/",
     "db:reset": "node bin/resetdb.js"
   },
+  "engines": {
+    "node": "16.14.2",
+    "npm": "8.5.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
