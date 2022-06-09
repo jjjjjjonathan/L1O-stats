@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Create from './components/Create';
 import useApplicationData from './hooks/useApplicationData';
 import List from './components/List';
@@ -65,28 +65,46 @@ function App() {
                 alert={alert}
               />
               <div className='mx-auto'>
-                <Switch>
-                  <Route path='/create'>
-                    <Create divisions={state.divisions} teams={state.teams} />
-                  </Route>
-                  <Route path='/lineups'>
-                    <Lineups divisions={state.divisions} teams={state.teams} />
-                  </Route>
-                  <Route path='/:id'>
-                    <Fixture
-                      divisions={state.divisions}
-                      teams={state.teams}
-                      fixtures={state.fixtures}
-                    />
-                  </Route>
-                  <Route path='/'>
-                    <List
-                      fixtures={state.fixtures}
-                      teams={state.teams}
-                      divisions={state.divisions}
-                    />
-                  </Route>
-                </Switch>
+                <Routes>
+                  <Route
+                    exact
+                    path='/'
+                    element={
+                      <List
+                        fixtures={state.fixtures}
+                        teams={state.teams}
+                        divisions={state.divisions}
+                      />
+                    }
+                  />
+                  <Route
+                    path='/create'
+                    element={
+                      <Create divisions={state.divisions} teams={state.teams} />
+                    }
+                  />
+
+                  <Route
+                    path='/lineups'
+                    element={
+                      <Lineups
+                        divisions={state.divisions}
+                        teams={state.teams}
+                      />
+                    }
+                  />
+
+                  <Route
+                    path='/:id'
+                    element={
+                      <Fixture
+                        divisions={state.divisions}
+                        teams={state.teams}
+                        fixtures={state.fixtures}
+                      />
+                    }
+                  />
+                </Routes>
               </div>
             </AlertContext.Provider>
           </DispatchContext.Provider>

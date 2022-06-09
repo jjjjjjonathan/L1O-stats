@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { findDivisionName, findDivisionAbbreviation } from '../helpers/helpers';
 import classNames from 'classnames';
 import { formatISO9075 } from 'date-fns';
@@ -26,7 +26,7 @@ const ListItem = ({
 
   const awayTeam = teams.find((team) => team.id === away_team_id);
 
-  const history = useHistory();
+  let navigate = useNavigate();
 
   const cardClasses = classNames(
     'card',
@@ -88,7 +88,7 @@ const ListItem = ({
   return (
     <div className={cardClasses}>
       <figure>
-        <div className={cardHeroClasses} onClick={() => history.push(`/${id}`)}>
+        <div className={cardHeroClasses} onClick={() => navigate(`/${id}`)}>
           <div className='h-[100px] w-[100px] flex justify-center'>
             <img
               src={`/logos/${homeTeam.img}.png`}
@@ -210,10 +210,7 @@ const ListItem = ({
               </div>
             </div>
           </div>
-          <div
-            className={badgeGroupClasses}
-            onClick={() => history.push(`/${id}`)}
-          >
+          <div className={badgeGroupClasses} onClick={() => navigate(`/${id}`)}>
             <div className='badge badge-info font-bold text-info-content'>
               {formatISO9075(new Date(date), { representation: 'date' })}
             </div>
