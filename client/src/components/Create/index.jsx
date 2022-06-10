@@ -13,7 +13,7 @@ const Create = ({ divisions, teams }) => {
   const [homeTeam, setHomeTeam] = useState(null);
   const [awayTeam, setAwayTeam] = useState(null);
   const [e2eId, setE2eId] = useState(null);
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState('');
 
   const submitNewFixture = async (
     event,
@@ -30,10 +30,20 @@ const Create = ({ divisions, teams }) => {
           type: 'error',
           msg: `E2E ID isn't a number.`
         });
+      } else if (!homeTeam || !awayTeam) {
+        setAlert({
+          type: 'error',
+          msg: 'There are missing teams.'
+        });
       } else if (homeTeam === awayTeam) {
         setAlert({
           type: 'error',
           msg: `Teams can't play themselves.`
+        });
+      } else if (date.length <= 0) {
+        setAlert({
+          type: 'error',
+          msg: `Missing date/time.`
         });
       } else {
         const { data } = await axios.put('/api/fixtures', {
