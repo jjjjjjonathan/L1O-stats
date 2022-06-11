@@ -37,8 +37,8 @@ const ListItem = ({
     'mx-auto',
     'shadow-lg',
     'hover:shadow-xl',
-    { 'col-span-2 md:px-6': Date.now() + 7200000 - Date.parse(date) < 0 },
-    { 'col-span-1': Date.now() + 7200000 - Date.parse(date) >= 0 },
+    { 'col-span-2 md:px-6': Date.now() - 7200000 - Date.parse(date) < 0 },
+    { 'col-span-1': Date.now() - 7200000 - Date.parse(date) >= 0 },
     'py-2 px-1'
   );
 
@@ -49,16 +49,16 @@ const ListItem = ({
     'w-full',
     'items-center',
     'pb-8',
-    { hidden: Date.now() + 7200000 - Date.parse(date) >= 0 }
+    { hidden: Date.now() - 7200000 - Date.parse(date) >= 0 }
   );
 
   const titleClasses = classNames('card-title text-base-content text-3xl', {
-    hidden: Date.now() + 7200000 - Date.parse(date) < 0
+    hidden: Date.now() - 7200000 - Date.parse(date) < 0
   });
 
   const abbreviationClasses = classNames(
     'card-title text-base-content text-2xl hidden px-3',
-    { 'lg:block': Date.now() + 7200000 - Date.parse(date) >= 0 }
+    { 'lg:block': Date.now() - 7200000 - Date.parse(date) >= 0 }
   );
 
   const badgeClassesAbbrev = classNames('badge font-bold shadow-md lg:hidden', {
@@ -76,7 +76,7 @@ const ListItem = ({
 
   const badgeGroupClasses = classNames(
     'flex flex-row justify-end gap-x-2 items-center h-full',
-    { hidden: Date.now() + 7200000 - Date.parse(date) >= 0 }
+    { hidden: Date.now() - 7200000 - Date.parse(date) >= 0 }
   );
 
   const deleteFixture = async (id) => {
@@ -119,7 +119,7 @@ const ListItem = ({
                   alt={homeTeam.name}
                   className={classNames(
                     'max-h-[28px] max-w-[28px] object-contain overflow-y-clip',
-                    { hidden: Date.now() + 7200000 - Date.parse(date) < 0 }
+                    { hidden: Date.now() - 7200000 - Date.parse(date) < 0 }
                   )}
                 />
                 <h2 className={abbreviationClasses}>{homeTeam.abbreviation}</h2>
@@ -136,7 +136,7 @@ const ListItem = ({
                   alt={awayTeam.name}
                   className={classNames(
                     'max-h-[28px] max-w-[28px] object-contain overflow-y-clip',
-                    { hidden: Date.now() + 7200000 - Date.parse(date) < 0 }
+                    { hidden: Date.now() - 7200000 - Date.parse(date) < 0 }
                   )}
                 />
                 <h2 className={abbreviationClasses}>{awayTeam.abbreviation}</h2>
