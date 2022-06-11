@@ -1,7 +1,8 @@
 import { useHistory } from 'react-router-dom';
 import { findDivisionName, findDivisionAbbreviation } from '../helpers/helpers';
 import classNames from 'classnames';
-import { formatISO9075 } from 'date-fns';
+import { formatISO9075, add, compareDesc } from 'date-fns';
+import { zonedTimeToUtc } from 'date-fns-tz';
 import EditListItem from './EditListItem';
 import axios from 'axios';
 import { DispatchContext, AlertContext } from '../App';
@@ -28,6 +29,9 @@ const ListItem = ({
 
   const history = useHistory();
 
+  const timeZone = 'America/Toronto';
+  const matchEndTime = add(zonedTimeToUtc(date, timeZone), { hours: 2 });
+
   const cardClasses = classNames(
     'card',
     'bg-base-100',
@@ -37,8 +41,8 @@ const ListItem = ({
     'mx-auto',
     'shadow-lg',
     'hover:shadow-xl',
-    { 'col-span-2 md:px-6': Date.parse(date) + 7200000 - Date.now() >= 0 },
-    { 'col-span-1': Date.parse(date) + 7200000 - Date.now() < 0 },
+    { 'col-span-2 md:px-6': compareDesc(matchEndTime, zonedTimeToUtc(new Date(), timeZone)) <= 0 },
+    { 'col-span-1': compareDesc(matchEndTime, zonedTimeToUtc(new Date(), timeZone)) > 0 },
     'py-2 px-1'
   );
 
@@ -49,16 +53,16 @@ const ListItem = ({
     'w-full',
     'items-center',
     'pb-8',
-    { hidden: Date.parse(date) + 7200000 - Date.now() < 0 }
+    { hidden: compareDesc(matchEndTime, zonedTimeToUtc(new Date(), timeZone)) > 0 }
   );
 
   const titleClasses = classNames('card-title text-base-content text-3xl', {
-    hidden: Date.parse(date) + 7200000 - Date.now() >= 0
+    hidden: compareDesc(matchEndTime, zonedTimeToUtc(new Date(), timeZone)) <= 0
   });
 
   const abbreviationClasses = classNames(
     'card-title text-base-content text-2xl hidden px-3',
-    { 'lg:block': Date.parse(date) + 7200000 - Date.now() < 0 }
+    { 'lg:block': compareDesc(matchEndTime, zonedTimeToUtc(new Date(), timeZone)) > 0 }
   );
 
   const badgeClassesAbbrev = classNames('badge font-bold shadow-md lg:hidden', {
@@ -76,7 +80,7 @@ const ListItem = ({
 
   const badgeGroupClasses = classNames(
     'flex flex-row justify-end gap-x-2 items-center h-full',
-    { hidden: Date.parse(date) + 7200000 - Date.now() < 0 }
+    { hidden: compareDesc(matchEndTime, zonedTimeToUtc(new Date(), timeZone)) > 0 }
   );
 
   const deleteFixture = async (id) => {
@@ -119,7 +123,7 @@ const ListItem = ({
                   alt={homeTeam.name}
                   className={classNames(
                     'max-h-[28px] max-w-[28px] object-contain overflow-y-clip',
-                    { hidden: Date.parse(date) + 7200000 - Date.now() >= 0 }
+                    { hidden: compareDesc(matchEndTime, zonedTimeToUtc(new Date(), timeZone)) <= 0 }
                   )}
                 />
                 <h2 className={abbreviationClasses}>{homeTeam.abbreviation}</h2>
@@ -136,7 +140,7 @@ const ListItem = ({
                   alt={awayTeam.name}
                   className={classNames(
                     'max-h-[28px] max-w-[28px] object-contain overflow-y-clip',
-                    { hidden: Date.parse(date) + 7200000 - Date.now() >= 0 }
+                    { hidden: compareDesc(matchEndTime, zonedTimeToUtc(new Date(), timeZone)) <= 0 }
                   )}
                 />
                 <h2 className={abbreviationClasses}>{awayTeam.abbreviation}</h2>
