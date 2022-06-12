@@ -30,7 +30,7 @@ const ListItem = ({
   const history = useHistory();
 
   const timeZone = 'America/Toronto';
-  const matchEndTime = add(zonedTimeToUtc(date, timeZone), { hours: 2 });
+  const matchEndTime = add(new Date(date), { hours: 2 });
 
   const cardClasses = classNames(
     'card',
@@ -183,8 +183,12 @@ const ListItem = ({
             >
               Delete
             </label>
-            <label htmlFor="" className="btn-btn-accent">{formatISO9075(matchEndTime)}</label>
-            <label htmlFor="" className="btn-btn-accent">{formatISO9075(new Date())}</label>
+            <label htmlFor='' className='btn-btn-accent'>
+              {formatISO9075(matchEndTime)}
+            </label>
+            <label htmlFor='' className='btn-btn-accent'>
+              {formatISO9075(new Date())}
+            </label>
             <input
               type='checkbox'
               id={`delete-modal${id}`}

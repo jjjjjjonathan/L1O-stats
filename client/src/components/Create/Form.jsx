@@ -52,7 +52,8 @@ const Form = ({ teams, setHomeTeam, setAwayTeam, setE2eId, setDate }) => {
         <input
           type='datetime-local'
           onChange={(event) => {
-            setDate(event.target.value);
+            const timezoneOffset = new Date().getTimezoneOffset() / 60;
+            setDate(`${event.target.value}-0${Math.abs(timezoneOffset)}:00`);
           }}
           className='bg-base-200 border border-base-content rounded-lg px-4'
         />
