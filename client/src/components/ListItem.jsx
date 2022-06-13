@@ -29,7 +29,6 @@ const ListItem = ({
 
   const history = useHistory();
 
-  const timeZone = 'America/Toronto';
   const matchEndTime = add(new Date(date), { hours: 2 });
 
   const cardClasses = classNames(

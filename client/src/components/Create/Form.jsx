@@ -53,7 +53,7 @@ const Form = ({ teams, setHomeTeam, setAwayTeam, setE2eId, setDate }) => {
         <input
           type='datetime-local'
           onChange={(event) => {
-            setDate(zonedTimeToUtc(new Date(event.target.value)).toISOString());
+            setDate(zonedTimeToUtc(new Date(event.target.value), 'America/Toronto').toISOString());
           }}
           className='bg-base-200 border border-base-content rounded-lg px-4'
         />

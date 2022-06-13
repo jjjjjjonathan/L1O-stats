@@ -87,7 +87,7 @@ const EditListItem = ({
           <input
             type='datetime-local'
             onChange={(event) => {
-              setMatchDate(zonedTimeToUtc(new Date(event.target.value)).toISOString());
+              setMatchDate(zonedTimeToUtc(new Date(event.target.value), 'America/Toronto').toISOString());
             }}
             className='bg-base-200 border border-base-content rounded-lg px-4'
             defaultValue={matchDate}

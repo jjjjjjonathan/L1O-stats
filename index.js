@@ -12,14 +12,7 @@ const path = require('path');
 // PG database client/connection setup
 const { Pool } = require('pg');
 const dbParams = require('./db');
-const db = new Pool(dbParams
-  // process.env.DATABASE_URL
-  //   ? {
-  //       connectionString: process.env.DATABASE_URL,
-  //       ssl: { rejectUnauthorized: false }
-  //     }
-  //   : dbParams
-);
+const db = new Pool(dbParams);
 db.connect();
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
