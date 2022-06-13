@@ -2,7 +2,6 @@ import { useHistory } from 'react-router-dom';
 import { findDivisionName, findDivisionAbbreviation } from '../helpers/helpers';
 import classNames from 'classnames';
 import { formatISO9075, add, compareDesc } from 'date-fns';
-import { zonedTimeToUtc } from 'date-fns-tz';
 import EditListItem from './EditListItem';
 import axios from 'axios';
 import { DispatchContext, AlertContext } from '../App';
@@ -89,9 +88,9 @@ const ListItem = ({
   };
 
   return (
-    <div className={cardClasses}>
+    <div className={cardClasses} onClick={() => history.push(`/${id}`)}>
       <figure>
-        <div className={cardHeroClasses} onClick={() => history.push(`/${id}`)}>
+        <div className={cardHeroClasses}>
           <div className='h-[100px] w-[100px] flex justify-center'>
             <img
               src={`/logos/${homeTeam.img}.png`}
@@ -151,77 +150,79 @@ const ListItem = ({
 
         <div className='card-actions justify-between py-4'>
           <div className='flex flex-row justify-start gap-x-2 items-center'>
-            <label
-              htmlFor={`edit-modal${id}`}
-              className='btn modal-button btn-success btn-xs lg:btn-sm hover:scale-110'
-            >
-              Edit
-            </label>
-            <input
-              type='checkbox'
-              id={`edit-modal${id}`}
-              className='modal-toggle'
-            />
-            <div className='modal'>
-              <div className='modal-box'>
-                <h3 className='font-bold text-lg'>Edit Match Details</h3>
-                <EditListItem
-                  teams={teams}
-                  division={division}
-                  home_team_id={home_team_id}
-                  away_team_id={away_team_id}
-                  e2e_id={e2e_id}
-                  date={date}
-                  id={id}
-                />
-              </div>
-            </div>
-            <label
-              htmlFor={`delete-modal${id}`}
-              className='btn modal-button btn-error btn-xs lg:btn-sm hover:scale-110'
-            >
-              Delete
-            </label>
-            <label htmlFor='' className='btn-btn-accent'>
-              {formatISO9075(matchEndTime)}
-            </label>
-            <label htmlFor='' className='btn-btn-accent'>
-              {formatISO9075(new Date())}
-            </label>
-            <input
-              type='checkbox'
-              id={`delete-modal${id}`}
-              className='modal-toggle'
-            />
-            <div className='modal'>
-              <div className='modal-box'>
-                <h3 className='font-bold text-lg'>
-                  Are you sure you want to delete?
-                </h3>
-                <p className='py-4'>
-                  You will have to re-create the fixture if you need it later.
-                </p>
-                <div className='modal-action'>
-                  <label
-                    htmlFor={`delete-modal${id}`}
-                    className='btn btn-error'
-                    onClick={() => deleteFixture(id)}
-                  >
-                    Yes I'm sure
-                  </label>
-                  <label
-                    htmlFor={`delete-modal${id}`}
-                    className='btn btn-warning'
-                  >
-                    Cancel
-                  </label>
+            <div onClick={(e) => e.stopPropagation()}>
+              <label
+                htmlFor={`edit-modal${id}`}
+                className='btn modal-button btn-success btn-xs lg:btn-sm hover:scale-110'
+
+              >
+                Edit
+              </label>
+              <input
+                type='checkbox'
+                id={`edit-modal${id}`}
+                className='modal-toggle'
+
+              />
+              <div className='modal'>
+                <div className='modal-box'>
+                  <h3 className='font-bold text-lg'>Edit Match Details</h3>
+                  <EditListItem
+                    teams={teams}
+                    division={division}
+                    home_team_id={home_team_id}
+                    away_team_id={away_team_id}
+                    e2e_id={e2e_id}
+                    date={date}
+                    id={id}
+                  />
                 </div>
               </div>
             </div>
+
+            <div onClick={(e) => e.stopPropagation()}>
+              <label
+                htmlFor={`delete-modal${id}`}
+                className='btn modal-button btn-error btn-xs lg:btn-sm hover:scale-110'
+              >
+                Delete
+              </label>
+              <input
+                type='checkbox'
+                id={`delete-modal${id}`}
+                className='modal-toggle'
+              />
+              <div className='modal'>
+                <div className='modal-box'>
+                  <h3 className='font-bold text-lg'>
+                    Are you sure you want to delete?
+                  </h3>
+                  <p className='py-4'>
+                    You will have to re-create the fixture if you need it later.
+                  </p>
+                  <div className='modal-action'>
+                    <label
+                      htmlFor={`delete-modal${id}`}
+                      className='btn btn-error'
+                      onClick={() => deleteFixture(id)}
+                    >
+                      Yes I'm sure
+                    </label>
+                    <label
+                      htmlFor={`delete-modal${id}`}
+                      className='btn btn-warning'
+                    >
+                      Cancel
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
           </div>
           <div
             className={badgeGroupClasses}
-            onClick={() => history.push(`/${id}`)}
           >
             <div className='badge badge-info font-bold text-info-content'>
               {formatISO9075(new Date(date), { representation: 'date' })}
