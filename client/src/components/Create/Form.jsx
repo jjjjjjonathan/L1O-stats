@@ -1,4 +1,5 @@
 import FormOption from './FormOption';
+import { zonedTimeToUtc } from 'date-fns-tz';
 
 const Form = ({ teams, setHomeTeam, setAwayTeam, setE2eId, setDate }) => {
   const mappedTeams = teams.map((team) => (
@@ -52,8 +53,7 @@ const Form = ({ teams, setHomeTeam, setAwayTeam, setE2eId, setDate }) => {
         <input
           type='datetime-local'
           onChange={(event) => {
-            const timezoneOffset = new Date().getTimezoneOffset() / 60;
-            setDate(`${event.target.value}-0${Math.abs(timezoneOffset)}:00`);
+            setDate(zonedTimeToUtc(new Date(event.target.value)).toISOString());
           }}
           className='bg-base-200 border border-base-content rounded-lg px-4'
         />
