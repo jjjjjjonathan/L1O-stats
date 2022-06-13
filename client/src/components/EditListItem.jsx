@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import FormOption from './Create/FormOption';
 import { DispatchContext, AlertContext } from '../App';
 import axios from 'axios';
+import { zonedTimeToUtc } from 'date-fns-tz';
 
 const EditListItem = ({
   division,
@@ -86,10 +87,10 @@ const EditListItem = ({
           <input
             type='datetime-local'
             onChange={(event) => {
-              setMatchDate(event.target.value);
+              setMatchDate(zonedTimeToUtc(new Date(event.target.value)).toISOString());
             }}
             className='bg-base-200 border border-base-content rounded-lg px-4'
-            value={matchDate}
+            defaultValue={matchDate}
           />
         </section>
       </div>
