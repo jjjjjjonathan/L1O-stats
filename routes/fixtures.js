@@ -5,7 +5,6 @@ const Jimp = require('jimp');
 module.exports = (db) => {
   router.get('/', async (req, res) => {
     const data = await db.query('SELECT * FROM fixtures;');
-    console.log(data.rows);
     res.json(data.rows);
   });
 
