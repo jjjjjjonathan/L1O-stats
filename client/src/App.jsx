@@ -95,7 +95,7 @@ function App() {
       <Footer />
     </div>
   ) : (
-    <p>Loading</p>
+    <p>Loading...</p>
   );
 }
 
