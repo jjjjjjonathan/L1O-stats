@@ -25,7 +25,7 @@ const Create = ({ divisions, teams }) => {
   ) => {
     try {
       event.preventDefault();
-      if (Number.isNaN(e2eId)) {
+      if (Number.isNaN(e2eId) || !e2eId) {
         setAlert({
           type: 'error',
           msg: `E2E ID isn't a number.`
