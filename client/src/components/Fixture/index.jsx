@@ -145,6 +145,9 @@ const Fixture = ({ divisions, teams, fixtures }) => {
         <button className={awayXIClasses} onClick={() => setTab(5)}>
           Away XI
         </button>
+        <button className={fullTimeClassesMd} onClick={() => setTab(6)}>
+          Latest
+        </button>
       </div>
 
       {/* Stats tab content */}
@@ -169,6 +172,8 @@ const Fixture = ({ divisions, teams, fixtures }) => {
       {tab === 5 && (
         <RosterSelect division={selectedFixture.division} team={awayTeam} />
       )}
+
+      {tab === 6 && <SocialCanvas stats={stats} graphicMode={tab} />}
     </>
   );
 };

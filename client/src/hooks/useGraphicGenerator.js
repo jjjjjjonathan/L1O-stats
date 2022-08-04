@@ -90,7 +90,12 @@ const useGraphicGenerator = (mode) => {
         }
         return a.number - b.number;
       },
-      generateGraphic: async function (upload, updatedXI, teamName, graphicColour) {
+      generateGraphic: async function (
+        upload,
+        updatedXI,
+        teamName,
+        graphicColour
+      ) {
         try {
           let Base64 = await generateString(upload);
           const { data } = await axios.put(this.url, {
@@ -116,6 +121,37 @@ const useGraphicGenerator = (mode) => {
         }
         if (startingXI.find((player) => Number.isNaN(player.number))) {
           setUploadError('make sure all shirts have proper numbers');
+          return false;
+        }
+        setUploadError('');
+        return true;
+      }
+    },
+    6: {
+      url: '/api/fixtures/score',
+      xAxis: 0,
+      text: 'Latest',
+      generateGraphic: async function (upload, hScore, aScore, hName, aName) {
+        try {
+          let Base64 = await generateString(upload);
+          const { data } = await axios.put(this.url, {
+            Base64,
+            text: this.text,
+            hScore,
+            aScore,
+            hName,
+            aName,
+            xAxis: this.xAxis
+          });
+          setGraphic(data.newBase64);
+          setAltText(data.altText);
+        } catch (err) {
+          console.error(err);
+        }
+      },
+      validate: function (fileType) {
+        if (!acceptedImageTypes.includes(fileType)) {
+          setUploadError('not an accepted image type');
           return false;
         }
         setUploadError('');
