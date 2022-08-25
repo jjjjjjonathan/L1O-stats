@@ -130,7 +130,7 @@ const useGraphicGenerator = (mode) => {
     6: {
       url: '/api/fixtures/score',
       xAxis: 0,
-      text: 'Latest',
+      text: 'After Extra Time',
       generateGraphic: async function (upload, hScore, aScore, hName, aName) {
         try {
           let Base64 = await generateString(upload);
