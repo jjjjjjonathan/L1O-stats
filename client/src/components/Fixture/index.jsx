@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { findDivisionName, findTeamName } from '../../helpers/helpers';
+import { findTeamName } from '../../helpers/helpers';
 import ConsoleRow from './ConsoleRow';
 import SocialCanvas from './SocialCanvas';
 import { useState, useContext } from 'react';
@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import RosterSelect from './RosterSelect';
 import { DispatchContext } from '../../App';
 
-const Fixture = ({ divisions, teams, fixtures }) => {
+const Fixture = ({ teams, fixtures }) => {
   const id = parseInt(useParams().id, 10);
 
   const dispatch = useContext(DispatchContext);
@@ -149,10 +149,10 @@ const Fixture = ({ divisions, teams, fixtures }) => {
           Latest
         </button>
       </div>
-
+      {err && <p className='hidden'>{err}</p>}
       {/* Stats tab content */}
       {tab === 3 && (
-        <div className='grid grid-cols-2 mx-auto gap-y-4 gap-x-2 p-4 mx-auto'>
+        <div className='grid grid-cols-2 mx-auto gap-y-4 gap-x-2 p-4'>
           {mappedRows}
         </div>
       )}
