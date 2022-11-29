@@ -7,7 +7,6 @@ import { useState, useContext } from 'react';
 import classNames from 'classnames';
 import RosterSelect from './RosterSelect';
 import { DispatchContext } from '../../App';
-import { chartData } from '../../helpers/data';
 import StatsChart from '../StatsChart';
 
 const Fixture = ({ teams, fixtures }) => {
@@ -123,6 +122,25 @@ const Fixture = ({ teams, fixtures }) => {
     />
   ));
 
+  const matchChartData = [
+    { name: `${stats.h.name} ${rows[0]}`, value: stats.h.goals },
+    { name: `${stats.a.name} ${rows[0]}`, value: stats.a.goals },
+    { name: `${stats.h.name} ${rows[1]}`, value: stats.h.totalShots },
+    { name: `${stats.a.name} ${rows[1]}`, value: stats.a.totalShots },
+    { name: `${stats.h.name} ${rows[2]}`, value: stats.h.onTarget },
+    { name: `${stats.a.name} ${rows[2]}`, value: stats.a.onTarget },
+    { name: `${stats.h.name} ${rows[3]}`, value: stats.h.corners },
+    { name: `${stats.a.name} ${rows[3]}`, value: stats.a.corners },
+    { name: `${stats.h.name} ${rows[4]}`, value: stats.h.offsides },
+    { name: `${stats.a.name} ${rows[4]}`, value: stats.a.offsides },
+    { name: `${stats.h.name} ${rows[5]}`, value: stats.h.fouls },
+    { name: `${stats.a.name} ${rows[5]}`, value: stats.a.fouls },
+    { name: `${stats.h.name} ${rows[6]}`, value: stats.h.yellows },
+    { name: `${stats.a.name} ${rows[6]}`, value: stats.a.yellows },
+    { name: `${stats.h.name} ${rows[7]}`, value: stats.h.reds },
+    { name: `${stats.a.name} ${rows[7]}`, value: stats.a.reds }
+  ];
+
   return (
     <>
       <div className='tabs justify-center py-8'>
@@ -175,7 +193,7 @@ const Fixture = ({ teams, fixtures }) => {
         <RosterSelect division={selectedFixture.division} team={awayTeam} />
       )}
 
-      {tab === 6 && <StatsChart data={chartData} />}
+      {tab === 6 && <StatsChart data={matchChartData} />}
     </>
   );
 };

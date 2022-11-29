@@ -2,7 +2,6 @@ import * as d3 from 'd3';
 import { useD3 } from '../hooks/useD3';
 
 const StatsChart = ({ data }) => {
-
   const ref = useD3(
     (svg) => {
       const height = 500;
@@ -11,17 +10,17 @@ const StatsChart = ({ data }) => {
 
       const x = d3
         .scaleBand()
-        .domain(data.map((d) => d.year))
+        .domain(data.map((d) => d.name))
         .rangeRound([margin.left, width - margin.right])
         .padding(0.1);
 
       const y1 = d3
         .scaleLinear()
-        .domain([0, d3.max(data, (d) => d.sales)])
+        .domain([0, d3.max(data, (d) => d.value)])
         .rangeRound([height - margin.bottom, margin.top]);
 
       const xAxis = (g) =>
-        g.attr("transform", `translate(0,${height - margin.bottom})`).call(
+        g.attr('transform', `translate(0,${height - margin.bottom})`).call(
           d3
             .axisBottom(x)
             .tickValues(
@@ -34,35 +33,34 @@ const StatsChart = ({ data }) => {
 
       const y1Axis = (g) =>
         g
-          .attr("transform", `translate(${margin.left},0)`)
-          .style("color", "steelblue")
-          .call(d3.axisLeft(y1).ticks(null, "s"))
-          .call((g) => g.select(".domain").remove())
+          .attr('transform', `translate(${margin.left},0)`)
+          .style('color', 'steelblue')
+          .call(d3.axisLeft(y1).ticks(null, 's'))
+          .call((g) => g.select('.domain').remove())
           .call((g) =>
             g
-              .append("text")
-              .attr("x", -margin.left)
-              .attr("y", 10)
-              .attr("fill", "currentcolor")
-              .attr("text-anchor", "start")
+              .append('text')
+              .attr('x', -margin.left)
+              .attr('y', 10)
+              .attr('fill', 'currentcolor')
+              .attr('text-anchor', 'start')
               .text(data.y1)
           );
 
-      svg.select(".x-axis").call(xAxis);
-      svg.select(".y-axis").call(y1Axis);
+      svg.select('.x-axis').call(xAxis);
+      svg.select('.y-axis').call(y1Axis);
 
       svg
-        .select(".plot-area")
-        .attr("fill", "steelblue")
-        .selectAll(".bar")
+        .select('.plot-area')
+        .attr('fill', 'steelblue')
+        .selectAll('.bar')
         .data(data)
-        .join("rect")
-        .attr("class", "bar")
-        .attr("x", (d) => x(d.year))
-        .attr("width", x.bandwidth())
-        .attr("y", (d) => y1(d.sales))
-        .attr("height", (d) => y1(0) - y1(d.sales));
-
+        .join('rect')
+        .attr('class', 'bar')
+        .attr('x', (d) => x(d.name))
+        .attr('width', x.bandwidth())
+        .attr('y', (d) => y1(d.value))
+        .attr('height', (d) => y1(0) - y1(d.value));
     },
     [data.length]
   );
@@ -72,14 +70,14 @@ const StatsChart = ({ data }) => {
       ref={ref}
       style={{
         height: 500,
-        width: "100%",
-        marginRight: "0px",
-        marginLeft: "0px"
+        width: '100%',
+        marginRight: '0px',
+        marginLeft: '0px'
       }}
     >
-      <g className="plot-area" />
-      <g className="x-axis" />
-      <g className="y-axis" />
+      <g className='plot-area' />
+      <g className='x-axis' />
+      <g className='y-axis' />
     </svg>
   );
 };
