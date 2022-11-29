@@ -7,6 +7,8 @@ import { useState, useContext } from 'react';
 import classNames from 'classnames';
 import RosterSelect from './RosterSelect';
 import { DispatchContext } from '../../App';
+import { chartData } from '../../helpers/data';
+import StatsChart from '../StatsChart';
 
 const Fixture = ({ teams, fixtures }) => {
   const id = parseInt(useParams().id, 10);
@@ -145,9 +147,9 @@ const Fixture = ({ teams, fixtures }) => {
         <button className={awayXIClasses} onClick={() => setTab(5)}>
           Away XI
         </button>
-        {/* <button className={fullTimeClassesMd} onClick={() => setTab(6)}>
-          Latest
-        </button> */}
+        <button className={fullTimeClassesMd} onClick={() => setTab(6)}>
+          Chart
+        </button>
       </div>
       {err && <p className='hidden'>{err}</p>}
       {/* Stats tab content */}
@@ -173,7 +175,7 @@ const Fixture = ({ teams, fixtures }) => {
         <RosterSelect division={selectedFixture.division} team={awayTeam} />
       )}
 
-      {/* {tab === 6 && <SocialCanvas stats={stats} graphicMode={tab} />} */}
+      {tab === 6 && <StatsChart data={chartData} />}
     </>
   );
 };
