@@ -145,9 +145,9 @@ const Fixture = ({ teams, fixtures }) => {
         <button className={awayXIClasses} onClick={() => setTab(5)}>
           Away XI
         </button>
-        <button className={fullTimeClassesMd} onClick={() => setTab(6)}>
+        {/* <button className={fullTimeClassesMd} onClick={() => setTab(6)}>
           Latest
-        </button>
+        </button> */}
       </div>
       {err && <p className='hidden'>{err}</p>}
       {/* Stats tab content */}
@@ -173,7 +173,7 @@ const Fixture = ({ teams, fixtures }) => {
         <RosterSelect division={selectedFixture.division} team={awayTeam} />
       )}
 
-      {tab === 6 && <SocialCanvas stats={stats} graphicMode={tab} />}
+      {/* {tab === 6 && <SocialCanvas stats={stats} graphicMode={tab} />} */}
     </>
   );
 };
