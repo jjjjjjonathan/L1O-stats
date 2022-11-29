@@ -52,11 +52,11 @@ const StatsChart = ({ data }) => {
 
       svg
         .select('.plot-area')
-        .attr('fill', 'steelblue')
         .selectAll('.bar')
         .data(data)
         .join('rect')
         .attr('class', 'bar')
+        .attr('fill', (d) => d.colour)
         .attr('x', (d) => x(d.name))
         .attr('width', x.bandwidth())
         .attr('y', (d) => y1(d.value))

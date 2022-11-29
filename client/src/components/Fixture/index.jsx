@@ -123,22 +123,86 @@ const Fixture = ({ teams, fixtures }) => {
   ));
 
   const matchChartData = [
-    { name: `${stats.h.name} ${rows[0]}`, value: stats.h.goals },
-    { name: `${stats.a.name} ${rows[0]}`, value: stats.a.goals },
-    { name: `${stats.h.name} ${rows[1]}`, value: stats.h.totalShots },
-    { name: `${stats.a.name} ${rows[1]}`, value: stats.a.totalShots },
-    { name: `${stats.h.name} ${rows[2]}`, value: stats.h.onTarget },
-    { name: `${stats.a.name} ${rows[2]}`, value: stats.a.onTarget },
-    { name: `${stats.h.name} ${rows[3]}`, value: stats.h.corners },
-    { name: `${stats.a.name} ${rows[3]}`, value: stats.a.corners },
-    { name: `${stats.h.name} ${rows[4]}`, value: stats.h.offsides },
-    { name: `${stats.a.name} ${rows[4]}`, value: stats.a.offsides },
-    { name: `${stats.h.name} ${rows[5]}`, value: stats.h.fouls },
-    { name: `${stats.a.name} ${rows[5]}`, value: stats.a.fouls },
-    { name: `${stats.h.name} ${rows[6]}`, value: stats.h.yellows },
-    { name: `${stats.a.name} ${rows[6]}`, value: stats.a.yellows },
-    { name: `${stats.h.name} ${rows[7]}`, value: stats.h.reds },
-    { name: `${stats.a.name} ${rows[7]}`, value: stats.a.reds }
+    {
+      name: `${stats.h.name} ${rows[0]}`,
+      value: stats.h.goals,
+      colour: homeTeam.graphic_colour
+    },
+    {
+      name: `${stats.a.name} ${rows[0]}`,
+      value: stats.a.goals,
+      colour: awayTeam.graphic_colour
+    },
+    {
+      name: `${stats.h.name} ${rows[1]}`,
+      value: stats.h.totalShots,
+      colour: homeTeam.graphic_colour
+    },
+    {
+      name: `${stats.a.name} ${rows[1]}`,
+      value: stats.a.totalShots,
+      colour: awayTeam.graphic_colour
+    },
+    {
+      name: `${stats.h.name} ${rows[2]}`,
+      value: stats.h.onTarget,
+      colour: homeTeam.graphic_colour
+    },
+    {
+      name: `${stats.a.name} ${rows[2]}`,
+      value: stats.a.onTarget,
+      colour: awayTeam.graphic_colour
+    },
+    {
+      name: `${stats.h.name} ${rows[3]}`,
+      value: stats.h.corners,
+      colour: homeTeam.graphic_colour
+    },
+    {
+      name: `${stats.a.name} ${rows[3]}`,
+      value: stats.a.corners,
+      colour: awayTeam.graphic_colour
+    },
+    {
+      name: `${stats.h.name} ${rows[4]}`,
+      value: stats.h.offsides,
+      colour: homeTeam.graphic_colour
+    },
+    {
+      name: `${stats.a.name} ${rows[4]}`,
+      value: stats.a.offsides,
+      colour: awayTeam.graphic_colour
+    },
+    {
+      name: `${stats.h.name} ${rows[5]}`,
+      value: stats.h.fouls,
+      colour: homeTeam.graphic_colour
+    },
+    {
+      name: `${stats.a.name} ${rows[5]}`,
+      value: stats.a.fouls,
+      colour: awayTeam.graphic_colour
+    },
+    {
+      name: `${stats.h.name} ${rows[6]}`,
+      value: stats.h.yellows,
+      colour: homeTeam.graphic_colour
+    },
+    {
+      name: `${stats.a.name} ${rows[6]}`,
+      value: stats.a.yellows,
+      colour: awayTeam.graphic_colour
+    },
+    {
+      name: `${stats.h.name} ${rows[7]}`,
+      value: stats.h.reds,
+      colour: homeTeam.graphic_colour
+    },
+    {
+      name: `${stats.a.name} ${rows[7]}`,
+      value: stats.a.reds,
+      colour: awayTeam.graphic_colour
+    }
   ];
 
   return (
