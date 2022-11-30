@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import {
   select,
   scaleBand,
@@ -12,9 +12,10 @@ import {
 const GroupedStatsChart = ({ data }) => {
   const svgRef = useRef();
   const wrapperRef = useRef();
-  const keys = ['a', 'b'];
+
 
   useEffect(() => {
+    const keys = ['a', 'b'];
     const svg = select(svgRef.current);
     const { width, height } = wrapperRef.current.getBoundingClientRect();
     const stackGenerator = stack().keys(keys);
@@ -59,7 +60,7 @@ const GroupedStatsChart = ({ data }) => {
       .attr('y', (sequence) => yScale(sequence.data.value))
       .attr('height', (sequence) => height - yScale(sequence.data.value))
       .attr('fill', (sequence) => sequence.data.colour);
-  }, [data, keys]);
+  }, [data]);
 
   return (
     <div className='flex flex-row justify-center'>
