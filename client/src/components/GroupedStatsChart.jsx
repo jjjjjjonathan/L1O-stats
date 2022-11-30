@@ -66,7 +66,7 @@ const GroupedStatsChart = ({ data }) => {
     <div className='flex flex-row justify-center'>
       <div
         ref={wrapperRef}
-        style={{ width: '100%', height: '400px', marginBottom: '2rem' }}
+        className='w-3/4 h-96 mb-2'
       >
         <svg ref={svgRef} style={{ width: '100%', height: '110%' }}>
           <g className='x-axis' />

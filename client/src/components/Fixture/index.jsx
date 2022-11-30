@@ -100,6 +100,10 @@ const Fixture = ({ teams, fixtures }) => {
     'tab-active': tab === 5
   });
 
+  const d3Classes = classNames('tab tab-bordered', {
+    'tab-active': tab === 6
+  });
+
   const rows = [
     'Goals',
     'Total Shots',
@@ -245,7 +249,7 @@ const Fixture = ({ teams, fixtures }) => {
         <button className={awayXIClasses} onClick={() => setTab(5)}>
           Away XI
         </button>
-        <button className={fullTimeClassesMd} onClick={() => setTab(6)}>
+        <button className={d3Classes} onClick={() => setTab(6)}>
           Chart
         </button>
       </div>
