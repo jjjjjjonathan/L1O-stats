@@ -7,6 +7,7 @@ import { useState, useContext } from 'react';
 import classNames from 'classnames';
 import RosterSelect from './RosterSelect';
 import { DispatchContext } from '../../App';
+import GroupedStatsChart from '../GroupedStatsChart';
 
 const Fixture = ({ teams, fixtures }) => {
   const id = parseInt(useParams().id, 10);
@@ -99,6 +100,10 @@ const Fixture = ({ teams, fixtures }) => {
     'tab-active': tab === 5
   });
 
+  const d3Classes = classNames('tab tab-bordered', {
+    'tab-active': tab === 6
+  });
+
   const rows = [
     'Goals',
     'Total Shots',
@@ -120,6 +125,105 @@ const Fixture = ({ teams, fixtures }) => {
       teams={teams}
     />
   ));
+
+  const statChartData = [
+    {
+      name: rows[0],
+      team: homeTeam.name,
+      value: stats.h.goals,
+      colour: homeTeam.graphic_colour
+    },
+    {
+      name: rows[0],
+      team: awayTeam.name,
+      value: stats.a.goals,
+      colour: awayTeam.graphic_colour
+    },
+    {
+      name: rows[1],
+      team: homeTeam.name,
+      value: stats.h.totalShots,
+      colour: homeTeam.graphic_colour
+    },
+    {
+      name: rows[1],
+      team: awayTeam.name,
+      value: stats.a.totalShots,
+      colour: awayTeam.graphic_colour
+    },
+    {
+      name: rows[2],
+      team: homeTeam.name,
+      value: stats.h.onTarget,
+      colour: homeTeam.graphic_colour
+    },
+    {
+      name: rows[2],
+      team: awayTeam.name,
+      value: stats.a.onTarget,
+      colour: awayTeam.graphic_colour
+    },
+    {
+      name: rows[3],
+      team: homeTeam.name,
+      value: stats.h.corners,
+      colour: homeTeam.graphic_colour
+    },
+    {
+      name: rows[3],
+      team: awayTeam.name,
+      value: stats.a.corners,
+      colour: awayTeam.graphic_colour
+    },
+    {
+      name: rows[4],
+      team: homeTeam.name,
+      value: stats.h.offsides,
+      colour: homeTeam.graphic_colour
+    },
+    {
+      name: rows[4],
+      team: awayTeam.name,
+      value: stats.a.offsides,
+      colour: awayTeam.graphic_colour
+    },
+    {
+      name: rows[5],
+      team: homeTeam.name,
+      value: stats.h.fouls,
+      colour: homeTeam.graphic_colour
+    },
+    {
+      name: rows[5],
+      team: awayTeam.name,
+      value: stats.a.fouls,
+      colour: awayTeam.graphic_colour
+    },
+    {
+      name: rows[6],
+      team: homeTeam.name,
+      value: stats.h.yellows,
+      colour: homeTeam.graphic_colour
+    },
+    {
+      name: rows[6],
+      team: awayTeam.name,
+      value: stats.a.yellows,
+      colour: awayTeam.graphic_colour
+    },
+    {
+      name: rows[7],
+      team: homeTeam.name,
+      value: stats.h.reds,
+      colour: homeTeam.graphic_colour
+    },
+    {
+      name: rows[7],
+      team: awayTeam.name,
+      value: stats.a.reds,
+      colour: awayTeam.graphic_colour
+    },
+  ];
 
   return (
     <>
@@ -145,8 +249,8 @@ const Fixture = ({ teams, fixtures }) => {
         <button className={awayXIClasses} onClick={() => setTab(5)}>
           Away XI
         </button>
-        <button className={fullTimeClassesMd} onClick={() => setTab(6)}>
-          Latest
+        <button className={d3Classes} onClick={() => setTab(6)}>
+          Chart
         </button>
       </div>
       {err && <p className='hidden'>{err}</p>}
@@ -173,7 +277,7 @@ const Fixture = ({ teams, fixtures }) => {
         <RosterSelect division={selectedFixture.division} team={awayTeam} />
       )}
 
-      {tab === 6 && <SocialCanvas stats={stats} graphicMode={tab} />}
+      {tab === 6 && <GroupedStatsChart data={statChartData} />}
     </>
   );
 };
